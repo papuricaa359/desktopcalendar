@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>卓上カレンダージェネレーター</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Noto+Sans+JP:wght@100..900&family=Zen+Maru+Gothic&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+
+  <header>
+    <h1>卓上カレンダージェネレーター</h1>
+  </header>
+
+  <div class="main">
+    <section class="intro">
+      <h2>卓上カレンダージェネレーターとは？</h2>
+      <p>お気に入りの画像をアップロードしてハガキサイズの卓上カレンダーを作れるサービスです。</p>
+      <p>無料で使用することができます。</p>
+
+      <h3>簡単にオリジナルカレンダーを作成</h3>
+      <p>使い方はとても簡単です。画像を選ぶだけで、自動的にカレンダーを生成し、自分だけのオリジナルカレンダーを作成できます。</p>
+
+      <h3>特別な瞬間を記録する</h3>
+      <p>家族、ペット、旅行、趣味、特別なイベントの写真を使って、思い出をいつでも手元に感じられるカレンダーに。毎月めくるたびに、大切な瞬間が蘇ります。</p>
+
+      <h3>素敵なギフトにも最適</h3>
+      <p>誕生日や記念日、クリスマスなどの贈り物として、世界に一つだけのオリジナルカレンダーを作りましょう。特別な人に心を込めて贈る、思い出のカレンダーは感動的なギフトになります。</p>
+
+      <h3>印刷方法</h3>
+      <p>カレンダーが完成したら、自分で印刷してデスクやリビングに飾ることもできます。簡単に家で楽しむことも、贈り物として送ることも可能です。</p>
+
+      <p>今すぐ自分だけのオリジナルカレンダーを作り始めましょう！</p>
+    </section>
+    <section class="ex">
+      <h2>例えば</h2>
+      <p>例えばこのようなことに使用できます。</p>
+      <p>クリックすることで使用例を見ることができます。</p>
+      <div class="boxset">
+        <!-- 家族 -->
+        <div class="box" onclick="openPopup('popup-family')">
+          <img src="img/family.jpg" alt="family">
+          <div>
+            <h3>家族との時間の思い出の写真</h3>
+            <p>家族旅行や特別なイベントを撮影した写真を使って、思い出のカレンダーを作成。</p>
+          </div>
+        </div>
+
+        <!-- 趣味 -->
+        <div class="box" onclick="openPopup('popup-hobby')">
+          <img src="img/hobby.jpg" alt="hobby">
+          <div>
+            <h3>趣味の写真</h3>
+            <p>お気に入りの趣味やアートワークをカレンダーに。</p>
+          </div>
+        </div>
+
+        <!-- 旅行 -->
+        <div class="box" onclick="openPopup('popup-trip')">
+          <img src="img/trip.jpg" alt="trip">
+          <div>
+            <h3>旅行の写真</h3>
+            <p>旅行先で撮影した美しい風景や街の風景を使って。</p>
+          </div>
+        </div>
+
+        <!-- ペット -->
+        <div class="box" onclick="openPopup('popup-pet')">
+          <img src="img/pet.jpg" alt="pet">
+          <div>
+            <h3>ペットの写真</h3>
+            <p>可愛いペットの写真を使って、毎日癒されるカレンダーに。</p>
+          </div>
+        </div>
+
+        <!-- 風景 -->
+        <div class="box" onclick="openPopup('popup-scenery')">
+          <img src="img/scenery.jpg" alt="scenery">
+          <div>
+            <h3>お気に入りの風景や風物詩の写真</h3>
+            <p>四季折々の風景や街の風物詩をカレンダーに。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ポップアップ-->
+    <div id="popup-family" class="popup-overlay" onclick="closePopup('popup-family')">
+      <div class="popup-content">
+        <span class="popup-close" onclick="closePopup('popup-family')">&times;</span>
+        <img src="img/exfamily.png" alt="family">
+      </div>
+    </div>
+
+    <div id="popup-hobby" class="popup-overlay" onclick="closePopup('popup-hobby')">
+      <div class="popup-content">
+        <span class="popup-close" onclick="closePopup('popup-hobby')">&times;</span>
+        <img src="img/exhobby.png" alt="hobby">
+      </div>
+    </div>
+
+    <div id="popup-trip" class="popup-overlay" onclick="closePopup('popup-trip')">
+      <div class="popup-content">
+        <span class="popup-close" onclick="closePopup('popup-trip')">&times;</span>
+        <img src="img/extrip.png" alt="trip">
+      </div>
+    </div>
+
+    <div id="popup-pet" class="popup-overlay" onclick="closePopup('popup-pet')">
+      <div class="popup-content">
+        <span class="popup-close" onclick="closePopup('popup-pet')">&times;</span>
+        <img src="img/expet.png" alt="pet">
+      </div>
+    </div>
+
+    <div id="popup-scenery" class="popup-overlay" onclick="closePopup('popup-scenery')">
+      <div class="popup-content">
+        <span class="popup-close" onclick="closePopup('popup-scenery')">&times;</span>
+        <img src="img/exscenery.png" alt="scenery">
+      </div>
+    </div>
+    <section class="howto">
+      <h2>使い方 　簡単３ステップ</h2>
+
+
+    </section>
+
+
+    <section class="developer">
+      <h2>開発者</h2>
+      <h3>開発者からのメッセージ</h3>
+      <p>こんにちは！卓上カレンダージェネレーターを開発した開発者です。最初に、このプロジェクトに興味を持っていただき、本当にありがとうございます！✨<br>
+        実は、私自身、以前から自分で撮影した画像を使ってオリジナルのカレンダーを作ってみたかったんです。<br>
+        でも、実際に作るとなると、けっこう手間がかかるし、何から始めたらいいのか分からないことが多かったので、もっと簡単にオリジナルのカレンダーを作れる
+        サービスがあればいいなと考えて、このジェネレーターの開発を始めました。<br>
+        <strong>「写真をアップロードするだけで、あなただけのオリジナルカレンダーが作れるなんて、考えるだけでワクワクしませんか？」</strong><br>
+        そんな思いを込めて作ったサービスです。<br>
+        カレンダーを作ることで、あなたの日常をもっと楽しく、特別なものにできるお手伝いができれば本当に嬉しいです！
+      </p>
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+    <div class="access">
+      <button onclick="location.href='create.html'">作成する</button>
+      <a href="stand.pdf" target="_blank">スタンドを開く</a>
+      <a href="stand2.pdf" target="_blank">スタンド2を開く</a>
+    </div>
+
+
+  </div>
+  <script>
+    function openPopup(popupId) {
+      document.getElementById(popupId).style.display = 'flex';
+    }
+
+    function closePopup(popupId) {
+      document.getElementById(popupId).style.display = 'none';
+    }
+
+  </script>
+</body>
+
+</html>

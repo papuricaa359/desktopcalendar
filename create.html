@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卓上カレンダージェネレーター</title>
+    <link rel="stylesheet" href="stylecreate.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>卓上カレンダージェネレーター</h1>
+    </header>
+    <div class="upload-container input1">
+        <h1>1月</h1>
+        <input type="file" id="imageInput1" accept="image/*" />
+        <div id="imagePreview1" class="image-preview"></div>
+    </div>
+
+    <div class="upload-container input2" style="display: none;">
+        <h1>2月</h1>
+        <input type="file" id="imageInput2" accept="image/*" />
+        <div id="imagePreview2" class="image-preview"></div>
+    </div>
+
+    <div class="upload-container input3" style="display: none;">
+        <h1>3月</h1>
+        <input type="file" id="imageInput3" accept="image/*" />
+        <div id="imagePreview3" class="image-preview"></div>
+    </div>
+
+    <div class="upload-container input4" style="display: none;">
+        <h1>4月</h1>
+        <input type="file" id="imageInput4" accept="image/*" />
+        <div id="imagePreview4" class="image-preview"></div>
+    </div>
+
+    <div class="upload-container input5" style="display: none;">
+        <h1>5月</h1>
+        <input type="file" id="imageInput5" accept="image/*" />
+        <div id="imagePreview5" class="image-preview"></div>
+    </div>
+
+    <div class="upload-container input6" style="display: none;">
+        <h1>6月</h1>
+        <input type="file" id="imageInput6" accept="image/*" />
+        <div id="imagePreview6" class="image-preview"></div>
+    </div>
+
+    <div class="upload-container input7" style="display: none;">
+        <h1>7月</h1>
+        <input type="file" id="imageInput7" accept="image/*" />
+        <div id="imagePreview7" class="image-preview"></div>
+    </div>
+
+    <div class="upload-container input8" style="display: none;">
+        <h1>8月</h1>
+        <input type="file" id="imageInput8" accept="image/*" />
+        <div id="imagePreview8" class="image-preview"></div>
+    </div>
+
+    <div class="upload-container input9" style="display: none;">
+        <h1>9月</h1>
+        <input type="file" id="imageInput9" accept="image/*" />
+        <div id="imagePreview9" class="image-preview"></div>
+    </div>
+
+    <div class="upload-container input10" style="display: none;">
+        <h1>10月</h1>
+        <input type="file" id="imageInput10" accept="image/*" />
+        <div id="imagePreview10" class="image-preview"></div>
+    </div>
+
+    <div class="upload-container input11" style="display: none;">
+        <h1>11月</h1>
+        <input type="file" id="imageInput11" accept="image/*" />
+        <div id="imagePreview11" class="image-preview"></div>
+    </div>
+
+    <div class="upload-container input12" style="display: none;">
+        <h1>12月</h1>
+        <input type="file" id="imageInput12" accept="image/*" />
+        <div id="imagePreview12" class="image-preview"></div>
+    </div>
+
+    <footer>
+        <button class="prev-btn">戻る</button>
+        <button class="next-btn">進む</button>
+        <button id="generatePdfButton">PDFを生成</button>
+    </footer>
+
+
+    <div class="overlay" id="overlay"></div>
+
+    <div id="error-box" class="error-box">
+        <p id="errmesse"></p>
+        <button onclick="closeErrorBox()">閉じる</button>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="function.js"></script>
+    <script src="viewport.js"></script>
+
+</body>
+
+</html>

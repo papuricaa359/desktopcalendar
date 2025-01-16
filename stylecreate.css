@@ -1,0 +1,152 @@
+body {
+    font-family: "Kiwi Maru", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+header {
+    margin: 0;
+}
+
+header h1 {
+    text-align: center;
+    font-size: 45px;
+}
+
+h1 {
+    margin: 0;
+}
+
+.image-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+footer .prev-btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #f44336;
+    color: white;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+
+footer .prev-btn:hover {
+    background-color: #e53935;
+}
+
+footer .next-btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: white;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    margin-right: 0px;
+}
+
+footer .next-btn:hover {
+    background-color: #45a049;
+}
+
+footer #generatePdfButton {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #2196F3;
+    color: white;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    display: none;
+}
+
+footer #generatePdfButton:hover {
+    background-color: #1e88e5;
+}
+
+/* エラーボックス */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.646);
+    display: none;
+    z-index: 50;
+}
+
+.error-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    height: 20vh;
+    background-color: rgb(169, 169, 169);
+    color: black;
+    text-align: center;
+    border-radius: 1vw;
+    padding: 2vw;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    display: none;
+}
+
+.error-box p {
+    font-size: 1.5vw;
+    font-weight: bold;
+}
+
+.error-box button {
+    background-color: white;
+    color: black;
+    font-size: 1.5vw;
+    border: none;
+    padding: 0.5vw 2vw;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 1vw;
+    position: absolute;
+    bottom: 1vw;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.error-box button:hover {
+    background-color: rgb(40, 40, 40);
+    color: white;
+}
