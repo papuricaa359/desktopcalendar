@@ -15,6 +15,8 @@
     <header>
         <h1>卓上カレンダージェネレーター</h1>
     </header>
+
+    <!-- 各月の画像アップロードセクション -->
     <div class="upload-container input1">
         <h1>1月</h1>
         <input type="file" id="imageInput1" accept="image/*" />
@@ -87,13 +89,14 @@
         <div id="imagePreview12" class="image-preview"></div>
     </div>
 
+    <!-- フッターのボタン -->
     <footer>
         <button class="prev-btn">戻る</button>
         <button class="next-btn">進む</button>
         <button id="generatePdfButton">PDFを生成</button>
     </footer>
 
-
+    <button id="viewPdfButton" style="display: none;">PDFを表示</button>
     <div class="overlay" id="overlay"></div>
 
     <div id="error-box" class="error-box">
@@ -101,11 +104,9 @@
         <button onclick="closeErrorBox()">閉じる</button>
     </div>
 
-
+    <!-- スクリプトの読み込み -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="function.js"></script>
-    <script src="viewport.js"></script>
-
 </body>
 
 </html>
