@@ -1,9 +1,10 @@
 const { jsPDF } = window.jspdf;
+
 document.addEventListener("DOMContentLoaded", function () {
   let currentMonthIndex = 0;
   let generatedPdfBlob = null;
 
-  // 月の表示を更新
+  // 月ごとの表示・非表示の更新
   function updateMonthVisibility() {
     document.querySelectorAll(".upload-container").forEach((container, index) => {
       container.style.display = index === currentMonthIndex ? "block" : "none";
@@ -13,17 +14,36 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#generatePdfButton").style.display = currentMonthIndex === 11 ? "inline-block" : "none";
   }
 
-  // 「次へ」ボタンと「戻る」ボタンのイベント
+  // 「次へ」ボタンのイベントリスナー
   document.querySelector(".next-btn").addEventListener("click", function () {
     if (currentMonthIndex < 11) {
       currentMonthIndex++;
+
+      // 次のimagePreviewが非表示の場合のみ表示する
+      let imagePreview = document.getElementById(`imagePreview${currentMonthIndex}`);
+      if (imagePreview.style.display === "none") {
+        document.getElementById('none').style.display = "block";  // noneを表示
+      } else {
+        document.getElementById('none').style.display = "none";  // noneを非表示
+      }
+
       updateMonthVisibility();
     }
   });
 
+  // 「戻る」ボタンのイベントリスナー
   document.querySelector(".prev-btn").addEventListener("click", function () {
     if (currentMonthIndex > 0) {
       currentMonthIndex--;
+
+      // 戻る場合も同様に次のimagePreviewが非表示の場合のみ表示
+      let imagePreview = document.getElementById(`imagePreview${currentMonthIndex}`);
+      if (imagePreview.style.display === "none") {
+        document.getElementById('none').style.display = "block";  // noneを表示
+      } else {
+        document.getElementById('none').style.display = "none";  // noneを非表示
+      }
+
       updateMonthVisibility();
     }
   });
@@ -66,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
             const dataUrl = canvas.toDataURL();
             resolve(dataUrl);
-
+            document.getElementById('none').style.display = "none";
             const imgElement = document.createElement("img");
             imgElement.src = dataUrl;
             imgElement.style.width = "60vw";
