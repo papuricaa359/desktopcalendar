@@ -134,7 +134,7 @@ section {
 
 .access {
     width: 100%;
-    padding:10px;
+    padding: 10px;
     background-color: #555;
     display: block;
     margin-top: 20px;
@@ -151,4 +151,26 @@ section {
 .access a {
     display: block;
     margin: 10px 0;
+}
+
+.rule h2 {
+    text-align: center;
+}
+
+.scroll {
+    background-color: #d8d8d8;
+    padding: 30px;
+    padding-left: 60px;
+    padding-right: 60px;
+    border-radius: 20px;
+    margin: auto;
+    width: 70vw;
+    height: 300px;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scroll::-webkit-scrollbar {
+    display: none;
 }
