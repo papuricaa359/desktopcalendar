@@ -19,14 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentMonthIndex < 11) {
       currentMonthIndex++;
 
-      // 次のimagePreviewが非表示の場合のみ表示する
-      let imagePreview = document.getElementById(`imagePreview${currentMonthIndex}`);
-      if (imagePreview.style.display === "none") {
-        document.getElementById('none').style.display = "block";  // noneを表示
-      } else {
-        document.getElementById('none').style.display = "none";  // noneを非表示
-      }
-
       updateMonthVisibility();
     }
   });
@@ -35,14 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelector(".prev-btn").addEventListener("click", function () {
     if (currentMonthIndex > 0) {
       currentMonthIndex--;
-
-      // 戻る場合も同様に次のimagePreviewが非表示の場合のみ表示
-      let imagePreview = document.getElementById(`imagePreview${currentMonthIndex}`);
-      if (imagePreview.style.display === "none") {
-        document.getElementById('none').style.display = "block";  // noneを表示
-      } else {
-        document.getElementById('none').style.display = "none";  // noneを非表示
-      }
 
       updateMonthVisibility();
     }
