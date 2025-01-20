@@ -21,7 +21,7 @@ h1{margin: 0;}
     max-height: 100%;
     object-fit: contain;
 }
-.none {
+#none {
     width: 60vw;
     position: fixed;
     bottom: 0;
