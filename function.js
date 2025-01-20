@@ -6,13 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 月ごとの表示・非表示の更新
   function updateMonthVisibility() {
-          // 戻る場合も同様に次のimagePreviewが非表示の場合のみ表示
-      let imagePreview = document.getElementById(`imagePreview${currentMonthIndex}`);
-      if (imagePreview.style.display === "none") {
-        document.getElementById('none').style.display = "block";  // noneを表示
-      } else {
-        document.getElementById('none').style.display = "none";  // noneを非表示
-      }
     document.querySelectorAll(".upload-container").forEach((container, index) => {
       container.style.display = index === currentMonthIndex ? "block" : "none";
     });
@@ -25,8 +18,15 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelector(".next-btn").addEventListener("click", function () {
     if (currentMonthIndex < 11) {
       currentMonthIndex++;
-
-      updateMonthVisibility();
+          // 戻る場合も同様に次のimagePreviewが非表示の場合のみ表示
+      let imagePreview = document.getElementById(`imagePreview${currentMonthIndex}`);
+      if (imagePreview.style.display === "none") {
+        document.getElementById('none').style.display = "block";  // noneを表示
+        updateMonthVisibility();
+      } else {
+        document.getElementById('none').style.display = "none";  // noneを非表示
+        updateMonthVisibility();
+      }
     }
   });
 
@@ -34,8 +34,15 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelector(".prev-btn").addEventListener("click", function () {
     if (currentMonthIndex > 0) {
       currentMonthIndex--;
-
-      updateMonthVisibility();
+          // 戻る場合も同様に次のimagePreviewが非表示の場合のみ表示
+      let imagePreview = document.getElementById(`imagePreview${currentMonthIndex}`);
+      if (imagePreview.style.display === "none") {
+        document.getElementById('none').style.display = "block";  // noneを表示
+        updateMonthVisibility();
+      } else {
+        document.getElementById('none').style.display = "none";  // noneを非表示
+        updateMonthVisibility();
+      }
     }
   });
 
