@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const imgElement = document.createElement("img");
             imgElement.src = dataUrl;
-            imgElement.style.width = "50vw";
+            imgElement.style.width = "60vw";
             imgElement.style.display = "block";
             document.getElementById(previewId).innerHTML = "";
             document.getElementById(previewId).appendChild(imgElement);
