@@ -35,14 +35,15 @@ document.addEventListener("DOMContentLoaded", function () {
       reader.onload = (e) => {
         const img = new Image();
         img.src = e.target.result;
-
+  
         img.onload = () => {
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
           const targetHeight = 1741;
           const targetWidth = (targetHeight * 3) / 4;
-
+  
           let cropWidth, cropHeight;
+          // アスペクト比を3:4に合わせるために画像をクロップします
           if (img.width / img.height > 3 / 4) {
             cropHeight = img.height;
             cropWidth = cropHeight * 3 / 4;
@@ -50,23 +51,28 @@ document.addEventListener("DOMContentLoaded", function () {
             cropWidth = img.width;
             cropHeight = cropWidth * 4 / 3;
           }
-
+  
+          // クロップするX,Y座標
           const cropX = (img.width - cropWidth) / 2;
           const cropY = (img.height - cropHeight) / 2;
-
+  
+          // 画像を描画するためのキャンバスの設定
           canvas.width = 2577;
           canvas.height = 1741;
-
+  
+          // 画像をクロップしてキャンバスに描画
           ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
-
+  
           const frameImg = new Image();
           frameImg.src = framePath;
-
+  
           frameImg.onload = () => {
+            // フレーム画像をキャンバスに重ねて描画
             ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-            const dataUrl = canvas.toDataURL();
+            const dataUrl = canvas.toDataURL();  // 最終的な画像のデータURLを生成
             resolve(dataUrl);
-
+  
+            // プレビュー画像を表示
             const imgElement = document.createElement("img");
             imgElement.src = dataUrl;
             imgElement.style.width = "50vw";
@@ -74,17 +80,39 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById(previewId).innerHTML = "";
             document.getElementById(previewId).appendChild(imgElement);
           };
-
+  
           frameImg.onerror = () => reject(new Error("フレーム画像の読み込みに失敗"));
         };
-
-        img.onerror = () => reject(new Error("画像処理エラー"));
+  
+        img.onerror = () => {
+          // 画像処理に失敗した場合は、frameフォルダー内の "none.png" を表示
+          const imgElement = document.createElement("img");
+          imgElement.src = "frame/none.png";  // "frame/none.png" を指定
+          imgElement.style.width = "50vw";
+          imgElement.style.display = "block";
+          document.getElementById(previewId).innerHTML = "";
+          document.getElementById(previewId).appendChild(imgElement);
+  
+          reject(new Error("画像処理エラー"));
+        };
       };
-
-      reader.onerror = () => reject(new Error("画像読み込みエラー"));
-      reader.readAsDataURL(file);
+  
+      reader.onerror = () => {
+        // 画像読み込みエラーが発生した場合も、frameフォルダー内の "none.png" を表示
+        const imgElement = document.createElement("img");
+        imgElement.src = "frame/none.png";  // "frame/none.png" を指定
+        imgElement.style.width = "50vw";
+        imgElement.style.display = "block";
+        document.getElementById(previewId).innerHTML = "";
+        document.getElementById(previewId).appendChild(imgElement);
+  
+        reject(new Error("画像読み込みエラー"));
+      };
+  
+      reader.readAsDataURL(file);  // ファイルをDataURLとして読み込む
     });
   }
+  
 
   // 画像アップロード処理
   function handleImageUpload(inputId, framePath, previewId) {
