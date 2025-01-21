@@ -1,10 +1,9 @@
 const { jsPDF } = window.jspdf;
-
 document.addEventListener("DOMContentLoaded", function () {
   let currentMonthIndex = 0;
   let generatedPdfBlob = null;
 
-  // 月ごとの表示・非表示の更新
+  // 月の表示を更新
   function updateMonthVisibility() {
     document.querySelectorAll(".upload-container").forEach((container, index) => {
       container.style.display = index === currentMonthIndex ? "block" : "none";
@@ -14,23 +13,18 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#generatePdfButton").style.display = currentMonthIndex === 11 ? "inline-block" : "none";
   }
 
-  // 「次へ」ボタンのイベントリスナー
+  // 「次へ」ボタンと「戻る」ボタンのイベント
   document.querySelector(".next-btn").addEventListener("click", function () {
     if (currentMonthIndex < 11) {
       currentMonthIndex++;
-      
-        
-      }
-    updateMonthVisibility();
+      updateMonthVisibility();
     }
   });
 
-  // 「戻る」ボタンのイベントリスナー
   document.querySelector(".prev-btn").addEventListener("click", function () {
     if (currentMonthIndex > 0) {
       currentMonthIndex--;
-      
-      updateMonthVisibility
+      updateMonthVisibility();
     }
   });
 
@@ -72,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
             const dataUrl = canvas.toDataURL();
             resolve(dataUrl);
-            document.getElementById('none').style.display = "none";
+
             const imgElement = document.createElement("img");
             imgElement.src = dataUrl;
             imgElement.style.width = "60vw";
