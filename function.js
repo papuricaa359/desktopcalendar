@@ -28,6 +28,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // 初期画像を設定
+  for (let i = 1; i <= 12; i++) {
+    const previewElement = document.getElementById(`imagePreview${i}`);
+    const imgElement = document.createElement("img");
+    imgElement.src = "img/none.png"; // none.png のパス
+    imgElement.style.width = "60vw";
+    imgElement.style.display = "block";
+    previewElement.innerHTML = ""; // 一度クリア
+    previewElement.appendChild(imgElement);
+  }
+
   // 画像処理
   async function processImage(file, framePath, previewId) {
     return new Promise((resolve, reject) => {
@@ -143,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let yOffset = 10;
 
     const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
-    const totalImages = imagePreviews.length;
+
     let allImagesUploaded = true;
     errorMessages = [];
 
@@ -152,15 +163,22 @@ document.addEventListener("DOMContentLoaded", function () {
       const imgElement = preview.querySelector("img");
       if (imgElement) {
         const dataUrl = imgElement.src;
-        if (index % 2 === 0) {
-          doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
+
+        // none.png が表示されている場合はエラーとして扱う
+        if (dataUrl.includes("img/none.png")) {
+          allImagesUploaded = false;
+          errorMessages.push(`画像${index + 1}がアップロードされていません`);
         } else {
-          yOffset += postcardHeight;
-          doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-          if (index % 2 === 1) {
-            yOffset = 10;
-            if (index + 1 < totalImages) {
-              doc.addPage();
+          if (index % 2 === 0) {
+            doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
+          } else {
+            yOffset += postcardHeight;
+            doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
+            if (index % 2 === 1) {
+              yOffset = 10;
+              if (index + 1 < imagePreviews.length) {
+                doc.addPage();
+              }
             }
           }
         }
