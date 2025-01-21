@@ -4,15 +4,19 @@ body {
     font-weight: 400;
     font-style: normal;
 }
-h1{margin: 0;}
+
+h1 {
+    margin: 0;
+}
 
 .image-preview {
-    width: 60vw;
+    width: 50vw;
     position: fixed;
-    bottom: 0;
-    left: 20vw;
+    justify-content: center;
+    left: 25vw;
+    bottom: 15vw;
     height: auto;
-    z-index: 10;
+    z-index: 200;
     display: flex;
 }
 
@@ -22,72 +26,87 @@ h1{margin: 0;}
     object-fit: contain;
 }
 
-footer {
+.viewbutton {
+    width: 20vw;
+    height: 6vw;
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    z-index: 1000;
+    bottom: 8vw;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    padding: 1vw;
+    z-index: 100;
     box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
 }
 
-footer .prev-btn {
-    padding: 10px 20px;
+.viewbutton .prev-btn,
+.viewbutton .next-btn,
+.viewbutton #generatePdfButton {
+    width: 8vw;
+    height: 4vw;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 24px;
+    border-radius: 2vw;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.viewbutton .prev-btn {
     background-color: #f44336;
     color: white;
     position: absolute;
-    left: 0px;
-    bottom: 0px;
+    left: 1vw;
 }
 
-footer .prev-btn:hover {
+.viewbutton .prev-btn:hover {
     background-color: #e53935;
 }
 
-footer .next-btn {
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
+.viewbutton .next-btn {
     background-color: #4CAF50;
     color: white;
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
-    margin-right: 0px;
 }
 
-footer .next-btn:hover {
+.viewbutton .next-btn:hover {
     background-color: #45a049;
 }
 
-footer #generatePdfButton {
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
+.viewbutton #generatePdfButton {
     background-color: #2196F3;
     color: white;
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
     display: none;
 }
 
-footer #generatePdfButton:hover {
+.viewbutton #generatePdfButton:hover {
     background-color: #1e88e5;
 }
 
-/* エラーボックス */
+.viewbutton .next-btn:only-child {
+    position: absolute;
+    right: 0;
+}
+
+.square {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+}
+
+.square img {
+    width: 7vw;
+    height: auto;
+    margin: 0px;
+    flex-wrap: wrap;
+}
+
 .overlay {
     position: fixed;
     top: 0;
@@ -96,7 +115,7 @@ footer #generatePdfButton:hover {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.646);
     display: none;
-    z-index: 50;
+    z-index: 9999;
 }
 
 .error-box {
@@ -111,7 +130,7 @@ footer #generatePdfButton:hover {
     text-align: center;
     border-radius: 1vw;
     padding: 2vw;
-    z-index: 100;
+    z-index: 10000;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -142,4 +161,3 @@ footer #generatePdfButton:hover {
     background-color: rgb(40, 40, 40);
     color: white;
 }
-

@@ -1,9 +1,9 @@
 const { jsPDF } = window.jspdf;
+
 document.addEventListener("DOMContentLoaded", function () {
   let currentMonthIndex = 0;
   let generatedPdfBlob = null;
 
-  // 月の表示を更新
   function updateMonthVisibility() {
     document.querySelectorAll(".upload-container").forEach((container, index) => {
       container.style.display = index === currentMonthIndex ? "block" : "none";
@@ -13,34 +13,31 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#generatePdfButton").style.display = currentMonthIndex === 11 ? "inline-block" : "none";
   }
 
-  // 「次へ」ボタンと「戻る」ボタンのイベント
-  document.querySelector(".next-btn").addEventListener("click", function () {
+  document.querySelector(".next-btn").addEventListener("click", () => {
     if (currentMonthIndex < 11) {
       currentMonthIndex++;
       updateMonthVisibility();
     }
   });
 
-  document.querySelector(".prev-btn").addEventListener("click", function () {
+  document.querySelector(".prev-btn").addEventListener("click", () => {
     if (currentMonthIndex > 0) {
       currentMonthIndex--;
       updateMonthVisibility();
     }
   });
 
-  // 初期画像を設定
   for (let i = 1; i <= 12; i++) {
     const previewElement = document.getElementById(`imagePreview${i}`);
     const imgElement = document.createElement("img");
-    imgElement.src = "img/none.png"; // none.png のパス
-    imgElement.style.width = "60vw";
-    imgElement.style.display = "block";
-    previewElement.innerHTML = ""; // 一度クリア
+    imgElement.src = "img/none.png";
+    imgElement.style.width = "50vw";
+    previewElement.innerHTML = "";
     previewElement.appendChild(imgElement);
   }
 
-  // 画像処理
-  async function processImage(file, framePath, previewId) {
+  // 画像処理関数
+  async function processImage(file, framePath, previewId, squarePreviewId) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -70,6 +67,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
           ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
 
+          // 正方形画像を作成
+          const squareCanvas = document.createElement("canvas");
+          const squareCtx = squareCanvas.getContext("2d");
+          const size = Math.min(img.width, img.height);
+          squareCanvas.width = size;
+          squareCanvas.height = size;
+
+          const squareX = (img.width - size) / 2;
+          const squareY = (img.height - size) / 2;
+
+          squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
+
+          // フレーム画像を描画
           const frameImg = new Image();
           frameImg.src = framePath;
 
@@ -78,12 +88,18 @@ document.addEventListener("DOMContentLoaded", function () {
             const dataUrl = canvas.toDataURL();
             resolve(dataUrl);
 
+            // 通常のプレビュー画像を表示
             const imgElement = document.createElement("img");
             imgElement.src = dataUrl;
-            imgElement.style.width = "60vw";
+            imgElement.style.width = "50vw";
             imgElement.style.display = "block";
             document.getElementById(previewId).innerHTML = "";
             document.getElementById(previewId).appendChild(imgElement);
+
+            // 正方形画像を表示
+            const squareDataUrl = squareCanvas.toDataURL();
+            const squareImgElement = document.getElementById(squarePreviewId); // 初期のsquarePreviewを取得
+            squareImgElement.src = squareDataUrl; // アップロードされた画像で置き換える
           };
 
           frameImg.onerror = () => reject(new Error("フレーム画像の読み込みに失敗"));
@@ -97,26 +113,23 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 画像アップロード処理
-  function handleImageUpload(inputId, framePath, previewId) {
+  function handleImageUpload(inputId, framePath, previewId, squarePreviewId) {
     const fileInput = document.getElementById(inputId);
     fileInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (file) {
-        processImage(file, framePath, previewId).catch((err) => console.error(err.message));
+        processImage(file, framePath, previewId, squarePreviewId).catch((err) => console.error(err.message));
       }
     });
   }
 
-  // 画像アップロード処理の設定
   for (let i = 1; i <= 12; i++) {
-    handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`);
+    handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `squarePreview${i}`);
   }
 
   let currentErrorIndex = 0;
   let errorMessages = [];
 
-  // エラーメッセージ表示
   function showError() {
     const errorBox = document.getElementById("error-box");
     const overlay = document.getElementById("overlay");
@@ -129,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // エラーボックスを閉じる
   window.closeErrorBox = function () {
     const errorBox = document.getElementById("error-box");
     const overlay = document.getElementById("overlay");
@@ -142,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  // PDF生成ボタンイベント
   document.getElementById("generatePdfButton").addEventListener("click", () => {
     const generateButton = document.getElementById("generatePdfButton");
     generateButton.disabled = true;
@@ -158,13 +169,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let allImagesUploaded = true;
     errorMessages = [];
 
-    // 画像をPDFに追加
     imagePreviews.forEach((preview, index) => {
       const imgElement = preview.querySelector("img");
       if (imgElement) {
         const dataUrl = imgElement.src;
-
-        // none.png が表示されている場合はエラーとして扱う
         if (dataUrl.includes("img/none.png")) {
           allImagesUploaded = false;
           errorMessages.push(`画像${index + 1}がアップロードされていません`);
@@ -188,16 +196,14 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // エラーがあれば表示
     if (!allImagesUploaded) {
       showError();
       generateButton.disabled = false;
       return;
     }
 
-    // 最後の画像をPDFに追加
     const finalImage = new Image();
-    finalImage.src = "stand.png";
+    finalImage.src = "img/stand.png";
 
     finalImage.onload = () => {
       doc.addPage();
@@ -205,34 +211,46 @@ document.addEventListener("DOMContentLoaded", function () {
       const finalImageHeight = 297;
       doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
 
-      // PDFを生成
-      const pdfBlob = doc.output("blob");
-      const pdfUrl = URL.createObjectURL(pdfBlob);
-      generatedPdfBlob = pdfBlob;
+      const squarePreviews = [];
+      for (let i = 1; i <= 12; i++) {
+        const squarePreviewImg = document.getElementById(`squarePreview${i}`).querySelector("img");
+        if (squarePreviewImg) {
+          squarePreviews.push(squarePreviewImg.src);
+        }
+      }
 
-      // PDF表示ボタンを表示
-      const viewPdfButton = document.getElementById("viewPdfButton");
-      viewPdfButton.style.display = "inline-block";
-      viewPdfButton.disabled = false;
+      const scaleFactor = 25 * 2.83465;
+      const offsetX = 10;
+      const offsetY = 10;
+      const gap = 10;
 
-      setTimeout(() => generateButton.disabled = false, 1000);
+      for (let i = 0; i < 6; i++) {
+        const squareDataUrl = squarePreviews[i];
+        const xPos = offsetX + (i % 3) * (scaleFactor + gap);
+        const yPos = offsetY + Math.floor(i / 3) * (scaleFactor + gap);
+
+        const imgElement = document.createElement("img");
+        imgElement.src = squareDataUrl;
+        imgElement.onload = () => {
+          const scaleHeight = (imgElement.height * scaleFactor) / imgElement.width;
+          doc.addImage(squareDataUrl, "PNG", xPos, yPos, scaleFactor, scaleHeight);
+
+          if (i === 11) {
+            const pdfBlob = doc.output("blob");
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+
+            // 新しいタブでPDFを表示
+            const pdfWindow = window.open(pdfUrl, "_blank");
+            if (pdfWindow) pdfWindow.focus();
+
+            generateButton.disabled = false;
+          }
+        };
+      }
     };
 
     finalImage.onerror = () => {
       generateButton.disabled = false;
     };
   });
-
-  // PDF表示ボタンイベント
-  document.getElementById("viewPdfButton").addEventListener("click", () => {
-    if (generatedPdfBlob) {
-      const pdfUrl = URL.createObjectURL(generatedPdfBlob);
-      const pdfWindow = window.open(pdfUrl, "_blank");
-      if (pdfWindow) pdfWindow.focus();
-    } else {
-      alert("PDFがまだ生成されていません");
-    }
-  });
-
-  updateMonthVisibility();
 });
