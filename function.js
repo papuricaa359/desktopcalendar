@@ -1,4 +1,5 @@
 const { jsPDF } = window.jspdf;
+
 document.addEventListener("DOMContentLoaded", function () {
   let currentMonthIndex = 0;
   let generatedPdfBlob = null;
@@ -122,8 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const overlay = document.getElementById("overlay");
     const errMessage = document.getElementById("errmesse");
 
-    if (currentErrorIndex < errorMessages.length) {
-      errMessage.textContent = errorMessages[currentErrorIndex];
+    if (errorMessages.length > 0) {
+      errMessage.textContent = errorMessages.join("\n");  // メッセージをすべて表示
       overlay.style.display = "block";
       errorBox.style.display = "flex";
     }
@@ -154,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let yOffset = 10;
 
     const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
-
+    const totalImages = imagePreviews.length;
     let allImagesUploaded = true;
     errorMessages = [];
 
@@ -176,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
             doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
             if (index % 2 === 1) {
               yOffset = 10;
-              if (index + 1 < imagePreviews.length) {
+              if (index + 1 < totalImages) {
                 doc.addPage();
               }
             }
@@ -222,17 +223,4 @@ document.addEventListener("DOMContentLoaded", function () {
       generateButton.disabled = false;
     };
   });
-
-  // PDF表示ボタンイベント
-  document.getElementById("viewPdfButton").addEventListener("click", () => {
-    if (generatedPdfBlob) {
-      const pdfUrl = URL.createObjectURL(generatedPdfBlob);
-      const pdfWindow = window.open(pdfUrl, "_blank");
-      if (pdfWindow) pdfWindow.focus();
-    } else {
-      alert("PDFがまだ生成されていません");
-    }
-  });
-
-  updateMonthVisibility();
 });
