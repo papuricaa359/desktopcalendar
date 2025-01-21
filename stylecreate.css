@@ -21,14 +21,6 @@ h1{margin: 0;}
     max-height: 100%;
     object-fit: contain;
 }
-#none {
-    width: 60vw;
-    position: fixed;
-    bottom: 0;
-    left: 20vw;
-    height: auto;
-    z-index: 3;
-}
 
 footer {
     position: fixed;
