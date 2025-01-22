@@ -56,45 +56,78 @@ document.addEventListener("DOMContentLoaded", function () {
 
           ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
 
-          const squareCanvas = document.createElement("canvas");
-          const squareCtx = squareCanvas.getContext("2d");
-          const size = Math.min(img.width, img.height);
-          squareCanvas.width = size;
-          squareCanvas.height = size;
-
-          const squareX = (img.width - size) / 2;
-          const squareY = (img.height - size) / 2;
-
-          squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
-
-          const resizedCanvas = document.createElement("canvas");
-          const resizedCtx = resizedCanvas.getContext("2d");
-          const resizedSize = 96;
-          resizedCanvas.width = resizedSize;
-          resizedCanvas.height = resizedSize;
-
-          resizedCtx.drawImage(squareCanvas, 0, 0, size, size, 0, 0, resizedSize, resizedSize);
-
-          const resizedDataUrl = resizedCanvas.toDataURL();
-
+          // フレーム画像をリサイズして重ねる
           const frameImg = new Image();
           frameImg.src = framePath;
 
           frameImg.onload = () => {
-            ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
+            const frameWidth = canvas.width;
+            const frameHeight = canvas.height;
+
+            const frameCanvas = document.createElement("canvas");
+            const frameCtx = frameCanvas.getContext("2d");
+            frameCanvas.width = frameWidth;
+            frameCanvas.height = frameHeight;
+
+            frameCtx.drawImage(frameImg, 0, 0, frameWidth, frameHeight);
+
+            ctx.drawImage(frameCanvas, 0, 0, frameWidth, frameHeight);
+
             const dataUrl = canvas.toDataURL();
             resolve(dataUrl);
 
-            const squareImgElement = document.getElementById(squarePreviewId);
-            squareImgElement.src = resizedDataUrl;
-            squareImgElement.style.width = '96px';
-            squareImgElement.style.height = '96px';
+            // 正方形画像の処理
+            const squareCanvas = document.createElement("canvas");
+            const squareCtx = squareCanvas.getContext("2d");
+            const size = Math.min(img.width, img.height);
+            squareCanvas.width = size;
+            squareCanvas.height = size;
 
-            const imgElement = document.createElement("img");
-            imgElement.src = dataUrl;
-            imgElement.style.width = "50vw";
-            document.getElementById(previewId).innerHTML = "";
-            document.getElementById(previewId).appendChild(imgElement);
+            const squareX = (img.width - size) / 2;
+            const squareY = (img.height - size) / 2;
+
+            squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
+
+            // 正方形フレームをリサイズして重ねる
+            const squareFrameImg = new Image();
+            squareFrameImg.src = squareFramePath;
+
+            squareFrameImg.onload = () => {
+              const squareFrameCanvas = document.createElement("canvas");
+              const squareFrameCtx = squareFrameCanvas.getContext("2d");
+              squareFrameCanvas.width = size;
+              squareFrameCanvas.height = size;
+
+              squareFrameCtx.drawImage(squareFrameImg, 0, 0, size, size);
+
+              squareCtx.drawImage(squareFrameCanvas, 0, 0, size, size);
+
+              const squareResizedCanvas = document.createElement("canvas");
+              const squareResizedCtx = squareResizedCanvas.getContext("2d");
+              const resizedSize = 96;
+              squareResizedCanvas.width = resizedSize;
+              squareResizedCanvas.height = resizedSize;
+
+              squareResizedCtx.drawImage(squareCanvas, 0, 0, size, size, 0, 0, resizedSize, resizedSize);
+
+              const resizedDataUrl = squareResizedCanvas.toDataURL();
+
+              const squareImgElement = document.getElementById(squarePreviewId);
+              squareImgElement.src = resizedDataUrl;
+              squareImgElement.style.width = '96px';
+              squareImgElement.style.height = '96px';
+
+              const imgElement = document.createElement("img");
+              imgElement.src = dataUrl;
+              imgElement.style.width = "50vw";
+              document.getElementById(previewId).innerHTML = "";
+              document.getElementById(previewId).appendChild(imgElement);
+            };
+
+            squareFrameImg.onerror = () => {
+              console.error("正方形フレーム画像の読み込みに失敗:", squareFramePath);
+              reject(new Error("正方形フレーム画像の読み込みに失敗"));
+            };
           };
 
           frameImg.onerror = () => {
@@ -239,18 +272,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let squareX = 10;
       let squareY = 10;
-      const squareSizeMM = 24.66;
+      const squareWidth = 24.66;  // 正方形画像のリサイズ幅
+      const squareHeight = 24.66;
 
       squarePreviews.forEach((preview, index) => {
         const squareImgElement = preview;
-        const squareDataUrl = squareImgElement.src;
-        doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareSizeMM, squareSizeMM);
 
-        squareX += squareSizeMM + margin;
+        const squareDataUrl = squareImgElement.src;
+
+        doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
+
+        squareX += squareWidth + margin;
 
         if ((index + 1) % 6 === 0) {
           squareX = 10;
-          squareY += squareSizeMM + margin;
+          squareY += squareHeight + margin;
         }
       });
 
