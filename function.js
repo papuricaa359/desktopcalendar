@@ -4,11 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateMonthVisibility() {
     document.querySelectorAll(".upload-container").forEach((container, index) => {
-      if (index === currentMonthIndex) {
-        container.style.display = "block";
-      } else {
-        container.style.display = "none";
-      }
+      container.style.display = index === currentMonthIndex ? "block" : "none";
     });
     document.querySelector(".prev-btn").style.display = currentMonthIndex === 0 ? "none" : "inline-block";
     document.querySelector(".next-btn").style.display = currentMonthIndex === 11 ? "none" : "inline-block";
@@ -29,7 +25,91 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // すべての月のアップロードフィールドにイベントリスナーを追加
+  async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.src = e.target.result;
+
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          const targetHeight = 1741;
+          const targetWidth = (targetHeight * 3) / 4;
+
+          let cropWidth, cropHeight;
+          if (img.width / img.height > 3 / 4) {
+            cropHeight = img.height;
+            cropWidth = cropHeight * 3 / 4;
+          } else {
+            cropWidth = img.width;
+            cropHeight = cropWidth * 4 / 3;
+          }
+
+          const cropX = (img.width - cropWidth) / 2;
+          const cropY = (img.height - cropHeight) / 2;
+
+          canvas.width = 2577;
+          canvas.height = 1741;
+
+          ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
+
+          // 正方形画像の作成
+          const squareCanvas = document.createElement("canvas");
+          const squareCtx = squareCanvas.getContext("2d");
+          const size = Math.min(img.width, img.height);
+          squareCanvas.width = size;
+          squareCanvas.height = size;
+
+          const squareX = (img.width - size) / 2;
+          const squareY = (img.height - size) / 2;
+
+          squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
+
+          // 正方形のフレーム画像を読み込んで正方形キャンバスに描画
+          const squareFrameImg = new Image();
+          squareFrameImg.src = squareFramePath;
+
+          squareFrameImg.onload = () => {
+            squareCtx.drawImage(squareFrameImg, 0, 0, squareCanvas.width, squareCanvas.height);
+            const squareDataUrl = squareCanvas.toDataURL();
+
+            // 通常のフレーム画像を読み込み
+            const frameImg = new Image();
+            frameImg.src = framePath;
+
+            frameImg.onload = () => {
+              ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
+              const dataUrl = canvas.toDataURL();
+              resolve(dataUrl);
+
+              // 通常のプレビュー画像を表示
+              const imgElement = document.createElement("img");
+              imgElement.src = dataUrl;
+              imgElement.style.width = "50vw";
+              document.getElementById(previewId).innerHTML = "";
+              document.getElementById(previewId).appendChild(imgElement);
+
+              // 正方形のプレビュー画像を表示
+              const squareImgElement = document.getElementById(squarePreviewId);
+              squareImgElement.src = squareDataUrl;
+            };
+
+            frameImg.onerror = () => reject(new Error("フレーム画像の読み込みに失敗"));
+          };
+
+          squareFrameImg.onerror = () => reject(new Error("正方形フレーム画像の読み込みに失敗"));
+        };
+
+        img.onerror = () => reject(new Error("画像処理エラー"));
+      };
+
+      reader.onerror = () => reject(new Error("画像読み込みエラー"));
+      reader.readAsDataURL(file);
+    });
+  }
+
   function handleImageUpload(inputId, framePath, previewId, squareFramePath, squarePreviewId) {
     const fileInput = document.getElementById(inputId);
     fileInput.addEventListener("change", (e) => {
@@ -40,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 画像アップロードフィールドをすべて動的に作成
+  // すべての月のアップロードフィールドにイベントリスナーを追加
   function createUploadFields() {
     for (let i = 1; i <= 12; i++) {
       handleImageUpload(
