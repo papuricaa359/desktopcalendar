@@ -56,21 +56,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
           ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
 
-          const resizedDataUrl = canvas.toDataURL();
+          const squareCanvas = document.createElement("canvas");
+          const squareCtx = squareCanvas.getContext("2d");
+          const size = Math.min(img.width, img.height);
+          squareCanvas.width = size;
+          squareCanvas.height = size;
 
-          // 表示エリアに画像を追加
-          const imgElement = new Image();
-          imgElement.src = resizedDataUrl;
+          const squareX = (img.width - size) / 2;
+          const squareY = (img.height - size) / 2;
 
-          imgElement.style.width = "5vw"; // 幅を5vwに設定
-          imgElement.style.height = "auto"; // 高さはアスペクト比を維持
+          squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
 
-          // プレビューエリアに画像を表示
-          const previewContainer = document.getElementById(previewId);
-          previewContainer.innerHTML = ""; // 既存の内容をクリア
-          previewContainer.appendChild(imgElement);
+          const resizedCanvas = document.createElement("canvas");
+          const resizedCtx = resizedCanvas.getContext("2d");
+          const resizedSize = 300;
+          resizedCanvas.width = resizedSize;
+          resizedCanvas.height = resizedSize;
 
-          resolve(resizedDataUrl);
+          resizedCtx.drawImage(squareCanvas, 0, 0, size, size, 0, 0, resizedSize, resizedSize);
+
+          const resizedDataUrl = resizedCanvas.toDataURL();
+
+          const frameImg = new Image();
+          frameImg.src = framePath;
+
+          frameImg.onload = () => {
+            ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
+            const dataUrl = canvas.toDataURL();
+            resolve(dataUrl);
+
+            const squareImgElement = document.getElementById(squarePreviewId);
+            squareImgElement.src = resizedDataUrl;
+            squareImgElement.style.width = '300px';
+            squareImgElement.style.height = '300px';
+
+            const imgElement = document.createElement("img");
+            imgElement.src = dataUrl;
+            imgElement.style.width = "50vw";
+            document.getElementById(previewId).innerHTML = "";
+            document.getElementById(previewId).appendChild(imgElement);
+          };
+
+          frameImg.onerror = () => {
+            console.error("フレーム画像の読み込みに失敗:", framePath);
+            reject(new Error("フレーム画像の読み込みに失敗"));
+          };
         };
 
         img.onerror = () => {
@@ -100,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   for (let i = 1; i <= 12; i++) {
-    handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
+    handleImageUpload(imageInput${i}, frame/${i}.png, imagePreview${i}, frame/square/${i}.png, squarePreview${i});
   }
 
   let currentErrorIndex = 0;
@@ -153,9 +183,9 @@ document.addEventListener("DOMContentLoaded", function () {
     imagePreviews.forEach((preview, index) => {
       const imgElement = preview.querySelector("img");
       if (!imgElement) {
-        console.error(`画像${index + 1}が無効です`);
+        console.error(画像${index + 1}が無効です);
         allImagesUploaded = false;
-        errorMessages.push(`画像${index + 1}が無効です`);
+        errorMessages.push(画像${index + 1}が無効です);
         return;
       }
     });
@@ -173,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const dataUrl = imgElement.src;
         if (dataUrl.includes("img/none.png")) {
           allImagesUploaded = false;
-          errorMessages.push(`画像${index + 1}がアップロードされていません`);
+          errorMessages.push(画像${index + 1}がアップロードされていません);
         } else {
           doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
           yOffset += postcardHeight + margin;
@@ -207,7 +237,26 @@ document.addEventListener("DOMContentLoaded", function () {
       const finalImageHeight = 297;
       doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
 
+      let squareX = 30.75;
+      let squareY = 212.25;
+      const squareSizeMM = 24.66;
+
+      squarePreviews.forEach((preview, index) => {
+        const squareImgElement = preview;
+        const squareDataUrl = squareImgElement.src;
+        doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareSizeMM, squareSizeMM);
+
+        squareX += squareSizeMM + margin;
+
+        if ((index + 1) % 6 === 0) {
+          squareX = 10;
+          squareY += squareSizeMM + 212.25;
+        }
+      });
+
       const pdfBlob = doc.output("blob");
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+      generatedPdfBlob = pdfBlob;
       document.getElementById("viewPdfButton").style.display = "block";
       creatingIndicator.style.display = "none";
     };
