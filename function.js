@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const squareResizedCanvas = document.createElement("canvas");
               const squareResizedCtx = squareResizedCanvas.getContext("2d");
-              const resizedSize = 96;
+              const resizedSize = 300; // ここを300pxに変更
               squareResizedCanvas.width = resizedSize;
               squareResizedCanvas.height = resizedSize;
 
@@ -114,8 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const squareImgElement = document.getElementById(squarePreviewId);
               squareImgElement.src = resizedDataUrl;
-              squareImgElement.style.width = '96px';
-              squareImgElement.style.height = '96px';
+              squareImgElement.style.width = '300px'; // 300pxに変更
+              squareImgElement.style.height = '300px'; // 300pxに変更
 
               const imgElement = document.createElement("img");
               imgElement.src = dataUrl;
