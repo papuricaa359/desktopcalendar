@@ -29,102 +29,125 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // 画像を処理する関数
-  async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.src = e.target.result;
+async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.src = e.target.result;
 
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-          const targetHeight = 1741;
-          const targetWidth = (targetHeight * 3) / 4;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const targetHeight = 1741;
+        const targetWidth = (targetHeight * 3) / 4;
 
-          let cropWidth, cropHeight;
-          if (img.width / img.height > 3 / 4) {
-            cropHeight = img.height;
-            cropWidth = cropHeight * 3 / 4;
-          } else {
-            cropWidth = img.width;
-            cropHeight = cropWidth * 4 / 3;
-          }
+        let cropWidth, cropHeight;
+        if (img.width / img.height > 3 / 4) {
+          cropHeight = img.height;
+          cropWidth = cropHeight * 3 / 4;
+        } else {
+          cropWidth = img.width;
+          cropHeight = cropWidth * 4 / 3;
+        }
 
-          const cropX = (img.width - cropWidth) / 2;
-          const cropY = (img.height - cropHeight) / 2;
+        const cropX = (img.width - cropWidth) / 2;
+        const cropY = (img.height - cropHeight) / 2;
 
-          canvas.width = 2577;
-          canvas.height = 1741;
+        canvas.width = 2577;
+        canvas.height = 1741;
 
-          ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
+        ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
 
-          // 正方形の画像を作成
-          const squareCanvas = document.createElement("canvas");
-          const squareCtx = squareCanvas.getContext("2d");
-          const size = 96; // 96pxに設定
-          squareCanvas.width = size;
-          squareCanvas.height = size;
+        // 正方形の画像を作成
+        const squareCanvas = document.createElement("canvas");
+        const squareCtx = squareCanvas.getContext("2d");
+        const size = Math.min(img.width, img.height);  // 最小値を基準に正方形を作成
+        squareCanvas.width = size;
+        squareCanvas.height = size;
 
-          const squareX = (img.width - size) / 2;
-          const squareY = (img.height - size) / 2;
+        const squareX = (img.width - size) / 2;
+        const squareY = (img.height - size) / 2;
 
-          squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
+        squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
 
-          // 正方形フレーム画像を読み込んで正方形キャンバスに描画
-          const squareFrameImg = new Image();
-          squareFrameImg.src = squareFramePath;
+        // 正方形フレーム画像を読み込んで正方形キャンバスに描画
+        const squareFrameImg = new Image();
+        squareFrameImg.src = squareFramePath;
 
-          squareFrameImg.onload = () => {
-            squareCtx.drawImage(squareFrameImg, 0, 0, squareCanvas.width, squareCanvas.height);
-            const squareDataUrl = squareCanvas.toDataURL();
+        squareFrameImg.onload = () => {
+          squareCtx.drawImage(squareFrameImg, 0, 0, squareCanvas.width, squareCanvas.height);
+          const squareDataUrl = squareCanvas.toDataURL();
 
-            // 通常のフレーム画像を読み込んで描画
-            const frameImg = new Image();
-            frameImg.src = framePath;
+          // 通常のフレーム画像を読み込んで描画
+          const frameImg = new Image();
+          frameImg.src = framePath;
 
-            frameImg.onload = () => {
-              ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-              const dataUrl = canvas.toDataURL();
-              resolve(dataUrl);
+          frameImg.onload = () => {
+            ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
+            const dataUrl = canvas.toDataURL();
+            resolve(dataUrl);
 
-              // 通常のプレビュー画像を表示
-              const imgElement = document.createElement("img");
-              imgElement.src = dataUrl;
-              imgElement.style.width = "50vw";
-              document.getElementById(previewId).innerHTML = "";
-              document.getElementById(previewId).appendChild(imgElement);
+            // 正方形プレビュー画像を表示 (リサイズを後で適用)
+            const squareImgElement = document.getElementById(squarePreviewId);
+            squareImgElement.src = squareDataUrl;
 
-              // 正方形のプレビュー画像を表示
-              const squareImgElement = document.getElementById(squarePreviewId);
-              squareImgElement.src = squareDataUrl;
+            // 正方形のリサイズ処理を適用
+            const img = new Image();
+            img.src = squareDataUrl;
+            img.onload = () => {
+              const resizedCanvas = document.createElement("canvas");
+              const resizedCtx = resizedCanvas.getContext("2d");
+
+              const resizedSize = 96;  // 96pxにリサイズ
+              resizedCanvas.width = resizedSize;
+              resizedCanvas.height = resizedSize;
+
+              // 画像をリサイズして新しいキャンバスに描画
+              resizedCtx.drawImage(img, 0, 0, img.width, img.height, 0, 0, resizedSize, resizedSize);
+
+              const resizedDataUrl = resizedCanvas.toDataURL();
+
+              // 最後にリサイズした画像を正方形プレビューとして表示
+              squareImgElement.src = resizedDataUrl;
+              squareImgElement.style.width = '96px';  // 96pxに設定
+              squareImgElement.style.height = '96px';  // 96pxに設定
             };
 
-            frameImg.onerror = () => {
-              console.error("フレーム画像の読み込みに失敗:", framePath);
-              reject(new Error("フレーム画像の読み込みに失敗"));
-            };
+            // 通常のプレビュー画像を表示
+            const imgElement = document.createElement("img");
+            imgElement.src = dataUrl;
+            imgElement.style.width = "50vw";  // 必要に応じて変更
+            document.getElementById(previewId).innerHTML = "";
+            document.getElementById(previewId).appendChild(imgElement);
           };
 
-          squareFrameImg.onerror = () => {
-            console.error("正方形フレーム画像の読み込みに失敗:", squareFramePath);
-            reject(new Error("正方形フレーム画像の読み込みに失敗"));
+          frameImg.onerror = () => {
+            console.error("フレーム画像の読み込みに失敗:", framePath);
+            reject(new Error("フレーム画像の読み込みに失敗"));
           };
         };
 
-        img.onerror = () => {
-          console.error("画像処理エラー:", file.name);
-          reject(new Error("画像処理エラー"));
+        squareFrameImg.onerror = () => {
+          console.error("正方形フレーム画像の読み込みに失敗:", squareFramePath);
+          reject(new Error("正方形フレーム画像の読み込みに失敗"));
         };
       };
 
-      reader.onerror = () => {
-        console.error("画像読み込みエラー:", file.name);
-        reject(new Error("画像読み込みエラー"));
+      img.onerror = () => {
+        console.error("画像処理エラー:", file.name);
+        reject(new Error("画像処理エラー"));
       };
-      reader.readAsDataURL(file);
-    });
-  }
+    };
+
+    reader.onerror = () => {
+      console.error("画像読み込みエラー:", file.name);
+      reject(new Error("画像読み込みエラー"));
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 
   // 画像アップロードと処理を管理する関数
   function handleImageUpload(inputId, framePath, previewId, squareFramePath, squarePreviewId) {
