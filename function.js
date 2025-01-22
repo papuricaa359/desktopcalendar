@@ -179,7 +179,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   generateButton.disabled = true;
 
   const creatingIndicator = document.getElementById("creating");
-  creatingIndicator.style.display = "flex";  // 生成中のインジケータを表示
+  creatingIndicator.style.display = "block";  // 生成中のインジケータを表示
 
   const doc = new jsPDF("p", "mm", "a4");
   const postcardWidth = 148;
@@ -189,6 +189,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   let yOffset = margin;
 
   const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
+  const squarePreviews = document.querySelectorAll("[id^='squarePreview']");  // 追加
   const totalImages = imagePreviews.length;
   let allImagesUploaded = true;
   errorMessages = [];
@@ -236,10 +237,34 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
     const finalImageHeight = 297;
     doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
 
+    // squarePreview画像をstand.pngの上に横並びに表示
+    let squareX = 10;  // X座標を開始位置に設定
+    let squareY = 10;  // Y座標をスタート位置に設定
+    const squareWidth = 50;  // 表示するサイズ（必要に応じて調整）
+    const squareHeight = 50;  // 表示するサイズ（必要に応じて調整）
+
+    squarePreviews.forEach((preview, index) => {
+      const squareImgElement = preview.querySelector("img");
+      if (squareImgElement) {
+        const squareDataUrl = squareImgElement.src;
+
+        doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);  // 横並びに配置
+
+        // 次の画像のX座標を更新
+        squareX += squareWidth + margin;
+
+        // 横に並べて配置するため、ページを跨がないように制御
+        if ((index + 1) % 3 === 0) {  // 1行に3つ並べる場合
+          squareX = 10;  // X座標をリセット
+          squareY += squareHeight + margin;  // Y座標を下に移動
+        }
+      }
+    });
+
     const pdfBlob = doc.output("blob");
     const pdfUrl = URL.createObjectURL(pdfBlob);
     generatedPdfBlob = pdfBlob;
-    document.getElementById("viewPdfButton").style.display = "block";
+
     creatingIndicator.style.display = "none";  // 生成中インジケータを非表示
   };
 });
