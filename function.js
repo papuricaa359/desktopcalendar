@@ -3,6 +3,7 @@ const { jsPDF } = window.jspdf;
 document.addEventListener("DOMContentLoaded", function () {
   let currentMonthIndex = 0;
 
+  // 現在の月インデックスに基づいて月の表示を更新
   function updateMonthVisibility() {
     document.querySelectorAll(".upload-container").forEach((container, index) => {
       container.style.display = index === currentMonthIndex ? "block" : "none";
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#generatePdfButton").style.display = currentMonthIndex === 11 ? "inline-block" : "none";
   }
 
+  // 次の月と前の月のボタンの動作
   document.querySelector(".next-btn").addEventListener("click", () => {
     if (currentMonthIndex < 11) {
       currentMonthIndex++;
@@ -26,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // 画像を処理する関数
   async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -56,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
 
-          // 正方形画像の作成
+          // 正方形の画像を作成
           const squareCanvas = document.createElement("canvas");
           const squareCtx = squareCanvas.getContext("2d");
           const size = Math.min(img.width, img.height);
@@ -68,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
 
-          // 正方形のフレーム画像を読み込んで正方形キャンバスに描画
+          // 正方形フレーム画像を読み込んで正方形キャンバスに描画
           const squareFrameImg = new Image();
           squareFrameImg.src = squareFramePath;
 
@@ -76,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
             squareCtx.drawImage(squareFrameImg, 0, 0, squareCanvas.width, squareCanvas.height);
             const squareDataUrl = squareCanvas.toDataURL();
 
-            // 通常のフレーム画像を読み込み
+            // 通常のフレーム画像を読み込んで描画
             const frameImg = new Image();
             frameImg.src = framePath;
 
@@ -123,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // 画像アップロードと処理を管理する関数
   function handleImageUpload(inputId, framePath, previewId, squareFramePath, squarePreviewId) {
     const fileInput = document.getElementById(inputId);
     fileInput.addEventListener("change", (e) => {
@@ -135,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // 各月ごとの画像アップロードハンドラを設定
   for (let i = 1; i <= 12; i++) {
     handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
   }
@@ -142,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentErrorIndex = 0;
   let errorMessages = [];
 
+  // エラーメッセージを表示する関数
   function showError() {
     const errorBox = document.getElementById("error-box");
     const overlay = document.getElementById("overlay");
@@ -154,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // エラーボックスを閉じて次のエラーを表示
   window.closeErrorBox = function () {
     const errorBox = document.getElementById("error-box");
     const overlay = document.getElementById("overlay");
@@ -166,6 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
+  // PDFを生成するボタンのイベント
   document.getElementById("generatePdfButton").addEventListener("click", () => {
     const generateButton = document.getElementById("generatePdfButton");
     generateButton.disabled = true;
@@ -210,7 +218,8 @@ document.addEventListener("DOMContentLoaded", function () {
       generateButton.disabled = false;
       return;
     }
-      const finalImage = new Image();
+
+    const finalImage = new Image();
     finalImage.src = "img/stand.png";
 
     finalImage.onload = () => {
@@ -219,33 +228,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const finalImageHeight = 297;
       doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
 
-/*
-      let squareX = 0;
-      let squareY = 212.25;
-      const squareSize = 24.66;
-      const squaresPerRow = 6;
-      const totalSquareImages = 12;
-      const marginX = 30.75;
-
-      for (let i = 1; i <= totalSquareImages; i++) {
-        const squareImg = document.getElementById(`squarePreview${i}`);
-        if (squareImg) {
-          const squareDataUrl = squareImg.src;
-          doc.addImage(squareDataUrl, "PNG", marginX + squareX, squareY, squareSize, squareSize);
-
-          squareX += squareSize;
-          if ((i % squaresPerRow === 0) || (i === totalSquareImages)) {
-            squareX = 0;
-            squareY += squareSize;
-          }
-        }
-      }
-*/
       // PDFを生成
       const pdfBlob = doc.output("blob");
       const pdfUrl = URL.createObjectURL(pdfBlob);
       generatedPdfBlob = pdfBlob;
-      document.getElementById("createing").style.display = "none";
 
       // PDF表示ボタンを表示
       const viewPdfButton = document.getElementById("viewPdfButton");
@@ -259,5 +245,6 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   });
 
+  // 月の表示を初期化
   updateMonthVisibility();
 });
