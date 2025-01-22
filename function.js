@@ -189,29 +189,26 @@ document.addEventListener("DOMContentLoaded", function () {
     let allImagesUploaded = true;
     errorMessages = [];
 
-    imagePreviews.forEach((preview, index) => {
-      const imgElement = preview.querySelector("img");
-      if (imgElement) {
-        const dataUrl = imgElement.src;
-        if (dataUrl.includes("img/none.png")) {
-          allImagesUploaded = false;
-          errorMessages.push(`画像${index + 1}がアップロードされていません`);
-        } else {
-          doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-          yOffset += postcardHeight;
-          if ((index + 1) % 2 === 0) {
-            yOffset = 10;
-            if (index + 1 < imagePreviews.length) {
-              doc.addPage();
-            }
-          }
-        }
-      } else {
+imagePreviews.forEach((preview, index) => {
+    const imgElement = preview.querySelector("img");
+    if (imgElement) {
+      const dataUrl = imgElement.src;
+      if (dataUrl.includes("img/none.png")) {
         allImagesUploaded = false;
         errorMessages.push(`画像${index + 1}がアップロードされていません`);
-      }
-    });
+      } else {
+        doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
+        yOffset += postcardHeight;
+        if (yOffset + postcardHeight > 297) {
+          yOffset = 10;
 
+        }
+      }
+    } else {
+      allImagesUploaded = false;
+      errorMessages.push(`画像${index + 1}がアップロードされていません`);
+    }
+  });
     if (!allImagesUploaded) {
       showError();
       generateButton.disabled = false;
