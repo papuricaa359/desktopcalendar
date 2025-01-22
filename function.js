@@ -2,7 +2,7 @@ const { jsPDF } = window.jspdf;
 
 document.addEventListener("DOMContentLoaded", function () {
   let currentMonthIndex = 0;
-  let generatedPdfBlob = null;  // PDFのBlobを格納する変数を定義
+  let generatedPdfBlob = null;  // PDFのBlobを格納する変数
 
   function updateMonthVisibility() {
     document.querySelectorAll(".upload-container").forEach((container, index) => {
