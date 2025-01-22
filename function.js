@@ -69,7 +69,7 @@ async function processImage(file, framePath, previewId, squareFramePath, squareP
 
         const resizedCanvas = document.createElement("canvas");
         const resizedCtx = resizedCanvas.getContext("2d");
-        const resizedSize = 300;
+        const resizedSize = 7vw;
         resizedCanvas.width = resizedSize;
         resizedCanvas.height = resizedSize;
 
