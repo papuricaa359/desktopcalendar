@@ -26,64 +26,69 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.src = e.target.result;
+async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.src = e.target.result;
 
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-          const targetHeight = 1741;
-          const targetWidth = (targetHeight * 3) / 4;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const targetHeight = 1741;
+        const targetWidth = (targetHeight * 3) / 4;
 
-          let cropWidth, cropHeight;
-          if (img.width / img.height > 3 / 4) {
-            cropHeight = img.height;
-            cropWidth = cropHeight * 3 / 4;
-          } else {
-            cropWidth = img.width;
-            cropHeight = cropWidth * 4 / 3;
-          }
+        let cropWidth, cropHeight;
+        if (img.width / img.height > 3 / 4) {
+          cropHeight = img.height;
+          cropWidth = cropHeight * 3 / 4;
+        } else {
+          cropWidth = img.width;
+          cropHeight = cropWidth * 4 / 3;
+        }
 
-          const cropX = (img.width - cropWidth) / 2;
-          const cropY = (img.height - cropHeight) / 2;
+        const cropX = (img.width - cropWidth) / 2;
+        const cropY = (img.height - cropHeight) / 2;
 
-          canvas.width = 2577;
-          canvas.height = 1741;
+        canvas.width = 2577;
+        canvas.height = 1741;
 
-          ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
+        ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
 
-          const squareCanvas = document.createElement("canvas");
-          const squareCtx = squareCanvas.getContext("2d");
-          const size = Math.min(img.width, img.height);
-          squareCanvas.width = size;
-          squareCanvas.height = size;
+        const squareCanvas = document.createElement("canvas");
+        const squareCtx = squareCanvas.getContext("2d");
+        const size = Math.min(img.width, img.height);
+        squareCanvas.width = size;
+        squareCanvas.height = size;
 
-          const squareX = (img.width - size) / 2;
-          const squareY = (img.height - size) / 2;
+        const squareX = (img.width - size) / 2;
+        const squareY = (img.height - size) / 2;
 
-          squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
+        squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
 
-          const resizedCanvas = document.createElement("canvas");
-          const resizedCtx = resizedCanvas.getContext("2d");
-          const resizedSize = 300;
-          resizedCanvas.width = resizedSize;
-          resizedCanvas.height = resizedSize;
+        const resizedCanvas = document.createElement("canvas");
+        const resizedCtx = resizedCanvas.getContext("2d");
+        const resizedSize = 300;
+        resizedCanvas.width = resizedSize;
+        resizedCanvas.height = resizedSize;
 
-          resizedCtx.drawImage(squareCanvas, 0, 0, size, size, 0, 0, resizedSize, resizedSize);
+        resizedCtx.drawImage(squareCanvas, 0, 0, size, size, 0, 0, resizedSize, resizedSize);
 
-          const resizedDataUrl = resizedCanvas.toDataURL();
+        const frameImg = new Image();
+        frameImg.src = framePath;
 
-          const frameImg = new Image();
-          frameImg.src = framePath;
+        frameImg.onload = () => {
+          ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
+          const dataUrl = canvas.toDataURL();
+          resolve(dataUrl);
 
-          frameImg.onload = () => {
-            ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-            const dataUrl = canvas.toDataURL();
-            resolve(dataUrl);
+          const squareFrameImg = new Image();
+          squareFrameImg.src = squareFramePath;
+
+          squareFrameImg.onload = () => {
+            resizedCtx.drawImage(squareFrameImg, 0, 0, resizedSize, resizedSize);
+            const resizedDataUrl = resizedCanvas.toDataURL();
 
             const squareImgElement = document.getElementById(squarePreviewId);
             squareImgElement.src = resizedDataUrl;
@@ -97,25 +102,32 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById(previewId).appendChild(imgElement);
           };
 
-          frameImg.onerror = () => {
-            console.error("フレーム画像の読み込みに失敗:", framePath);
-            reject(new Error("フレーム画像の読み込みに失敗"));
+          squareFrameImg.onerror = () => {
+            console.error("正方形フレーム画像の読み込みに失敗:", squareFramePath);
+            reject(new Error("正方形フレーム画像の読み込みに失敗"));
           };
         };
 
-        img.onerror = () => {
-          console.error("画像処理エラー:", file.name);
-          reject(new Error("画像処理エラー"));
+        frameImg.onerror = () => {
+          console.error("フレーム画像の読み込みに失敗:", framePath);
+          reject(new Error("フレーム画像の読み込みに失敗"));
         };
       };
 
-      reader.onerror = () => {
-        console.error("画像読み込みエラー:", file.name);
-        reject(new Error("画像読み込みエラー"));
+      img.onerror = () => {
+        console.error("画像処理エラー:", file.name);
+        reject(new Error("画像処理エラー"));
       };
-      reader.readAsDataURL(file);
-    });
-  }
+    };
+
+    reader.onerror = () => {
+      console.error("画像読み込みエラー:", file.name);
+      reject(new Error("画像読み込みエラー"));
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 
   function handleImageUpload(inputId, framePath, previewId, squareFramePath, squarePreviewId) {
     const fileInput = document.getElementById(inputId);
