@@ -105,6 +105,7 @@ h1 {
     height: auto;
     margin: 0px;
     flex-wrap: wrap;
+    object-fit: contain;
 }
 
 .overlay {
