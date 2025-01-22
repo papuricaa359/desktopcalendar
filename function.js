@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // 画像を処理する関数
 async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -148,7 +147,6 @@ async function processImage(file, framePath, previewId, squareFramePath, squareP
     reader.readAsDataURL(file);
   });
 }
-
 
 
   // 画像アップロードと処理を管理する関数
