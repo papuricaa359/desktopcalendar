@@ -183,7 +183,11 @@ h1 {
     height: 100%;
     z-index: 99999;
     display: none;
+    background-color: rgb(134, 134, 134);
+    justify-content: center;
+    align-items: center;
 }
+
 
 /* オーバーレイ */
 .overlay {

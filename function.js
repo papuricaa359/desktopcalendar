@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const squareResizedCanvas = document.createElement("canvas");
               const squareResizedCtx = squareResizedCanvas.getContext("2d");
-              const resizedSize = 300;
+              const resizedSize = 600;
               squareResizedCanvas.width = resizedSize;
               squareResizedCanvas.height = resizedSize;
 
@@ -210,13 +210,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const doc = new jsPDF("p", "mm", "a4");
     const postcardWidth = 148;
     const postcardHeight = 100;
-    const margin = 10;
-    let xOffset = margin;
-    let yOffset = margin;
+    let xOffset = 10;
+    let yOffset = 10;
 
     const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
     const squarePreviews = document.querySelectorAll("[id^='squarePreview']");
-    const totalImages = imagePreviews.length;
     let allImagesUploaded = true;
     errorMessages = [];
 
@@ -246,15 +244,16 @@ document.addEventListener("DOMContentLoaded", function () {
           errorMessages.push(`画像${index + 1}がアップロードされていません`);
         } else {
           doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-          yOffset += postcardHeight + margin;
+          yOffset += postcardHeight + 0;
 
           if ((index + 1) % 2 === 0) {
-            yOffset = margin;
-            xOffset += postcardWidth + margin;
+            yOffset = 0;
+            xOffset += postcardWidth + 0;
 
             if (index + 1 < imagePreviews.length) {
               doc.addPage();
-              xOffset = margin;
+              xOffset = 10;
+              yOffset = 10;
             }
           }
         }
@@ -275,11 +274,10 @@ document.addEventListener("DOMContentLoaded", function () {
       doc.addPage();
       const finalImageWidth = 210;
       const finalImageHeight = 297;
-      doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
 
-      let squareX = 10;
-      let squareY = 10;
-      const squareWidth = 24.66;  // 正方形画像のリサイズ幅
+      let squareX = 30.75;
+      let squareY = 178;
+      const squareWidth = 24.66;
       const squareHeight = 24.66;
 
       squarePreviews.forEach((preview, index) => {
@@ -289,16 +287,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
 
-        squareX += squareWidth + margin;
+        squareX += squareWidth;
 
         if ((index + 1) % 6 === 0) {
-          squareX = 10;
-          squareY += squareHeight + margin;
+          squareX = 30.75;
+          squareY += squareHeight + 34.35;
         }
       });
-
+      doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
+      
       const pdfBlob = doc.output("blob");
-      const pdfUrl = URL.createObjectURL(pdfBlob);
       generatedPdfBlob = pdfBlob;
       document.getElementById("viewPdfButton").style.display = "block";
       creatingIndicator.style.display = "none";
