@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  // PDF生成ボタンの処理
+// PDF生成ボタンの処理
 document.getElementById("generatePdfButton").addEventListener("click", () => {
   const generateButton = document.getElementById("generatePdfButton");
   generateButton.disabled = true;
@@ -215,7 +215,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
 
   const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
   let allImagesUploaded = true;
-  errorMessages = [];
+  let errorMessages = [];
 
   imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
@@ -227,7 +227,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   });
 
   if (!allImagesUploaded) {
-    showError();
+    alert(errorMessages.join("\n"));
     generateButton.disabled = false;
     creatingIndicator.style.display = "none";
     return;
@@ -241,11 +241,11 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
       if (!dataUrl.includes("img/none.png")) {
         doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
 
-        yOffset += postcardHeight + 0;
+        yOffset += postcardHeight;
 
         if ((index + 1) % 2 === 0) {
-          yOffset = 0;
-          xOffset += postcardWidth + 0;
+          yOffset = 10;
+          xOffset += postcardWidth;
 
           if (index + 1 < imagePreviews.length) {
             doc.addPage();
@@ -268,17 +268,10 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
     const finalImageWidth = 210;
     const finalImageHeight = 297;
 
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-
-    const squareWidth = 24.66;
-    const squareHeight = 24.66;
-    const squaresPerRow = 6;
-
-    // 各行で正方形を左右中央に揃える
-    const rowWidth = squareWidth * squaresPerRow;
-    const startX = (pageWidth - rowWidth) / 2; // ページ幅から行幅を引いて中央揃え
-    const startY = 178.45;
+    const squareWidth = 24.9;
+    const squareHeight = 24.9;
+    const startX = 30;
+    const startY = 178.67;
 
     let squareX = startX;
     let squareY = startY;
@@ -295,9 +288,9 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
       squareX += squareWidth;
 
       // 行の終わりで改行
-      if ((index + 1) % squaresPerRow === 0) {
+      if ((index + 1) % 6 === 0) {
         squareX = startX;
-        squareY += squareHeight + 36.35; // 行間の調整
+        squareY += squareHeight + 34.75;
       }
     });
 
@@ -305,7 +298,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
 
     const pdfBlob = doc.output("blob");
     generatedPdfBlob = pdfBlob;
-    document.getElementById("viewPdfButton").style.display = "block";
+    document.getElementById("fin").style.display = "flex";
     creatingIndicator.style.display = "none";
   };
 
@@ -319,15 +312,12 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
 
   // PDF表示ボタンの処理
   document.getElementById("viewPdfButton").addEventListener("click", () => {
-    if (generatedPdfBlob) {
-      const pdfUrl = URL.createObjectURL(generatedPdfBlob);
-      const pdfWindow = window.open(pdfUrl);
-      if (!pdfWindow) {
-        alert("ポップアップブロックが有効になっています。PDFを表示するには、ポップアップを許可してください。");
-      }
-    } else {
-      alert("PDFがまだ生成されていません。");
-    }
+    const pdfUrl = URL.createObjectURL(generatedPdfBlob);
+    const pdfWindow = window.open(pdfUrl);
+    // トップページに戻る
+    location.href = '/';
+
+
   });
 
   updateMonthVisibility();
