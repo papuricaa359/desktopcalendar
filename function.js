@@ -178,6 +178,9 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   const generateButton = document.getElementById("generatePdfButton");
   generateButton.disabled = true;
 
+  const creatingIndicator = document.getElementById("creating");
+  creatingIndicator.style.display = "flex";  // 生成中のインジケータを表示
+
   const doc = new jsPDF("p", "mm", "a4");
   const postcardWidth = 148;
   const postcardHeight = 100;
@@ -220,6 +223,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   if (!allImagesUploaded) {
     showError();
     generateButton.disabled = false;
+    creatingIndicator.style.display = "none";  // 生成中インジケータを非表示
     return;
   }
 
@@ -236,15 +240,21 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
     const pdfUrl = URL.createObjectURL(pdfBlob);
     generatedPdfBlob = pdfBlob;
 
-    const viewPdfButton = document.getElementById("viewPdfButton");
-    viewPdfButton.style.display = "inline-block";
-    viewPdfButton.onclick = () => {
-      const pdfWindow = window.open(pdfUrl);
-      if (!pdfWindow) {
-        alert("ポップアップブロックが有効になっています。PDFを表示するには、ポップアップを許可してください。");
-      }
-    };
+    creatingIndicator.style.display = "none";  // 生成中インジケータを非表示
   };
+});
+
+// PDFを表示するボタンのクリックイベントリスナー
+document.getElementById("viewPdfButton").addEventListener("click", () => {
+  if (generatedPdfBlob) {
+    const pdfUrl = URL.createObjectURL(generatedPdfBlob);
+    const pdfWindow = window.open(pdfUrl);
+    if (!pdfWindow) {
+      alert("ポップアップブロックが有効になっています。PDFを表示するには、ポップアップを許可してください。");
+    }
+  } else {
+    alert("PDFがまだ生成されていません。");
+  }
 });
 
 
