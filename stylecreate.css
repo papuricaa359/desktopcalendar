@@ -1,314 +1,163 @@
-const { jsPDF } = window.jspdf;
+body {
+    margin: 0px;
+    font-family: "Kiwi Maru", serif;
+    font-weight: 400;
+    font-style: normal;
+}
 
-document.addEventListener("DOMContentLoaded", function () {
-  let currentMonthIndex = 0;
+h1 {
+    margin: 0;
+}
 
-  function updateMonthVisibility() {
-    document.querySelectorAll(".upload-container").forEach((container, index) => {
-      container.style.display = index === currentMonthIndex ? "block" : "none";
-    });
-    document.querySelector(".prev-btn").style.display = currentMonthIndex === 0 ? "none" : "inline-block";
-    document.querySelector(".next-btn").style.display = currentMonthIndex === 11 ? "none" : "inline-block";
-    document.querySelector("#generatePdfButton").style.display = currentMonthIndex === 11 ? "inline-block" : "none";
-  }
+.image-preview {
+    width: 50vw;
+    position: fixed;
+    justify-content: center;
+    left: 25vw;
+    bottom: 15vw;
+    height: auto;
+    z-index: 200;
+    display: flex;
+}
 
-  document.querySelector(".next-btn").addEventListener("click", () => {
-    if (currentMonthIndex < 11) {
-      currentMonthIndex++;
-      updateMonthVisibility();
-    }
-  });
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
 
-  document.querySelector(".prev-btn").addEventListener("click", () => {
-    if (currentMonthIndex > 0) {
-      currentMonthIndex--;
-      updateMonthVisibility();
-    }
-  });
+.viewbutton {
+    width: 20vw;
+    height: 6vw;
+    position: fixed;
+    bottom: 8vw;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    padding: 1vw;
+    z-index: 100;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+}
 
-  async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.src = e.target.result;
+.viewbutton .prev-btn,
+.viewbutton .next-btn,
+.viewbutton #generatePdfButton {
+    width: 8vw;
+    height: 4vw;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 2vw;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-          const targetHeight = 1741;
-          const targetWidth = (targetHeight * 3) / 4;
+.viewbutton .prev-btn {
+    background-color: #f44336;
+    color: white;
+    position: absolute;
+    left: 1vw;
+}
 
-          let cropWidth, cropHeight;
-          if (img.width / img.height > 3 / 4) {
-            cropHeight = img.height;
-            cropWidth = cropHeight * 3 / 4;
-          } else {
-            cropWidth = img.width;
-            cropHeight = cropWidth * 4 / 3;
-          }
+.viewbutton .prev-btn:hover {
+    background-color: #e53935;
+}
 
-          const cropX = (img.width - cropWidth) / 2;
-          const cropY = (img.height - cropHeight) / 2;
+.viewbutton .next-btn {
+    background-color: #4CAF50;
+    color: white;
+}
 
-          canvas.width = 2577;
-          canvas.height = 1741;
+.viewbutton .next-btn:hover {
+    background-color: #45a049;
+}
 
-          ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
+.viewbutton #generatePdfButton {
+    background-color: #2196F3;
+    color: white;
+    display: none;
+}
 
-          // フレーム画像をリサイズして重ねる
-          const frameImg = new Image();
-          frameImg.src = framePath;
+.viewbutton #generatePdfButton:hover {
+    background-color: #1e88e5;
+}
 
-          frameImg.onload = () => {
-            const frameWidth = canvas.width;
-            const frameHeight = canvas.height;
+.viewbutton .next-btn:only-child {
+    position: absolute;
+    right: 0;
+}
 
-            const frameCanvas = document.createElement("canvas");
-            const frameCtx = frameCanvas.getContext("2d");
-            frameCanvas.width = frameWidth;
-            frameCanvas.height = frameHeight;
+.square {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+}
 
-            frameCtx.drawImage(frameImg, 0, 0, frameWidth, frameHeight);
+.square img {
+    width: 5vw;
+    height: auto;
+    margin: 0px;
+    flex-wrap: wrap;
+}
 
-            ctx.drawImage(frameCanvas, 0, 0, frameWidth, frameHeight);
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.646);
+    display: none;
+    z-index: 9999;
+}
 
-            const dataUrl = canvas.toDataURL();
-            resolve(dataUrl);
+.error-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    height: 20vh;
+    background-color: rgb(169, 169, 169);
+    color: black;
+    text-align: center;
+    border-radius: 1vw;
+    padding: 2vw;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    display: none;
+}
 
-            // 正方形画像の処理
-            const squareCanvas = document.createElement("canvas");
-            const squareCtx = squareCanvas.getContext("2d");
-            const size = Math.min(img.width, img.height);
-            squareCanvas.width = size;
-            squareCanvas.height = size;
+.error-box p {
+    font-size: 1.5vw;
+    font-weight: bold;
+}
 
-            const squareX = (img.width - size) / 2;
-            const squareY = (img.height - size) / 2;
+.error-box button {
+    background-color: white;
+    color: black;
+    font-size: 1.5vw;
+    border: none;
+    padding: 0.5vw 2vw;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 1vw;
+    position: absolute;
+    bottom: 1vw;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
-            squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
-
-            // 正方形フレームをリサイズして重ねる
-            const squareFrameImg = new Image();
-            squareFrameImg.src = squareFramePath;
-
-            squareFrameImg.onload = () => {
-              const squareFrameCanvas = document.createElement("canvas");
-              const squareFrameCtx = squareFrameCanvas.getContext("2d");
-              squareFrameCanvas.width = size;
-              squareFrameCanvas.height = size;
-
-              squareFrameCtx.drawImage(squareFrameImg, 0, 0, size, size);
-
-              squareCtx.drawImage(squareFrameCanvas, 0, 0, size, size);
-
-              const squareResizedCanvas = document.createElement("canvas");
-              const squareResizedCtx = squareResizedCanvas.getContext("2d");
-              const resizedSize = 300; // ここを300pxに変更
-              squareResizedCanvas.width = resizedSize;
-              squareResizedCanvas.height = resizedSize;
-
-              squareResizedCtx.drawImage(squareCanvas, 0, 0, size, size, 0, 0, resizedSize, resizedSize);
-
-              const resizedDataUrl = squareResizedCanvas.toDataURL();
-
-              const squareImgElement = document.getElementById(squarePreviewId);
-              squareImgElement.src = resizedDataUrl;
-              squareImgElement.style.width = '300px'; // 300pxに変更
-              squareImgElement.style.height = '300px'; // 300pxに変更
-
-              const imgElement = document.createElement("img");
-              imgElement.src = dataUrl;
-              imgElement.style.width = "5vw"; // 表示エリアの幅を5vwに変更
-              document.getElementById(previewId).innerHTML = "";
-              document.getElementById(previewId).appendChild(imgElement);
-            };
-
-            squareFrameImg.onerror = () => {
-              console.error("正方形フレーム画像の読み込みに失敗:", squareFramePath);
-              reject(new Error("正方形フレーム画像の読み込みに失敗"));
-            };
-          };
-
-          frameImg.onerror = () => {
-            console.error("フレーム画像の読み込みに失敗:", framePath);
-            reject(new Error("フレーム画像の読み込みに失敗"));
-          };
-        };
-
-        img.onerror = () => {
-          console.error("画像処理エラー:", file.name);
-          reject(new Error("画像処理エラー"));
-        };
-      };
-
-      reader.onerror = () => {
-        console.error("画像読み込みエラー:", file.name);
-        reject(new Error("画像読み込みエラー"));
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  function handleImageUpload(inputId, framePath, previewId, squareFramePath, squarePreviewId) {
-    const fileInput = document.getElementById(inputId);
-    fileInput.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        console.log("処理中の画像:", file.name);
-        processImage(file, framePath, previewId, squareFramePath, squarePreviewId)
-          .catch((err) => console.error(err.message));
-      }
-    });
-  }
-
-  for (let i = 1; i <= 12; i++) {
-    handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
-  }
-
-  let currentErrorIndex = 0;
-  let errorMessages = [];
-
-  function showError() {
-    const errorBox = document.getElementById("error-box");
-    const overlay = document.getElementById("overlay");
-    const errMessage = document.getElementById("errmesse");
-
-    if (currentErrorIndex < errorMessages.length) {
-      errMessage.textContent = errorMessages[currentErrorIndex];
-      overlay.style.display = "block";
-      errorBox.style.display = "flex";
-    }
-  }
-
-  window.closeErrorBox = function () {
-    const errorBox = document.getElementById("error-box");
-    const overlay = document.getElementById("overlay");
-    overlay.style.display = "none";
-    errorBox.style.display = "none";
-
-    currentErrorIndex++;
-    if (currentErrorIndex < errorMessages.length) {
-      showError();
-    }
-  };
-
-  document.getElementById("generatePdfButton").addEventListener("click", () => {
-    const generateButton = document.getElementById("generatePdfButton");
-    generateButton.disabled = true;
-
-    const creatingIndicator = document.getElementById("creating");
-    creatingIndicator.style.display = "flex";
-
-    const doc = new jsPDF("p", "mm", "a4");
-    const postcardWidth = 148;
-    const postcardHeight = 100;
-    const margin = 10;
-    let xOffset = margin;
-    let yOffset = margin;
-
-    const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
-    const squarePreviews = document.querySelectorAll("[id^='squarePreview']");
-    const totalImages = imagePreviews.length;
-    let allImagesUploaded = true;
-    errorMessages = [];
-
-    imagePreviews.forEach((preview, index) => {
-      const imgElement = preview.querySelector("img");
-      if (!imgElement) {
-        console.error(`画像${index + 1}が無効です`);
-        allImagesUploaded = false;
-        errorMessages.push(`画像${index + 1}が無効です`);
-        return;
-      }
-    });
-
-    if (!allImagesUploaded) {
-      showError();
-      generateButton.disabled = false;
-      creatingIndicator.style.display = "none";
-      return;
-    }
-
-    imagePreviews.forEach((preview, index) => {
-      const imgElement = preview.querySelector("img");
-      if (imgElement) {
-        const dataUrl = imgElement.src;
-        if (dataUrl.includes("img/none.png")) {
-          allImagesUploaded = false;
-          errorMessages.push(`画像${index + 1}がアップロードされていません`);
-        } else {
-          doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-          yOffset += postcardHeight + margin;
-
-          if ((index + 1) % 2 === 0) {
-            yOffset = margin;
-            xOffset += postcardWidth + margin;
-
-            if (index + 1 < imagePreviews.length) {
-              doc.addPage();
-              xOffset = margin;
-            }
-          }
-        }
-      }
-    });
-
-    if (!allImagesUploaded) {
-      showError();
-      generateButton.disabled = false;
-      creatingIndicator.style.display = "none";
-      return;
-    }
-
-    const finalImage = new Image();
-    finalImage.src = "img/stand.png";
-
-    finalImage.onload = () => {
-      doc.addPage();
-      const finalImageWidth = 210;
-      const finalImageHeight = 297;
-      doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
-
-      let squareX = 10;
-      let squareY = 10;
-      const squareWidth = 24.66;  // 正方形画像のリサイズ幅
-      const squareHeight = 24.66;
-
-      squarePreviews.forEach((preview, index) => {
-        const squareImgElement = preview;
-
-        const squareDataUrl = squareImgElement.src;
-
-        doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
-
-        squareX += squareWidth + margin;
-
-        if ((index + 1) % 6 === 0) {
-          squareX = 10;
-          squareY += squareHeight + margin;
-        }
-      });
-
-      const pdfBlob = doc.output("blob");
-      const pdfUrl = URL.createObjectURL(pdfBlob);
-      generatedPdfBlob = pdfBlob;
-      document.getElementById("viewPdfButton").style.display = "block";
-      creatingIndicator.style.display = "none";
-    };
-  });
-
-  document.getElementById("viewPdfButton").addEventListener("click", () => {
-    if (generatedPdfBlob) {
-      const pdfUrl = URL.createObjectURL(generatedPdfBlob);
-      const pdfWindow = window.open(pdfUrl);
-      if (!pdfWindow) {
-        alert("ポップアップブロックが有効になっています。PDFを表示するには、ポップアップを許可してください。");
-      }
-    } else {
-      alert("PDFがまだ生成されていません。");
-    }
-  });
-
-  updateMonthVisibility();
-});
+.error-box button:hover {
+    background-color: rgb(40, 40, 40);
+    color: white;
+}
