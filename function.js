@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const finalImageWidth = 210;
       const finalImageHeight = 297;
 
-      let squareX = 31.02;
+      let squareX = 28.02;
       let squareY = 178.45;
       const squareWidth = 24.66;
       const squareHeight = 24.66;
@@ -290,8 +290,8 @@ document.addEventListener("DOMContentLoaded", function () {
         squareX += squareWidth;
 
         if ((index + 1) % 6 === 0) {
-          squareX = 30.75;
-          squareY += squareHeight + 34.35;
+          squareX = 28.02;
+          squareY += squareHeight + 36.35;
         }
       });
       doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
