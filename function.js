@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
+    async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -94,11 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
               // 正方形のプレビュー画像を表示
               const squareImgElement = document.getElementById(squarePreviewId);
               squareImgElement.src = squareDataUrl;
-
-              // 画像が表示された後にメモリを解放
-              img = null;
-              canvas = null;
-              squareCanvas = null;
             };
 
             frameImg.onerror = () => reject(new Error("フレーム画像の読み込みに失敗"));
@@ -128,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
   for (let i = 1; i <= 12; i++) {
     handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
   }
+
 
   let currentErrorIndex = 0;
   let errorMessages = [];
@@ -201,13 +197,13 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+
     // エラーがあれば表示
     if (!allImagesUploaded) {
       showError();
       generateButton.disabled = false;
       return;
     }
-
     // 最後のページに img/stand.png を全画面表示し、squarePreview 画像を重ねる
     const finalImage = new Image();
     finalImage.src = "img/stand.png";
@@ -224,6 +220,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const squaresPerRow = 6;
       const totalSquareImages = 12;
       const marginX = 30.75;
+
 
       for (let i = 1; i <= totalSquareImages; i++) {
         const squareImg = document.getElementById(`squarePreview${i}`);
