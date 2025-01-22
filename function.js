@@ -82,21 +82,23 @@ document.addEventListener("DOMContentLoaded", function () {
             frameImg.onload = () => {
               ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
               const dataUrl = canvas.toDataURL();
+              resolve(dataUrl);
 
               // 通常のプレビュー画像を表示
               const imgElement = document.createElement("img");
               imgElement.src = dataUrl;
               imgElement.style.width = "50vw";
-              const previewContainer = document.getElementById(previewId);
-              previewContainer.innerHTML = "";
-              previewContainer.appendChild(imgElement);
+              document.getElementById(previewId).innerHTML = "";
+              document.getElementById(previewId).appendChild(imgElement);
 
               // 正方形のプレビュー画像を表示
               const squareImgElement = document.getElementById(squarePreviewId);
               squareImgElement.src = squareDataUrl;
 
-              // メモリ解放せず、画像をそのまま保持
-              resolve(dataUrl);  // 画像が正常に処理された後に解決
+              // 画像が表示された後にメモリを解放
+              img = null;
+              canvas = null;
+              squareCanvas = null;
             };
 
             frameImg.onerror = () => reject(new Error("フレーム画像の読み込みに失敗"));
