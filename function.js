@@ -95,15 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
               const squareImgElement = document.getElementById(squarePreviewId);
               squareImgElement.src = squareDataUrl;
 
-              // 画像の表示後、メモリから解放（後で）
-              imgElement.onload = () => {
-                imgElement.src = null; // メモリから解放
-              };
-              squareImgElement.onload = () => {
-                squareImgElement.src = null; // メモリから解放
-              };
-
-              resolve(dataUrl);  // ここでresolveを呼び出して処理が終わったことを通知
+              // メモリ解放せず、画像をそのまま保持
+              resolve(dataUrl);  // 画像が正常に処理された後に解決
             };
 
             frameImg.onerror = () => reject(new Error("フレーム画像の読み込みに失敗"));
@@ -130,7 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 12ヶ月分の画像アップロード処理
   for (let i = 1; i <= 12; i++) {
     handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
   }
@@ -200,9 +192,6 @@ document.addEventListener("DOMContentLoaded", function () {
               }
             }
           }
-
-          // メモリから画像オブジェクトを削除
-          imgElement.src = null; // メモリから解放
         }
       } else {
         allImagesUploaded = false;
@@ -245,9 +234,6 @@ document.addEventListener("DOMContentLoaded", function () {
             squareX = 0;
             squareY += squareSize;
           }
-
-          // メモリから正方形画像を解放
-          squareImg.src = null; // メモリから解放
         }
       }
 
