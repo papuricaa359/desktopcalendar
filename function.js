@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-    async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
+  async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -88,12 +88,22 @@ document.addEventListener("DOMContentLoaded", function () {
               const imgElement = document.createElement("img");
               imgElement.src = dataUrl;
               imgElement.style.width = "50vw";
-              document.getElementById(previewId).innerHTML = "";
-              document.getElementById(previewId).appendChild(imgElement);
+              const previewContainer = document.getElementById(previewId);
+              previewContainer.innerHTML = "";
+              previewContainer.appendChild(imgElement);
 
               // 正方形のプレビュー画像を表示
               const squareImgElement = document.getElementById(squarePreviewId);
               squareImgElement.src = squareDataUrl;
+
+              // メモリから画像オブジェクトを削除（srcをnullにする）
+              imgElement.onload = () => {
+                imgElement.src = null; // メモリから解放
+              };
+
+              squareImgElement.onload = () => {
+                squareImgElement.src = null; // メモリから解放
+              };
             };
 
             frameImg.onerror = () => reject(new Error("フレーム画像の読み込みに失敗"));
@@ -123,7 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
   for (let i = 1; i <= 12; i++) {
     handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
   }
-
 
   let currentErrorIndex = 0;
   let errorMessages = [];
@@ -190,6 +199,9 @@ document.addEventListener("DOMContentLoaded", function () {
               }
             }
           }
+
+          // メモリから画像オブジェクトを削除
+          imgElement.src = null; // メモリから解放
         }
       } else {
         allImagesUploaded = false;
@@ -197,13 +209,13 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-
     // エラーがあれば表示
     if (!allImagesUploaded) {
       showError();
       generateButton.disabled = false;
       return;
     }
+
     // 最後のページに img/stand.png を全画面表示し、squarePreview 画像を重ねる
     const finalImage = new Image();
     finalImage.src = "img/stand.png";
@@ -221,7 +233,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const totalSquareImages = 12;
       const marginX = 30.75;
 
-
       for (let i = 1; i <= totalSquareImages; i++) {
         const squareImg = document.getElementById(`squarePreview${i}`);
         if (squareImg) {
@@ -233,6 +244,9 @@ document.addEventListener("DOMContentLoaded", function () {
             squareX = 0;
             squareY += squareSize;
           }
+
+          // メモリから正方形画像を解放
+          squareImg.src = null; // メモリから解放
         }
       }
 
@@ -253,23 +267,4 @@ document.addEventListener("DOMContentLoaded", function () {
       generateButton.disabled = false;
     };
   });
-
-  // PDF表示ボタンイベント
-  document.getElementById("viewPdfButton").addEventListener("click", () => {
-    if (generatedPdfBlob) {
-      const pdfUrl = URL.createObjectURL(generatedPdfBlob);
-      const pdfWindow = window.open(pdfUrl, "_blank");
-      if (pdfWindow) pdfWindow.focus();
-    } else {
-      alert("PDFがまだ生成されていません");
-    }
-  });
-
-  updateMonthVisibility();
-});
-rt("PDFがまだ生成されていません");
-    }
-  });
-
-  updateMonthVisibility();
 });
