@@ -1,4 +1,5 @@
 const { jsPDF } = window.jspdf;
+
 document.addEventListener("DOMContentLoaded", function () {
   let currentMonthIndex = 0;
 
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-    async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
+  async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -96,16 +97,28 @@ document.addEventListener("DOMContentLoaded", function () {
               squareImgElement.src = squareDataUrl;
             };
 
-            frameImg.onerror = () => reject(new Error("フレーム画像の読み込みに失敗"));
+            frameImg.onerror = () => {
+              console.error("フレーム画像の読み込みに失敗:", framePath);
+              reject(new Error("フレーム画像の読み込みに失敗"));
+            };
           };
 
-          squareFrameImg.onerror = () => reject(new Error("正方形フレーム画像の読み込みに失敗"));
+          squareFrameImg.onerror = () => {
+            console.error("正方形フレーム画像の読み込みに失敗:", squareFramePath);
+            reject(new Error("正方形フレーム画像の読み込みに失敗"));
+          };
         };
 
-        img.onerror = () => reject(new Error("画像処理エラー"));
+        img.onerror = () => {
+          console.error("画像処理エラー:", file.name);
+          reject(new Error("画像処理エラー"));
+        };
       };
 
-      reader.onerror = () => reject(new Error("画像読み込みエラー"));
+      reader.onerror = () => {
+        console.error("画像読み込みエラー:", file.name);
+        reject(new Error("画像読み込みエラー"));
+      };
       reader.readAsDataURL(file);
     });
   }
@@ -115,7 +128,9 @@ document.addEventListener("DOMContentLoaded", function () {
     fileInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (file) {
-        processImage(file, framePath, previewId, squareFramePath, squarePreviewId).catch((err) => console.error(err.message));
+        console.log("処理中の画像:", file.name);
+        processImage(file, framePath, previewId, squareFramePath, squarePreviewId)
+          .catch((err) => console.error(err.message));
       }
     });
   }
@@ -123,7 +138,6 @@ document.addEventListener("DOMContentLoaded", function () {
   for (let i = 1; i <= 12; i++) {
     handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
   }
-
 
   let currentErrorIndex = 0;
   let errorMessages = [];
@@ -198,13 +212,13 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-
     // エラーがあれば表示
     if (!allImagesUploaded) {
       showError();
       generateButton.disabled = false;
       return;
     }
+
     // 最後のページに img/stand.png を全画面表示し、squarePreview 画像を重ねる
     const finalImage = new Image();
     finalImage.src = "img/stand.png";
@@ -221,7 +235,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const squaresPerRow = 6;
       const totalSquareImages = 12;
       const marginX = 30.75;
-
 
       for (let i = 1; i <= totalSquareImages; i++) {
         const squareImg = document.getElementById(`squarePreview${i}`);
@@ -242,28 +255,17 @@ document.addEventListener("DOMContentLoaded", function () {
       const pdfUrl = URL.createObjectURL(pdfBlob);
       generatedPdfBlob = pdfBlob;
       document.getElementById("createing").style.display = "none";
+
       // PDF表示ボタンを表示
       const viewPdfButton = document.getElementById("viewPdfButton");
       viewPdfButton.style.display = "inline-block";
-      viewPdfButton.disabled = false;
-
-      setTimeout(() => generateButton.disabled = false, 1000);
+      viewPdfButton.onclick = () => {
+        const pdfWindow = window.open(pdfUrl);
+        if (!pdfWindow) {
+          alert("ポップアップブロックが有効になっています。PDFを表示するには、ポップアップを許可してください。");
+        }
+      };
     };
-
-    finalImage.onerror = () => {
-      generateButton.disabled = false;
-    };
-  });
-
-  // PDF表示ボタンイベント
-  document.getElementById("viewPdfButton").addEventListener("click", () => {
-    if (generatedPdfBlob) {
-      const pdfUrl = URL.createObjectURL(generatedPdfBlob);
-      const pdfWindow = window.open(pdfUrl, "_blank");
-      if (pdfWindow) pdfWindow.focus();
-    } else {
-      alert("PDFがまだ生成されていません");
-    }
   });
 
   updateMonthVisibility();
