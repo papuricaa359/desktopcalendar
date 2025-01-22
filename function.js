@@ -243,21 +243,26 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
     const squareWidth = 50;  // 表示するサイズ（必要に応じて調整）
     const squareHeight = 50;  // 表示するサイズ（必要に応じて調整）
 
+    // squarePreviewsのすべての画像を処理
     squarePreviews.forEach((preview, index) => {
-      const squareImgElement = preview.querySelector("img");
-      if (squareImgElement) {
-        const squareDataUrl = squareImgElement.src;
+      const squareImgElement = preview;  // <img>タグ自体を参照
 
-        doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);  // 横並びに配置
+      // 画像のURLを確認してPDFに追加
+      const squareDataUrl = squareImgElement.src;
 
-        // 次の画像のX座標を更新
-        squareX += squareWidth + margin;
+      // squareDataUrlが正しいか確認
+      console.log(`正方形画像のURL (Index ${index + 1}):`, squareDataUrl);
 
-        // 横に並べて配置するため、ページを跨がないように制御
-        if ((index + 1) % 6 === 0) {  // 1行に3つ並べる場合
-          squareX = 10;  // X座標をリセット
-          squareY += squareHeight + margin;  // Y座標を下に移動
-        }
+      // 正方形画像を追加
+      doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
+
+      // 次の画像のX座標を更新
+      squareX += squareWidth + margin;
+
+      // 横に並べて配置するため、ページを跨がないように制御
+      if ((index + 1) % 6 === 0) {  // 1行に6つ並べる場合
+        squareX = 10;  // X座標をリセット
+        squareY += squareHeight + margin;  // Y座標を下に移動
       }
     });
 
