@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           const resizedCanvas = document.createElement("canvas");
           const resizedCtx = resizedCanvas.getContext("2d");
-          const resizedSize = 96;
+          const resizedSize = 300;
           resizedCanvas.width = resizedSize;
           resizedCanvas.height = resizedSize;
 
@@ -87,8 +87,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const squareImgElement = document.getElementById(squarePreviewId);
             squareImgElement.src = resizedDataUrl;
-            squareImgElement.style.width = '96px';
-            squareImgElement.style.height = '96px';
+            squareImgElement.style.width = '300px';
+            squareImgElement.style.height = '300px';
 
             const imgElement = document.createElement("img");
             imgElement.src = dataUrl;
