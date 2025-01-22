@@ -1,14 +1,17 @@
+/* 全体のスタイル */
 body {
-    margin: 0px;
+    margin: 0;
     font-family: "Kiwi Maru", serif;
     font-weight: 400;
     font-style: normal;
 }
 
+/* 見出し h1 のスタイル */
 h1 {
     margin: 0;
 }
 
+/* 画像プレビューのスタイル */
 .image-preview {
     width: 50vw;
     position: fixed;
@@ -26,71 +29,19 @@ h1 {
     object-fit: contain;
 }
 
-.viewbutton {
-    width: 20vw;
-    height: 6vw;
-    position: fixed;
-    bottom: 8vw;
-    left: 50%;
-    transform: translateX(-50%);
-    align-items: center;
-    padding: 1vw;
-    z-index: 100;
-    box-sizing: border-box;
+/* 月ごとのアップロードセクション */
+.upload-container {
     display: flex;
-    justify-content: flex-end;
-}
-
-.viewbutton .prev-btn,
-.viewbutton .next-btn,
-.viewbutton #generatePdfButton {
-    width: 8vw;
-    height: 4vw;
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-    border-radius: 2vw;
-    font-weight: bold;
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin-bottom: 20px;
 }
 
-.viewbutton .prev-btn {
-    background-color: #f44336;
-    color: white;
-    position: absolute;
-    left: 1vw;
+.upload-container input[type="file"] {
+    margin-top: 10px;
 }
 
-.viewbutton .prev-btn:hover {
-    background-color: #e53935;
-}
-
-.viewbutton .next-btn {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.viewbutton .next-btn:hover {
-    background-color: #45a049;
-}
-
-.viewbutton #generatePdfButton {
-    background-color: #2196F3;
-    color: white;
-    display: none;
-}
-
-.viewbutton #generatePdfButton:hover {
-    background-color: #1e88e5;
-}
-
-.viewbutton .next-btn:only-child {
-    position: absolute;
-    right: 0;
-}
-
+/* プレビューエリア */
 .square {
     width: 100%;
     display: flex;
@@ -107,17 +58,78 @@ h1 {
     flex-wrap: wrap;
 }
 
-.overlay {
+/* ボタンエリア */
+.viewbutton {
+    width: 20vw;
+    height: 6vw;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.646);
-    display: none;
-    z-index: 9999;
+    bottom: 8vw;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    padding: 1vw;
+    z-index: 100;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
 }
 
+/* 戻るボタン、進むボタンのスタイル */
+.viewbutton .prev-btn,
+.viewbutton .next-btn,
+.viewbutton #generatePdfButton {
+    width: 8vw;
+    height: 4vw;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 2vw;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 戻るボタン */
+.viewbutton .prev-btn {
+    background-color: #f44336;
+    color: white;
+    position: absolute;
+    left: 1vw;
+}
+
+.viewbutton .prev-btn:hover {
+    background-color: #e53935;
+}
+
+/* 進むボタン */
+.viewbutton .next-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.viewbutton .next-btn:hover {
+    background-color: #45a049;
+}
+
+/* PDF生成ボタン */
+.viewbutton #generatePdfButton {
+    background-color: #2196F3;
+    color: white;
+    display: none;
+}
+
+.viewbutton #generatePdfButton:hover {
+    background-color: #1e88e5;
+}
+
+/* 進むボタンが一つだけの時 */
+.viewbutton .next-btn:only-child {
+    position: absolute;
+    right: 0;
+}
+
+/* エラーボックスのスタイル */
 .error-box {
     position: absolute;
     top: 50%;
@@ -161,12 +173,26 @@ h1 {
     background-color: rgb(40, 40, 40);
     color: white;
 }
-#creating{
-position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 99999;
-display: none;
+
+/* 生成中の表示 */
+#creating {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    display: none;
+}
+
+/* オーバーレイ */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.646);
+    display: none;
+    z-index: 9999;
 }
