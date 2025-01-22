@@ -82,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
             frameImg.onload = () => {
               ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
               const dataUrl = canvas.toDataURL();
-              resolve(dataUrl);
 
               // 通常のプレビュー画像を表示
               const imgElement = document.createElement("img");
@@ -96,14 +95,15 @@ document.addEventListener("DOMContentLoaded", function () {
               const squareImgElement = document.getElementById(squarePreviewId);
               squareImgElement.src = squareDataUrl;
 
-              // メモリから画像オブジェクトを削除（srcをnullにする）
+              // 画像の表示後、メモリから解放（後で）
               imgElement.onload = () => {
                 imgElement.src = null; // メモリから解放
               };
-
               squareImgElement.onload = () => {
                 squareImgElement.src = null; // メモリから解放
               };
+
+              resolve(dataUrl);  // ここでresolveを呼び出して処理が終わったことを通知
             };
 
             frameImg.onerror = () => reject(new Error("フレーム画像の読み込みに失敗"));
@@ -130,6 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // 12ヶ月分の画像アップロード処理
   for (let i = 1; i <= 12; i++) {
     handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
   }
@@ -267,4 +268,17 @@ document.addEventListener("DOMContentLoaded", function () {
       generateButton.disabled = false;
     };
   });
+
+  // PDF表示ボタンイベント
+  document.getElementById("viewPdfButton").addEventListener("click", () => {
+    if (generatedPdfBlob) {
+      const pdfUrl = URL.createObjectURL(generatedPdfBlob);
+      const pdfWindow = window.open(pdfUrl, "_blank");
+      if (pdfWindow) pdfWindow.focus();
+    } else {
+      alert("PDFがまだ生成されていません");
+    }
+  });
+
+  updateMonthVisibility();
 });
