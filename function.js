@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           const resizedCanvas = document.createElement("canvas");
           const resizedCtx = resizedCanvas.getContext("2d");
-          const resizedSize = 300;
+          const resizedSize = 96;
           resizedCanvas.width = resizedSize;
           resizedCanvas.height = resizedSize;
 
@@ -87,8 +87,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const squareImgElement = document.getElementById(squarePreviewId);
             squareImgElement.src = resizedDataUrl;
-            squareImgElement.style.width = '300px';
-            squareImgElement.style.height = '300px';
+            squareImgElement.style.width = '96px';
+            squareImgElement.style.height = '96px';
 
             const imgElement = document.createElement("img");
             imgElement.src = dataUrl;
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   for (let i = 1; i <= 12; i++) {
-    handleImageUpload(imageInput${i}, frame/${i}.png, imagePreview${i}, frame/square/${i}.png, squarePreview${i});
+    handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
   }
 
   let currentErrorIndex = 0;
@@ -183,9 +183,9 @@ document.addEventListener("DOMContentLoaded", function () {
     imagePreviews.forEach((preview, index) => {
       const imgElement = preview.querySelector("img");
       if (!imgElement) {
-        console.error(画像${index + 1}が無効です);
+        console.error(`画像${index + 1}が無効です`);
         allImagesUploaded = false;
-        errorMessages.push(画像${index + 1}が無効です);
+        errorMessages.push(`画像${index + 1}が無効です`);
         return;
       }
     });
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const dataUrl = imgElement.src;
         if (dataUrl.includes("img/none.png")) {
           allImagesUploaded = false;
-          errorMessages.push(画像${index + 1}がアップロードされていません);
+          errorMessages.push(`画像${index + 1}がアップロードされていません`);
         } else {
           doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
           yOffset += postcardHeight + margin;
@@ -237,8 +237,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const finalImageHeight = 297;
       doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
 
-      let squareX = 30.75;
-      let squareY = 212.25;
+      let squareX = 10;
+      let squareY = 10;
       const squareSizeMM = 24.66;
 
       squarePreviews.forEach((preview, index) => {
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if ((index + 1) % 6 === 0) {
           squareX = 10;
-          squareY += squareSizeMM + 212.25;
+          squareY += squareSizeMM + margin;
         }
       });
 
