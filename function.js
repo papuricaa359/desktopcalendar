@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const squareResizedCanvas = document.createElement("canvas");
               const squareResizedCtx = squareResizedCanvas.getContext("2d");
-              const resizedSize = 320;
+              const resizedSize = 294;
               squareResizedCanvas.width = resizedSize;
               squareResizedCanvas.height = resizedSize;
 
