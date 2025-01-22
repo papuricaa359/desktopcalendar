@@ -169,7 +169,7 @@ h1 {
     background-color: #a9a9a9;
     position: fixed;
     z-index: 99999;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
