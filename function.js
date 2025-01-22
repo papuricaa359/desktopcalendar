@@ -81,6 +81,17 @@ document.addEventListener("DOMContentLoaded", function () {
             frameImg.onload = () => {
               ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
               const dataUrl = canvas.toDataURL();
+
+              // 使用後に画像のURLを解放
+              URL.revokeObjectURL(img.src);
+              URL.revokeObjectURL(squareFrameImg.src);
+              URL.revokeObjectURL(frameImg.src);
+
+              // 画像の参照をクリア
+              img.src = null;
+              squareFrameImg.src = null;
+              frameImg.src = null;
+
               resolve(dataUrl);
 
               const imgElement = document.createElement("img");
@@ -91,6 +102,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const squareImgElement = document.getElementById(squarePreviewId);
               squareImgElement.src = squareDataUrl;
+
+              // 正方形画像のURLも解放
+              URL.revokeObjectURL(squareDataUrl);
             };
 
             frameImg.onerror = () => reject(new Error("フレーム画像の読み込みに失敗"));
