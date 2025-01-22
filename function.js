@@ -21,15 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // ファイルアップロード処理
-  const handleImageUpload = (inputId, framePath, previewId) => {
+  const handleImageUpload = (inputId, framePath, previewId, squarePreviewId) => {
     const fileInput = document.getElementById(inputId);
     fileInput.addEventListener("change", async (e) => {
       const file = e.target.files[0];
       if (file) {
         try {
-          const { normalDataUrl } = await processImage(file, framePath);
+          const { normalDataUrl, squareDataUrl } = await processImage(file, framePath);
           document.getElementById(previewId).innerHTML = `<img src="${normalDataUrl}" style="width: 50vw;">`;
-          imageData[inputId] = { normalDataUrl };
+          document.getElementById(squarePreviewId).src = squareDataUrl;
+          imageData[inputId] = { normalDataUrl, squareDataUrl };
         } catch (err) {
           console.error(err.message);
         }
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         img.src = e.target.result;
 
         img.onload = () => {
+          // 通常の画像処理
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
 
@@ -63,7 +65,19 @@ document.addEventListener("DOMContentLoaded", () => {
           frameImg.src = framePath;
           frameImg.onload = () => {
             ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-            resolve({ normalDataUrl: canvas.toDataURL() });
+            const normalDataUrl = canvas.toDataURL();
+
+            // 正方形画像の生成
+            const squareCanvas = document.createElement("canvas");
+            const squareCtx = squareCanvas.getContext("2d");
+            const squareSize = Math.min(img.width, img.height);
+
+            squareCanvas.width = squareSize;
+            squareCanvas.height = squareSize;
+            squareCtx.drawImage(img, cropX, cropY, squareSize, squareSize, 0, 0, squareSize, squareSize);
+
+            const squareDataUrl = squareCanvas.toDataURL();
+            resolve({ normalDataUrl, squareDataUrl });
           };
         };
       };
@@ -122,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 正方形画像を配置
       for (let i = 1; i <= 12; i++) {
-        const squareImg = document.getElementById(`imagePreview${i}`).querySelector("img");
+        const squareImg = document.getElementById(`squarePreview${i}`);
         if (squareImg) {
           const squareDataUrl = squareImg.src;
           doc.addImage(squareDataUrl, "PNG", SQUARE_MARGIN_X + squareX, squareY, SQUARE_SIZE, SQUARE_SIZE);
@@ -176,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 初期化
   updateMonthVisibility();
   for (let i = 1; i <= 12; i++) {
-    handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`);
+    handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `squarePreview${i}`);
   }
 
   document.querySelector(".next-btn").addEventListener("click", () => {
