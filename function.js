@@ -264,7 +264,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
     const pdfBlob = doc.output("blob");
     const pdfUrl = URL.createObjectURL(pdfBlob);
     generatedPdfBlob = pdfBlob;
-
+    document.getElementById("viewPdfButton").style.display = "block";
     creatingIndicator.style.display = "none";  // 生成中インジケータを非表示
   };
 });
