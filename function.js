@@ -178,6 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
           allImagesUploaded = false;
           errorMessages.push(`画像${index + 1}がアップロードされていません`);
         } else {
+          document.getElementById("createing").style.display = "flex";
           if (index % 2 === 0) {
             doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
           } else {
@@ -240,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const pdfBlob = doc.output("blob");
       const pdfUrl = URL.createObjectURL(pdfBlob);
       generatedPdfBlob = pdfBlob;
-
+      document.getElementById("createing").style.display = "none";
       // PDF表示ボタンを表示
       const viewPdfButton = document.getElementById("viewPdfButton");
       viewPdfButton.style.display = "inline-block";
