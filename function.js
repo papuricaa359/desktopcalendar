@@ -114,8 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const squareImgElement = document.getElementById(squarePreviewId);
               squareImgElement.src = resizedDataUrl;
-              squareImgElement.style.width = '96px';
-              squareImgElement.style.height = '96px';
+              squareImgElement.style.width = '5vw';
+              squareImgElement.style.height = '5vw';
 
               const imgElement = document.createElement("img");
               imgElement.src = dataUrl;
