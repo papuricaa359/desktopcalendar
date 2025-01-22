@@ -181,28 +181,21 @@ document.addEventListener("DOMContentLoaded", function () {
     let allImagesUploaded = true;
     errorMessages = [];
 
-    // 画像をPDFに追加
     imagePreviews.forEach((preview, index) => {
       const imgElement = preview.querySelector("img");
       if (imgElement) {
         const dataUrl = imgElement.src;
-
-        // none.png が表示されている場合はエラーとして扱う
         if (dataUrl.includes("img/none.png")) {
           allImagesUploaded = false;
           errorMessages.push(`画像${index + 1}がアップロードされていません`);
         } else {
-          document.getElementById("createing").style.display = "flex";
-          if (index % 2 === 0) {
-            doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-          } else {
-            yOffset += postcardHeight;
-            doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-            if (index % 2 === 1) {
-              yOffset = 10;
-              if (index + 1 < totalImages) {
-                doc.addPage();
-              }
+          doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
+          yOffset += postcardHeight + 10;
+          if ((index + 1) % 2 === 0) {
+            yOffset = 10;
+            xOffset += postcardWidth + 10;
+            if (index + 1 < imagePreviews.length) {
+              doc.addPage();
             }
           }
         }
@@ -212,15 +205,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // エラーがあれば表示
     if (!allImagesUploaded) {
       showError();
       generateButton.disabled = false;
       return;
     }
-
-    // 最後のページに img/stand.png を全画面表示し、squarePreview 画像を重ねる
-    const finalImage = new Image();
+      const finalImage = new Image();
     finalImage.src = "img/stand.png";
 
     finalImage.onload = () => {
@@ -228,6 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const finalImageWidth = 210;
       const finalImageHeight = 297;
       doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
+
 /*
       let squareX = 0;
       let squareY = 212.25;
