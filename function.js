@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const imgElement = document.createElement("img");
               imgElement.src = dataUrl;
-              imgElement.style.width = "5vw"; // 表示エリアの幅を5vwに変更
+              imgElement.style.width = "100px"; // 表示エリアの幅を5vwに変更
               document.getElementById(previewId).innerHTML = "";
               document.getElementById(previewId).appendChild(imgElement);
             };
