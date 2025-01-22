@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>卓上カレンダージェネレーター</title>
     <link rel="stylesheet" href="stylecreate.css">
+    <!-- Google Fonts から Kiwi Maru を読み込む -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
@@ -84,6 +85,8 @@
         <input type="file" id="imageInput12" accept="image/*" />
         <div id="imagePreview12" class="image-preview"><img src="img/none.png" style="width: 50vw;"></div>
     </div>
+
+    <!-- 四角い画像のプレビュー -->
     <div class="square">
         <img src="img/square/1.png" id="squarePreview1">
         <img src="img/square/2.png" id="squarePreview2">
@@ -98,21 +101,31 @@
         <img src="img/square/11.png" id="squarePreview11">
         <img src="img/square/12.png" id="squarePreview12">
     </div>
+
+    <!-- ボタンエリア -->
     <div class="viewbutton">
         <button class="prev-btn">戻る</button>
         <button class="next-btn">進む</button>
         <button id="generatePdfButton">PDFを生成</button>
     </div>
+
+    <!-- 生成中表示 -->
     <div id="creating">
-       <p>生成中 </p>
-        </div>
+       <p>生成中...</p>
+    </div>
+
+    <!-- PDF表示ボタン -->
     <button id="viewPdfButton" style="display: none;">PDFを表示</button>
+
+    <!-- オーバーレイ -->
     <div class="overlay" id="overlay"></div>
 
+    <!-- エラーボックス -->
     <div id="error-box" class="error-box">
         <p id="errmesse"></p>
         <button onclick="closeErrorBox()">閉じる</button>
     </div>
+
     <!-- スクリプトの読み込み -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="function.js"></script>
