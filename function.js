@@ -275,8 +275,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const finalImageWidth = 210;
       const finalImageHeight = 297;
 
-      let squareX = 30.75;
-      let squareY = 178;
+      let squareX = 30.65;
+      let squareY = 178.25;
       const squareWidth = 24.66;
       const squareHeight = 24.66;
 
