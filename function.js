@@ -3,6 +3,7 @@ const { jsPDF } = window.jspdf;
 document.addEventListener("DOMContentLoaded", function () {
   let currentMonthIndex = 0;
 
+  // 月ごとの表示を切り替える関数
   function updateMonthVisibility() {
     document.querySelectorAll(".upload-container").forEach((container, index) => {
       container.style.display = index === currentMonthIndex ? "block" : "none";
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#generatePdfButton").style.display = currentMonthIndex === 11 ? "inline-block" : "none";
   }
 
+  // 「次へ」ボタンのクリックイベント
   document.querySelector(".next-btn").addEventListener("click", () => {
     if (currentMonthIndex < 11) {
       currentMonthIndex++;
@@ -19,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // 「前へ」ボタンのクリックイベント
   document.querySelector(".prev-btn").addEventListener("click", () => {
     if (currentMonthIndex > 0) {
       currentMonthIndex--;
@@ -26,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // 画像処理関数
   async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -150,6 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // 画像アップロード処理
   function handleImageUpload(inputId, framePath, previewId, squareFramePath, squarePreviewId) {
     const fileInput = document.getElementById(inputId);
     fileInput.addEventListener("change", (e) => {
@@ -166,6 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
     handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
   }
 
+  // エラーメッセージ処理
   let currentErrorIndex = 0;
   let errorMessages = [];
 
@@ -193,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
+  // PDF生成ボタンの処理
   document.getElementById("generatePdfButton").addEventListener("click", () => {
     const generateButton = document.getElementById("generatePdfButton");
     generateButton.disabled = true;
@@ -298,6 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   });
 
+  // PDF表示ボタンの処理
   document.getElementById("viewPdfButton").addEventListener("click", () => {
     if (generatedPdfBlob) {
       const pdfUrl = URL.createObjectURL(generatedPdfBlob);
