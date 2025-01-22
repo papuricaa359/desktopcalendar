@@ -189,11 +189,12 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   let yOffset = margin;
 
   const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
-  const squarePreviews = document.querySelectorAll("[id^='squarePreview']");  // 追加
+  const squarePreviews = document.querySelectorAll("[id^='squarePreview']");  // 正方形画像のプレビュー
   const totalImages = imagePreviews.length;
   let allImagesUploaded = true;
   errorMessages = [];
 
+  // 通常の画像をPDFに追加
   imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
     if (imgElement) {
@@ -247,14 +248,15 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
     squarePreviews.forEach((preview, index) => {
       const squareImgElement = preview;  // <img>タグ自体を参照
 
-      // 画像のURLを確認してPDFに追加
+      // 画像のURLを取得
       const squareDataUrl = squareImgElement.src;
 
-      // squareDataUrlが正しいか確認
-      console.log(`正方形画像のURL (Index ${index + 1}):`, squareDataUrl);
-
-      // 正方形画像を追加
-      doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
+      // 画像が存在するか確認し、PDFに追加
+      if (squareDataUrl && !squareDataUrl.includes("none.png")) {
+        doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
+      } else {
+        console.error(`画像が見つかりません: squarePreview${index + 1}`);
+      }
 
       // 次の画像のX座標を更新
       squareX += squareWidth + margin;
