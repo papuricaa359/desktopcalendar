@@ -174,121 +174,133 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   // PDFを生成するボタンのイベント
-document.getElementById("generatePdfButton").addEventListener("click", () => {
-  const generateButton = document.getElementById("generatePdfButton");
-  generateButton.disabled = true;
+  document.getElementById("generatePdfButton").addEventListener("click", () => {
+    const generateButton = document.getElementById("generatePdfButton");
+    generateButton.disabled = true;
 
-  const creatingIndicator = document.getElementById("creating");
-  creatingIndicator.style.display = "flex";  // 生成中のインジケータを表示
+    const creatingIndicator = document.getElementById("creating");
+    creatingIndicator.style.display = "flex";  // 生成中のインジケータを表示
 
-  const doc = new jsPDF("p", "mm", "a4");
-  const postcardWidth = 148;
-  const postcardHeight = 100;
-  const margin = 10;
-  let xOffset = margin;
-  let yOffset = margin;
+    const doc = new jsPDF("p", "mm", "a4");
+    const postcardWidth = 148;
+    const postcardHeight = 100;
+    const margin = 10;
+    let xOffset = margin;
+    let yOffset = margin;
 
-  const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
-  const squarePreviews = document.querySelectorAll("[id^='squarePreview']");  // 正方形画像のプレビュー
-  const totalImages = imagePreviews.length;
-  let allImagesUploaded = true;
-  errorMessages = [];
+    const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
+    const squarePreviews = document.querySelectorAll("[id^='squarePreview']");  // 追加
+    const totalImages = imagePreviews.length;
+    let allImagesUploaded = true;
+    errorMessages = [];
 
-  // 通常の画像をPDFに追加
-  imagePreviews.forEach((preview, index) => {
-    const imgElement = preview.querySelector("img");
-    if (imgElement) {
-      const dataUrl = imgElement.src;
-      if (dataUrl.includes("img/none.png")) {
+    // 画像の存在確認
+    imagePreviews.forEach((preview, index) => {
+      const imgElement = preview.querySelector("img");
+      if (!imgElement) {
+        console.error(`画像${index + 1}が無効です`);
         allImagesUploaded = false;
-        errorMessages.push(`画像${index + 1}がアップロードされていません`);
-      } else {
-        doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-        yOffset += postcardHeight + margin;
-
-        if ((index + 1) % 2 === 0) {
-          yOffset = margin;
-          xOffset += postcardWidth + margin;
-
-          if (index + 1 < imagePreviews.length) {
-            doc.addPage();
-            xOffset = margin;
-          }
-        }
-      }
-    } else {
-      allImagesUploaded = false;
-      errorMessages.push(`画像${index + 1}がアップロードされていません`);
-    }
-  });
-
-  if (!allImagesUploaded) {
-    showError();
-    generateButton.disabled = false;
-    creatingIndicator.style.display = "none";  // 生成中インジケータを非表示
-    return;
-  }
-
-  const finalImage = new Image();
-  finalImage.src = "img/stand.png";
-
-  finalImage.onload = () => {
-    doc.addPage();
-    const finalImageWidth = 210;
-    const finalImageHeight = 297;
-    doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
-
-    // squarePreview画像をstand.pngの上に横並びに表示
-    let squareX = 10;  // X座標を開始位置に設定
-    let squareY = 10;  // Y座標をスタート位置に設定
-    const squareWidth = 50;  // 表示するサイズ（必要に応じて調整）
-    const squareHeight = 50;  // 表示するサイズ（必要に応じて調整）
-
-    // squarePreviewsのすべての画像を処理
-    squarePreviews.forEach((preview, index) => {
-      const squareImgElement = preview;  // <img>タグ自体を参照
-
-      // 画像のURLを取得
-      const squareDataUrl = squareImgElement.src;
-
-      // 画像が存在するか確認し、PDFに追加
-      if (squareDataUrl && !squareDataUrl.includes("none.png")) {
-        doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
-      } else {
-        console.error(`画像が見つかりません: squarePreview${index + 1}`);
-      }
-
-      // 次の画像のX座標を更新
-      squareX += squareWidth + margin;
-
-      // 横に並べて配置するため、ページを跨がないように制御
-      if ((index + 1) % 6 === 0) {  // 1行に6つ並べる場合
-        squareX = 10;  // X座標をリセット
-        squareY += squareHeight + margin;  // Y座標を下に移動
+        errorMessages.push(`画像${index + 1}が無効です`);
+        return;  // 無効な場合はスキップ
       }
     });
 
-    const pdfBlob = doc.output("blob");
-    const pdfUrl = URL.createObjectURL(pdfBlob);
-    generatedPdfBlob = pdfBlob;
-    document.getElementById("viewPdfButton").style.display = "block";
-    creatingIndicator.style.display = "none";  // 生成中インジケータを非表示
-  };
-});
-
-// PDFを表示するボタンのクリックイベントリスナー
-document.getElementById("viewPdfButton").addEventListener("click", () => {
-  if (generatedPdfBlob) {
-    const pdfUrl = URL.createObjectURL(generatedPdfBlob);
-    const pdfWindow = window.open(pdfUrl);
-    if (!pdfWindow) {
-      alert("ポップアップブロックが有効になっています。PDFを表示するには、ポップアップを許可してください。");
+    if (!allImagesUploaded) {
+      showError();
+      generateButton.disabled = false;
+      creatingIndicator.style.display = "none";  // 生成中インジケータを非表示
+      return;
     }
-  } else {
-    alert("PDFがまだ生成されていません。");
-  }
-});
 
+    imagePreviews.forEach((preview, index) => {
+      const imgElement = preview.querySelector("img");
+      if (imgElement) {
+        const dataUrl = imgElement.src;
+        if (dataUrl.includes("img/none.png")) {
+          allImagesUploaded = false;
+          errorMessages.push(`画像${index + 1}がアップロードされていません`);
+        } else {
+          doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
+          yOffset += postcardHeight + margin;
+
+          if ((index + 1) % 2 === 0) {
+            yOffset = margin;
+            xOffset += postcardWidth + margin;
+
+            if (index + 1 < imagePreviews.length) {
+              doc.addPage();
+              xOffset = margin;
+            }
+          }
+        }
+      }
+    });
+
+    if (!allImagesUploaded) {
+      showError();
+      generateButton.disabled = false;
+      creatingIndicator.style.display = "none";  // 生成中インジケータを非表示
+      return;
+    }
+
+    const finalImage = new Image();
+    finalImage.src = "img/stand.png";
+
+    finalImage.onload = () => {
+      doc.addPage();
+      const finalImageWidth = 210;
+      const finalImageHeight = 297;
+      doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
+
+      // squarePreview画像をstand.pngの上に横並びに表示
+      let squareX = 10;  // X座標を開始位置に設定
+      let squareY = 10;  // Y座標をスタート位置に設定
+      const squareWidth = 50;  // 表示するサイズ（必要に応じて調整）
+      const squareHeight = 50;  // 表示するサイズ（必要に応じて調整）
+
+      // squarePreviewsのすべての画像を処理
+      squarePreviews.forEach((preview, index) => {
+        const squareImgElement = preview;  // <img>タグ自体を参照
+
+        // 画像のURLを確認してPDFに追加
+        const squareDataUrl = squareImgElement.src;
+
+        // squareDataUrlが正しいか確認
+        console.log(`正方形画像のURL (Index ${index + 1}):`, squareDataUrl);
+
+        // 正方形画像を追加
+        doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
+
+        // 次の画像のX座標を更新
+        squareX += squareWidth + margin;
+
+        // 横に並べて配置するため、ページを跨がないように制御
+        if ((index + 1) % 6 === 0) {  // 1行に6つ並べる場合
+          squareX = 10;  // X座標をリセット
+          squareY += squareHeight + margin;  // Y座標を下に移動
+        }
+      });
+
+      const pdfBlob = doc.output("blob");
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+      generatedPdfBlob = pdfBlob;
+      document.getElementById("viewPdfButton").style.display = "block";
+      creatingIndicator.style.display = "none";  // 生成中インジケータを非表示
+    };
+  });
+
+  // PDFを表示するボタンのクリックイベントリスナー
+  document.getElementById("viewPdfButton").addEventListener("click", () => {
+    if (generatedPdfBlob) {
+      const pdfUrl = URL.createObjectURL(generatedPdfBlob);
+      const pdfWindow = window.open(pdfUrl);
+      if (!pdfWindow) {
+        alert("ポップアップブロックが有効になっています。PDFを表示するには、ポップアップを許可してください。");
+      }
+    } else {
+      alert("PDFがまだ生成されていません。");
+    }
+  });
 
   // 月の表示を初期化
   updateMonthVisibility();
