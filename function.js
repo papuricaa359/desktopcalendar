@@ -179,7 +179,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   generateButton.disabled = true;
 
   const creatingIndicator = document.getElementById("creating");
-  creatingIndicator.style.display = "block";  // 生成中のインジケータを表示
+  creatingIndicator.style.display = "flex";  // 生成中のインジケータを表示
 
   const doc = new jsPDF("p", "mm", "a4");
   const postcardWidth = 148;
@@ -254,7 +254,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
         squareX += squareWidth + margin;
 
         // 横に並べて配置するため、ページを跨がないように制御
-        if ((index + 1) % 3 === 0) {  // 1行に3つ並べる場合
+        if ((index + 1) % 6 === 0) {  // 1行に3つ並べる場合
           squareX = 10;  // X座標をリセット
           squareY += squareHeight + margin;  // Y座標を下に移動
         }
