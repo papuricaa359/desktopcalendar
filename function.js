@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const finalImageWidth = 210;
       const finalImageHeight = 297;
       doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
-
+/*
       let squareX = 0;
       let squareY = 212.25;
       const squareSize = 24.66;
@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
       }
-
+*/
       // PDFを生成
       const pdfBlob = doc.output("blob");
       const pdfUrl = URL.createObjectURL(pdfBlob);
