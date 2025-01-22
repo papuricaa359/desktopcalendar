@@ -161,3 +161,12 @@ h1 {
     background-color: rgb(40, 40, 40);
     color: white;
 }
+#createing{
+    width:100vw;
+    height:100vh;
+    top:0;
+    left:0;
+     position: fixed;
+    z-index:99999;
+    background-color: rgb(169, 169, 169);
+}
