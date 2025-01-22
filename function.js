@@ -198,10 +198,9 @@ document.addEventListener("DOMContentLoaded", function () {
           errorMessages.push(`画像${index + 1}がアップロードされていません`);
         } else {
           doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-          yOffset += postcardHeight + 10;
+          yOffset += postcardHeight;
           if ((index + 1) % 2 === 0) {
             yOffset = 10;
-            xOffset += postcardWidth + 10;
             if (index + 1 < imagePreviews.length) {
               doc.addPage();
             }
