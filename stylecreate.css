@@ -166,10 +166,11 @@ h1 {
     height: 100vh;
     top: 0;
     left: 0;
-    background-color: rgba(169, 169, 169, 0.8);
+    background-color: rgba(169, 169, 169, 0.8); /* 半透明の背景 */
     position: fixed;
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 99999; /* 最前面に表示 */
+    display: flex; /* 表示状態を初期化 */
+    align-items: center; /* 垂直方向中央揃え */
+    justify-content: center; /* 水平方向中央揃え */
 }
+
