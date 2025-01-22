@@ -104,9 +104,45 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // PDF生成完了
-    generatedPdfBlob = doc.output("blob");
-    document.getElementById("viewPdfButton").style.display = "inline-block";
+    // 最後のページに stand.png を全画面表示し、正方形画像を重ねる
+    const finalImage = new Image();
+    finalImage.src = "img/stand.png";
+
+    finalImage.onload = () => {
+      doc.addPage();
+      const FINAL_IMAGE_WIDTH = 210; // A4幅 (mm)
+      const FINAL_IMAGE_HEIGHT = 297; // A4高さ (mm)
+      const SQUARE_SIZE = 24.66; // 正方形画像サイズ (mm)
+      const SQUARE_MARGIN_X = 30.75; // 左余白 (mm)
+      let squareX = 0;
+      let squareY = 212.25;
+
+      // stand.png を背景に表示
+      doc.addImage(finalImage.src, "PNG", 0, 0, FINAL_IMAGE_WIDTH, FINAL_IMAGE_HEIGHT);
+
+      // 正方形画像を配置
+      for (let i = 1; i <= 12; i++) {
+        const squareImg = document.getElementById(`imagePreview${i}`).querySelector("img");
+        if (squareImg) {
+          const squareDataUrl = squareImg.src;
+          doc.addImage(squareDataUrl, "PNG", SQUARE_MARGIN_X + squareX, squareY, SQUARE_SIZE, SQUARE_SIZE);
+
+          squareX += SQUARE_SIZE;
+          if (i % 6 === 0) {
+            squareX = 0;
+            squareY += SQUARE_SIZE;
+          }
+        }
+      }
+
+      // PDFをBlob形式で生成
+      generatedPdfBlob = doc.output("blob");
+      document.getElementById("viewPdfButton").style.display = "inline-block";
+    };
+
+    finalImage.onerror = () => {
+      console.error("stand.png の読み込みに失敗しました");
+    };
   });
 
   // PDFプレビュー処理
