@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // 正方形の画像を作成
           const squareCanvas = document.createElement("canvas");
           const squareCtx = squareCanvas.getContext("2d");
-          const size = Math.min(img.width, img.height);
+          const size = 96; // 96pxに設定
           squareCanvas.width = size;
           squareCanvas.height = size;
 
@@ -182,9 +182,9 @@ document.addEventListener("DOMContentLoaded", function () {
     creatingIndicator.style.display = "flex";  // 生成中のインジケータを表示
 
     const doc = new jsPDF("p", "mm", "a4");
-    const postcardWidth = 148;
-    const postcardHeight = 100;
-    const margin = 10;
+    const postcardWidth = 148;  // はがきサイズの幅 (mm)
+    const postcardHeight = 100;  // はがきサイズの高さ (mm)
+    const margin = 10;  // 余白
     let xOffset = margin;
     let yOffset = margin;
 
@@ -248,25 +248,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     finalImage.onload = () => {
       doc.addPage();
-      const finalImageWidth = 210;
-      const finalImageHeight = 297;
+      const finalImageWidth = 210;  // A4の幅
+      const finalImageHeight = 297;  // A4の高さ
       doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
 
       // squarePreview画像をstand.pngの上に横並びに表示
       let squareX = 10;  // X座標を開始位置に設定
       let squareY = 10;  // Y座標をスタート位置に設定
-      const squareWidth = 50;  // 表示するサイズ（必要に応じて調整）
-      const squareHeight = 50;  // 表示するサイズ（必要に応じて調整）
+      const squareWidth = 96;  // 96pxに設定
+      const squareHeight = 96; // 96pxに設定
 
       // squarePreviewsのすべての画像を処理
       squarePreviews.forEach((preview, index) => {
         const squareImgElement = preview;  // <img>タグ自体を参照
 
-        // 画像のURLを確認してPDFに追加
         const squareDataUrl = squareImgElement.src;
-
-        // squareDataUrlが正しいか確認
-        console.log(`正方形画像のURL (Index ${index + 1}):`, squareDataUrl);
 
         // 正方形画像を追加
         doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
