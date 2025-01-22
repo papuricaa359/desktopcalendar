@@ -174,22 +174,23 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   // PDFを生成するボタンのイベント
-  document.getElementById("generatePdfButton").addEventListener("click", () => {
-    const generateButton = document.getElementById("generatePdfButton");
-    generateButton.disabled = true;
+document.getElementById("generatePdfButton").addEventListener("click", () => {
+  const generateButton = document.getElementById("generatePdfButton");
+  generateButton.disabled = true;
 
-    const doc = new jsPDF("p", "mm", "a4");
-    const postcardWidth = 148;
-    const postcardHeight = 100;
-    let xOffset = 10;
-    let yOffset = 10;
+  const doc = new jsPDF("p", "mm", "a4");
+  const postcardWidth = 148;
+  const postcardHeight = 100;
+  const margin = 10;
+  let xOffset = margin;
+  let yOffset = margin;
 
-    const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
-    const totalImages = imagePreviews.length;
-    let allImagesUploaded = true;
-    errorMessages = [];
+  const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
+  const totalImages = imagePreviews.length;
+  let allImagesUploaded = true;
+  errorMessages = [];
 
-imagePreviews.forEach((preview, index) => {
+  imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
     if (imgElement) {
       const dataUrl = imgElement.src;
@@ -198,10 +199,16 @@ imagePreviews.forEach((preview, index) => {
         errorMessages.push(`画像${index + 1}がアップロードされていません`);
       } else {
         doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-        yOffset += postcardHeight;
-        if (yOffset + postcardHeight > 297) {
-          yOffset = 10;
+        yOffset += postcardHeight + margin;
 
+        if ((index + 1) % 2 === 0) {
+          yOffset = margin;
+          xOffset += postcardWidth + margin;
+
+          if (index + 1 < imagePreviews.length) {
+            doc.addPage();
+            xOffset = margin;
+          }
         }
       }
     } else {
@@ -209,37 +216,37 @@ imagePreviews.forEach((preview, index) => {
       errorMessages.push(`画像${index + 1}がアップロードされていません`);
     }
   });
-    if (!allImagesUploaded) {
-      showError();
-      generateButton.disabled = false;
-      return;
-    }
 
-    const finalImage = new Image();
-    finalImage.src = "img/stand.png";
+  if (!allImagesUploaded) {
+    showError();
+    generateButton.disabled = false;
+    return;
+  }
 
-    finalImage.onload = () => {
-      doc.addPage();
-      const finalImageWidth = 210;
-      const finalImageHeight = 297;
-      doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
+  const finalImage = new Image();
+  finalImage.src = "img/stand.png";
 
-      // PDFを生成
-      const pdfBlob = doc.output("blob");
-      const pdfUrl = URL.createObjectURL(pdfBlob);
-      generatedPdfBlob = pdfBlob;
+  finalImage.onload = () => {
+    doc.addPage();
+    const finalImageWidth = 210;
+    const finalImageHeight = 297;
+    doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
 
-      // PDF表示ボタンを表示
-      const viewPdfButton = document.getElementById("viewPdfButton");
-      viewPdfButton.style.display = "inline-block";
-      viewPdfButton.onclick = () => {
-        const pdfWindow = window.open(pdfUrl);
-        if (!pdfWindow) {
-          alert("ポップアップブロックが有効になっています。PDFを表示するには、ポップアップを許可してください。");
-        }
-      };
+    const pdfBlob = doc.output("blob");
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    generatedPdfBlob = pdfBlob;
+
+    const viewPdfButton = document.getElementById("viewPdfButton");
+    viewPdfButton.style.display = "inline-block";
+    viewPdfButton.onclick = () => {
+      const pdfWindow = window.open(pdfUrl);
+      if (!pdfWindow) {
+        alert("ポップアップブロックが有効になっています。PDFを表示するには、ポップアップを許可してください。");
+      }
     };
-  });
+  };
+});
+
 
   // 月の表示を初期化
   updateMonthVisibility();
