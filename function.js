@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
       generateButton.disabled = false;
       return;
     }
-
+/*
     // 最後のページに img/stand.png を全画面表示し、squarePreview 画像を重ねる
     const finalImage = new Image();
     finalImage.src = "img/stand.png";
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
       }
-
+*/
       // PDFを生成
       const pdfBlob = doc.output("blob");
       const pdfUrl = URL.createObjectURL(pdfBlob);
