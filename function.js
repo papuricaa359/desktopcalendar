@@ -92,7 +92,7 @@ async function processImage(file, framePath, previewId, squareFramePath, squareP
             const squareImgElement = document.getElementById(squarePreviewId);
             squareImgElement.src = squareDataUrl;
 
-            // 正方形のリサイズ処理を適用
+            // 画像自体を96pxにリサイズする
             const img = new Image();
             img.src = squareDataUrl;
             img.onload = () => {
@@ -106,12 +106,13 @@ async function processImage(file, framePath, previewId, squareFramePath, squareP
               // 画像をリサイズして新しいキャンバスに描画
               resizedCtx.drawImage(img, 0, 0, img.width, img.height, 0, 0, resizedSize, resizedSize);
 
+              // 96pxにリサイズした画像を生成
               const resizedDataUrl = resizedCanvas.toDataURL();
 
-              // 最後にリサイズした画像を正方形プレビューとして表示
+              // 正方形プレビュー画像として表示する
               squareImgElement.src = resizedDataUrl;
-              squareImgElement.style.width = '96px';  // 96pxに設定
-              squareImgElement.style.height = '96px';  // 96pxに設定
+              squareImgElement.style.width = '96px';  // プレビューサイズを96pxに変更
+              squareImgElement.style.height = '96px';  // プレビューサイズを96pxに変更
             };
 
             // 通常のプレビュー画像を表示
@@ -147,6 +148,7 @@ async function processImage(file, framePath, previewId, squareFramePath, squareP
     reader.readAsDataURL(file);
   });
 }
+
 
 
   // 画像アップロードと処理を管理する関数
