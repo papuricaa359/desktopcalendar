@@ -293,7 +293,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
         squareY += squareHeight + 34.75;
       }
     });
-    squareImgElement.remove();
+
     doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
 
     const pdfBlob = doc.output("blob");
