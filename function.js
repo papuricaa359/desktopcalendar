@@ -296,7 +296,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("viewPdfButton").addEventListener("click", () => {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
     const pdfWindow = window.open(pdfUrl);
-    location.href = '/';
+    location.href = '/desktopcalendar/';
   });
 
   updateMonthVisibility();
