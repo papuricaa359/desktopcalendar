@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentErrorIndex = 0;
   let errorMessages = [];
 
-  // 月ごとの表示を切り替える関数
+  // 月ごとの表示更新
   function updateMonthVisibility() {
     document.querySelectorAll(".upload-container").forEach((container, index) => {
       container.style.display = index === currentMonthIndex ? "block" : "none";
@@ -15,15 +15,13 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#generatePdfButton").style.display = currentMonthIndex === 11 ? "inline-block" : "none";
   }
 
-  // 「次へ」ボタンのクリックイベント
+  // 「次へ」「前へ」ボタン
   document.querySelector(".next-btn").addEventListener("click", () => {
     if (currentMonthIndex < 11) {
       currentMonthIndex++;
       updateMonthVisibility();
     }
   });
-
-  // 「前へ」ボタンのクリックイベント
   document.querySelector(".prev-btn").addEventListener("click", () => {
     if (currentMonthIndex > 0) {
       currentMonthIndex--;
@@ -31,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // 画像処理関数
+  // 画像処理
   async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -62,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
           ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
 
-          // フレーム画像をリサイズして重ねる
           const frameImg = new Image();
           frameImg.src = framePath;
 
@@ -82,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const dataUrl = canvas.toDataURL();
             resolve(dataUrl);
 
-            // 正方形画像の処理
             const squareCanvas = document.createElement("canvas");
             const squareCtx = squareCanvas.getContext("2d");
             const size = Math.min(img.width, img.height);
@@ -94,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             squareCtx.drawImage(img, squareX, squareY, size, size, 0, 0, size, size);
 
-            // 正方形フレームをリサイズして重ねる
             const squareFrameImg = new Image();
             squareFrameImg.src = squareFramePath;
 
@@ -131,38 +126,33 @@ document.addEventListener("DOMContentLoaded", function () {
             };
 
             squareFrameImg.onerror = () => {
-              console.error("正方形フレーム画像の読み込みに失敗:", squareFramePath);
               reject(new Error("正方形フレーム画像の読み込みに失敗"));
             };
           };
 
           frameImg.onerror = () => {
-            console.error("フレーム画像の読み込みに失敗:", framePath);
             reject(new Error("フレーム画像の読み込みに失敗"));
           };
         };
 
         img.onerror = () => {
-          console.error("画像処理エラー:", file.name);
           reject(new Error("画像処理エラー"));
         };
       };
 
       reader.onerror = () => {
-        console.error("画像読み込みエラー:", file.name);
         reject(new Error("画像読み込みエラー"));
       };
       reader.readAsDataURL(file);
     });
   }
 
-  // 画像アップロード処理
+  // 画像アップロード
   function handleImageUpload(inputId, framePath, previewId, squareFramePath, squarePreviewId) {
     const fileInput = document.getElementById(inputId);
     fileInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (file) {
-        console.log("処理中の画像:", file.name);
         processImage(file, framePath, previewId, squareFramePath, squarePreviewId)
           .catch((err) => console.error(err.message));
       }
@@ -173,12 +163,11 @@ document.addEventListener("DOMContentLoaded", function () {
     handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
   }
 
-  // エラーメッセージ処理
+  // エラーメッセージ表示
   function showError() {
     const errorBox = document.getElementById("error-box");
     const overlay = document.getElementById("overlay");
     const errMessage = document.getElementById("errmesse");
-    console.log("エラー表示");
 
     if (currentErrorIndex < errorMessages.length) {
       errMessage.textContent = errorMessages[currentErrorIndex];
@@ -199,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  // PDF生成ボタンの処理
+  // PDF生成
   document.getElementById("generatePdfButton").addEventListener("click", () => {
     const generateButton = document.getElementById("generatePdfButton");
     generateButton.disabled = true;
@@ -219,26 +208,21 @@ document.addEventListener("DOMContentLoaded", function () {
     imagePreviews.forEach((preview, index) => {
       const imgElement = preview.querySelector("img");
       if (!imgElement) {
-        // 画像がアップロードされていない場合
         errorMessages.push(`画像${index + 1}がアップロードされていません`);
       } else if (imgElement.src.includes("img/none.png")) {
-        // none.png が使われている場合
-        errorMessages.push(`画像${index + 1}が無効です（none.pngを含んでいます）`);
+        errorMessages.push(`画像${index + 1}がアップロードされていません`);
       } else {
         allImagesUploaded = true;
       }
     });
 
-    // エラーメッセージがあれば表示
     if (errorMessages.length > 0) {
-      console.log("エラー発生");
-      showError(); // 初期表示
+      showError(); 
       generateButton.disabled = false;
       creatingIndicator.style.display = "none";
       return;
     }
 
-    // 画像をPDFに追加する処理
     imagePreviews.forEach((preview, index) => {
       const imgElement = preview.querySelector("img");
       if (imgElement && !imgElement.src.includes("img/none.png")) {
@@ -257,12 +241,10 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
 
-        // メモリ解放のための画像削除
         imgElement.remove();
       }
     });
 
-    // 最終ページ（stand.pngと正方形画像）の処理
     const finalImage = new Image();
     finalImage.src = "img/stand.png";
 
@@ -289,13 +271,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         squareX += squareWidth;
 
-        // 行の終わりで改行
         if ((index + 1) % 6 === 0) {
           squareX = startX;
           squareY += squareHeight + 34.75;
         }
 
-        // メモリ解放のための正方形画像削除
         squareImgElement.remove();
       });
 
@@ -308,17 +288,15 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     finalImage.onerror = () => {
-      console.error("最終ページの画像読み込みに失敗しました。");
       generateButton.disabled = false;
       creatingIndicator.style.display = "none";
     };
   });
 
-  // PDF表示ボタンの処理
+  // PDF表示
   document.getElementById("viewPdfButton").addEventListener("click", () => {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
     const pdfWindow = window.open(pdfUrl);
-    // トップページに戻る
     location.href = '/';
   });
 
