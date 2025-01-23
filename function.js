@@ -237,15 +237,18 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
     const imgElement = preview.querySelector("img");
     if (imgElement) {
       const dataUrl = imgElement.src;
-
-      if (!dataUrl.includes("img/none.png")) {
+if (imgElement) {
+      const dataUrl = imgElement.src;
+      if (dataUrl.includes("img/none.png")) {
+        allImagesUploaded = false;
+        errorMessages.push(`画像${index + 1}がアップロードされていません`);
+      } else {
         doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-
-        yOffset += postcardHeight;
+        yOffset += postcardHeight + 0;
 
         if ((index + 1) % 2 === 0) {
-          yOffset = 10;
-          xOffset += postcardWidth;
+          yOffset = 0;
+          xOffset += postcardWidth + 0;
 
           if (index + 1 < imagePreviews.length) {
             doc.addPage();
@@ -253,13 +256,10 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
             yOffset = 10;
           }
         }
-
-        // メモリ解放のための画像削除
         imgElement.remove();
       }
     }
   });
-
   const finalImage = new Image();
   finalImage.src = "img/stand.png";
 
