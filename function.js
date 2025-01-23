@@ -307,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   document.getElementById("closebutton").addEventListener("click", () => {
-    location.href="/";
+    location.href="/desktopcalendar/";
   });
 
   updateMonthVisibility();
