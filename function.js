@@ -265,6 +265,14 @@ document.addEventListener("DOMContentLoaded", function () {
       creatingIndicator.style.display = "none";
     };
   });
+  // PDF表示ボタンの処理
+  document.getElementById("viewPdfButton").addEventListener("click", () => {
+    const pdfUrl = URL.createObjectURL(generatedPdfBlob);
+    const pdfWindow = window.open(pdfUrl);
+    // トップページに戻る
+    location.href = '/desktopcalendar/';
 
+
+  });
   updateMonthVisibility();
 });
