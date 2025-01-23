@@ -315,7 +315,7 @@ if (imgElement) {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
     const pdfWindow = window.open(pdfUrl);
     // トップページに戻る
-    location.href = '/';
+    location.href = '/desktopcalendar/';
 
 
   });
