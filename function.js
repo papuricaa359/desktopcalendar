@@ -117,6 +117,11 @@ document.addEventListener("DOMContentLoaded", function () {
               imgElement.style.width = "45vw";
               document.getElementById(previewId).innerHTML = "";
               document.getElementById(previewId).appendChild(imgElement);
+
+              // メモリ解放
+              squareCanvas.remove();
+              squareFrameCanvas.remove();
+              squareResizedCanvas.remove();
             };
 
             squareFrameImg.onerror = () => reject(new Error("正方形フレーム画像の読み込みに失敗しました。"));
@@ -134,28 +139,22 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // 各月の画像アップロード処理を設定
-  function handleImageUpload(inputId, framePath, previewId, squareFramePath, squarePreviewId) {
-    const fileInput = document.getElementById(inputId);
+  document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
     fileInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (file) {
-        processImage(file, framePath, previewId, squareFramePath, squarePreviewId)
-          .catch((err) => console.error(err.message));
+        processImage(
+          file,
+          `frame/${index + 1}.png`,
+          `imagePreview${index + 1}`,
+          `frame/square/${index + 1}.png`,
+          `squarePreview${index + 1}`
+        ).catch((err) => console.error(err.message));
       }
     });
-  }
+  });
 
-  for (let i = 1; i <= 12; i++) {
-    handleImageUpload(
-      `imageInput${i}`,
-      `frame/${i}.png`,
-      `imagePreview${i}`,
-      `frame/square/${i}.png`,
-      `squarePreview${i}`
-    );
-  }
-
-  // エラーメッセージを表示
+  // エラーメッセージ表示
   function showError() {
     const errorBox = document.getElementById("error-box");
     const overlay = document.getElementById("overlay");
@@ -236,64 +235,60 @@ document.addEventListener("DOMContentLoaded", function () {
     generateButton.disabled = false;
   });
 
-  //スタンド生成
-  document.getElementById("viewStandButton").addEventListener("click", () => {
-    const standImage = new Image();
-    standImage.src = "img/stand.png";
-    const doc = new jsPDF("p", "mm", "a4");
-    standImage.onload = () => {
-      const standImageWidth = 210;
-      const standImageHeight = 297;
-
-      const squareWidth = 24.9;
-      const squareHeight = 24.9;
-      const startX = 30;
-      const startY = 178.67;
-
-      let squareX = startX;
-      let squareY = startY;
-
-      const squarePreviews = document.querySelectorAll("[id^='squarePreview']");
-
-      squarePreviews.forEach((preview, index) => {
-        const squareImgElement = preview;
-        const squareDataUrl = squareImgElement.src;
-
-        doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
-
-        squareX += squareWidth;
-
-        if ((index + 1) % 6 === 0) {
-          squareX = startX;
-          squareY += squareHeight + 34.75;
-        }
-
-        squareImgElement.remove();
-      });
-
-      doc.addImage(standImage.src, "PNG", 0, 0, standImageWidth, standImageHeight);
-
-      const standBlob = doc.output("blob");
-      generatedStandBlob = standBlob;
-      const standUrl = URL.createObjectURL(generatedStandBlob);
-      const pdfWindow = window.open(standUrl);
-
-
-    };
-
-    standImage.onerror = () => {
-      creatingIndicator.style.display = "none";
-    };
-  });
-
   // PDF表示
   document.getElementById("viewPdfButton").addEventListener("click", () => {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
-    const pdfWindow = window.open(pdfUrl);
+    window.open(pdfUrl);
   });
+document.getElementById("viewStandButton").addEventListener("click", () => {
+  const standImage = new Image();
+  standImage.src = "img/stand.png";
+  const doc = new jsPDF("p", "mm", "a4");
+
+  standImage.onload = () => {
+    const standImageWidth = 210;
+    const standImageHeight = 297;
+
+    const squareWidth = 24.9;
+    const squareHeight = 24.9;
+    const startX = 30;
+    const startY = 178.67;
+
+    let squareX = startX;
+    let squareY = startY;
+
+    const squarePreviews = document.querySelectorAll("[id^='squarePreview']");
+
+    squarePreviews.forEach((preview, index) => {
+      const squareImgElement = preview;
+      const squareDataUrl = squareImgElement.src;
+
+      doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
+
+      squareX += squareWidth;
+
+      if ((index + 1) % 6 === 0) {
+        squareX = startX;
+        squareY += squareHeight + 34.75;
+      }
+
+      squareImgElement.remove();
+    });
+
+    doc.addImage(standImage.src, "PNG", 0, 0, standImageWidth, standImageHeight);
+
+    const standBlob = doc.output("blob");
+    const standUrl = URL.createObjectURL(standBlob);
+    window.open(standUrl);
+  };
+
+  standImage.onerror = () => {
+    console.error("スタンド画像の読み込みに失敗しました。");
+  };
+});
 
   document.getElementById("closebutton").addEventListener("click", () => {
-    location.href="/desktopcalendar/";
+    location.href = "/desktopcalendar/";
   });
 
   updateMonthVisibility();
