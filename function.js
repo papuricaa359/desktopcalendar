@@ -184,6 +184,8 @@ document.addEventListener("DOMContentLoaded", function () {
     currentErrorIndex++;
     if (currentErrorIndex < errorMessages.length) {
       showError();
+    }else{
+      generateButton.disabled = true;
     }
   };
 
@@ -291,7 +293,6 @@ document.addEventListener("DOMContentLoaded", function () {
       creatingIndicator.style.display = "none";
     };
   });
-
   // PDF表示
   document.getElementById("viewPdfButton").addEventListener("click", () => {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
