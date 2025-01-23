@@ -1,4 +1,4 @@
-/* 全体のスタイル */
+
 body {
     margin: 0;
     font-family: "Kiwi Maru", serif;
@@ -6,22 +6,25 @@ body {
     font-style: normal;
 }
 
-/* 見出し h1 のスタイル */
 h1 {
-    margin: 0;
+    text-align: center;
+    margin-top: 20px;
 }
-
-/* 画像プレビューのスタイル */
+.upload-container input{
+    margin: auto;
+}
 .image-preview {
-    width: 50vw;
+    width: 45vw;
     position: fixed;
     justify-content: center;
-    left: 25vw;
-    bottom: 15vw;
+    left: 50%;
+    bottom: 5vw;
     height: auto;
     z-index: 200;
     display: flex;
+    transform: translateX(-50%);
 }
+
 
 .image-preview img {
     max-width: 100%;
@@ -41,7 +44,7 @@ h1 {
     margin-top: 10px;
 }
 
-/* プレビューエリア */
+/* 正方形 */
 .square {
     width: 100%;
     display: flex;
@@ -52,7 +55,7 @@ h1 {
 }
 
 .square img {
-    width: 5vw;
+    width: 4.5vw;
     height: auto;
     margin: 0px;
     flex-wrap: wrap;
@@ -60,10 +63,10 @@ h1 {
 
 /* ボタンエリア */
 .viewbutton {
-    width: 20vw;
+    width: 100%;
     height: 6vw;
     position: fixed;
-    bottom: 8vw;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     align-items: center;
@@ -112,7 +115,7 @@ h1 {
     background-color: #45a049;
 }
 
-/* PDF生成ボタン */
+/* 生成ボタン */
 .viewbutton #generatePdfButton {
     background-color: #2196F3;
     color: white;
@@ -123,13 +126,12 @@ h1 {
     background-color: #1e88e5;
 }
 
-/* 進むボタンが一つだけの時 */
 .viewbutton .next-btn:only-child {
     position: absolute;
     right: 0;
 }
 
-/* エラーボックスのスタイル */
+/* エラーボックス */
 .error-box {
     position: absolute;
     top: 50%;
@@ -174,7 +176,7 @@ h1 {
     color: white;
 }
 
-/* 生成中の表示 */
+/* 生成中 */
 #creating {
     position: fixed;
     top: 0;
@@ -187,6 +189,7 @@ h1 {
     justify-content: center;
     align-items: center;
 }
+/* 終了 */
 #fin {
     position: fixed;
     top: 0;

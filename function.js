@@ -115,12 +115,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const squareImgElement = document.getElementById(squarePreviewId);
               squareImgElement.src = resizedDataUrl;
-              squareImgElement.style.width = '5vw';
-              squareImgElement.style.height = '5vw';
+              squareImgElement.style.width = '4.5vw';
 
               const imgElement = document.createElement("img");
               imgElement.src = dataUrl;
-              imgElement.style.width = "50vw";
+              imgElement.style.width = "45vw";
               document.getElementById(previewId).innerHTML = "";
               document.getElementById(previewId).appendChild(imgElement);
             };
@@ -297,7 +296,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("viewPdfButton").addEventListener("click", () => {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
     const pdfWindow = window.open(pdfUrl);
-    location.href = '/desktopcalendar/';
+    location.href = '/';
   });
 
   updateMonthVisibility();
