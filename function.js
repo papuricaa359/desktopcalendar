@@ -204,61 +204,54 @@ document.addEventListener("DOMContentLoaded", function () {
     const generateButton = document.getElementById("generatePdfButton");
     generateButton.disabled = true;
 
-    const creatingIndicator = document.getElementById("creating");
-    creatingIndicator.style.display = "flex";
-
     const doc = new jsPDF("p", "mm", "a4");
     const postcardWidth = 148;
     const postcardHeight = 100;
     let xOffset = 10;
     let yOffset = 10;
-
+    const creatingIndicator = document.getElementById("creating");
     const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
+    const totalImages = imagePreviews.length;
     let allImagesUploaded = true;
-    let errorMessages = [];
+    errorMessages = [];
 
-    imagePreviews.forEach((preview, index) => {
-      const imgElement = preview.querySelector("img");
-      if (!imgElement) {
-        allImagesUploaded = false;
-        errorMessages.push(`画像${index + 1}が無効です`);
-        return;
-      }
-    });
-
-    if (!allImagesUploaded) {
-      alert(errorMessages.join("\n"));
-      generateButton.disabled = false;
-      creatingIndicator.style.display = "none";
-      return;
-    }
-
+    // 画像をPDFに追加
     imagePreviews.forEach((preview, index) => {
       const imgElement = preview.querySelector("img");
       if (imgElement) {
         const dataUrl = imgElement.src;
 
-        if (!dataUrl.includes("img/none.png")) {
-          doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-
-          yOffset += postcardHeight;
-
-          if ((index + 1) % 2 === 0) {
-            yOffset = 10;
-            xOffset += postcardWidth;
-
-            if (index + 1 < imagePreviews.length) {
-              doc.addPage();
-              xOffset = 10;
+        // none.png が表示されている場合はエラーとして扱う
+        if (dataUrl.includes("img/none.png")) {
+          allImagesUploaded = false;
+          errorMessages.push(`画像${index + 1}がアップロードされていません`);
+        } else {
+          creatingIndicator.style.display = "flex";
+          if (index % 2 === 0) {
+            doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
+          } else {
+            yOffset += postcardHeight;
+            doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
+            if (index % 2 === 1) {
               yOffset = 10;
+              if (index + 1 < totalImages) {
+                doc.addPage();
+              }
             }
           }
-
-          // メモリ解放のための画像削除
-          imgElement.remove();
         }
+      } else {
+        allImagesUploaded = false;
+        errorMessages.push(`画像${index + 1}がアップロードされていません`);
       }
     });
+
+    // エラーがあれば表示
+    if (!allImagesUploaded) {
+      showError();
+      generateButton.disabled = false;
+      return;
+    }
 
     const finalImage = new Image();
     finalImage.src = "img/stand.png";
@@ -299,10 +292,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
 
-      const pdfBlob = doc.output("blob");
-      generatedPdfBlob = pdfBlob;
-      document.getElementById("fin").style.display = "flex";
-      creatingIndicator.style.display = "none";
     };
 
     finalImage.onerror = () => {
@@ -310,6 +299,10 @@ document.addEventListener("DOMContentLoaded", function () {
       generateButton.disabled = false;
       creatingIndicator.style.display = "none";
     };
+    const pdfBlob = doc.output("blob");
+    generatedPdfBlob = pdfBlob;
+    document.getElementById("fin").style.display = "flex";
+    creatingIndicator.style.display = "none";
   });
 
 
