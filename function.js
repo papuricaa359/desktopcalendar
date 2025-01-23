@@ -295,8 +295,9 @@ imagePreviews.forEach((preview, index) => {
 
     const pdfBlob = doc.output("blob");
     generatedPdfBlob = pdfBlob;
-    document.getElementById("fin").style.display = "flex";
     creatingIndicator.style.display = "none";
+    document.getElementById("fin").style.display = "flex";
+    
   };
 
   finalImage.onerror = () => {
