@@ -171,6 +171,34 @@ document.addEventListener("DOMContentLoaded", function () {
     handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
   }
 
+  // エラーメッセージ処理
+  let currentErrorIndex = 0;
+  let errorMessages = [];
+
+  function showError() {
+    const errorBox = document.getElementById("error-box");
+    const overlay = document.getElementById("overlay");
+    const errMessage = document.getElementById("errmesse");
+
+    if (currentErrorIndex < errorMessages.length) {
+      errMessage.textContent = errorMessages[currentErrorIndex];
+      overlay.style.display = "block";
+      errorBox.style.display = "flex";
+    }
+  }
+
+  window.closeErrorBox = function () {
+    const errorBox = document.getElementById("error-box");
+    const overlay = document.getElementById("overlay");
+    overlay.style.display = "none";
+    errorBox.style.display = "none";
+
+    currentErrorIndex++;
+    if (currentErrorIndex < errorMessages.length) {
+      showError();
+    }
+  };
+
   // PDF生成ボタンの処理
   document.getElementById("generatePdfButton").addEventListener("click", () => {
     const generateButton = document.getElementById("generatePdfButton");
@@ -184,21 +212,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const postcardHeight = 100;
     let xOffset = 10;
     let yOffset = 10;
-    const margin = 10;
 
     const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
-    let allImagesValid = true;
+    let allImagesUploaded = true;
     let errorMessages = [];
 
     imagePreviews.forEach((preview, index) => {
       const imgElement = preview.querySelector("img");
-      if (!imgElement || imgElement.src.includes("img/none.png")) {
-        allImagesValid = false;
-        errorMessages.push(`画像${index + 1}が有効ではありません。アップロードされていないか、無効な画像です。`);
+      if (!imgElement) {
+        allImagesUploaded = false;
+        errorMessages.push(`画像${index + 1}が無効です`);
+        return;
       }
     });
 
-    if (!allImagesValid) {
+    if (!allImagesUploaded) {
       alert(errorMessages.join("\n"));
       generateButton.disabled = false;
       creatingIndicator.style.display = "none";
@@ -209,14 +237,23 @@ document.addEventListener("DOMContentLoaded", function () {
       const imgElement = preview.querySelector("img");
       if (imgElement) {
         const dataUrl = imgElement.src;
-        doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
-        yOffset += postcardHeight + margin;
+        if (dataUrl.includes("img/none.png")) {
+          allImagesUploaded = false;
+          errorMessages.push(`画像${index + 1}がアップロードされていません`);
+        } else {
+          doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
+          yOffset += postcardHeight;
 
-        if (yOffset + postcardHeight > 297 - margin) {
-          yOffset = margin;
-          doc.addPage();
+          if ((index + 1) % 2 === 0) {
+            yOffset += margin;
+          }
+
+          if (yOffset + postcardHeight > 297 - margin) {
+            yOffset = margin;
+            doc.addPage();
+          }
+          imgElement.remove();
         }
-        imgElement.remove();
       }
     });
 
@@ -240,12 +277,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       squarePreviews.forEach((preview, index) => {
         const squareImgElement = preview;
+
         const squareDataUrl = squareImgElement.src;
 
         doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
 
         squareX += squareWidth;
 
+        // 行の終わりで改行
         if ((index + 1) % 6 === 0) {
           squareX = startX;
           squareY += squareHeight + 34.75;
@@ -266,14 +305,14 @@ document.addEventListener("DOMContentLoaded", function () {
       creatingIndicator.style.display = "none";
     };
   });
+
   // PDF表示ボタンの処理
   document.getElementById("viewPdfButton").addEventListener("click", () => {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
     const pdfWindow = window.open(pdfUrl);
     // トップページに戻る
     location.href = '/desktopcalendar/';
-
-
   });
+
   updateMonthVisibility();
 });
