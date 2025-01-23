@@ -81,7 +81,7 @@ h1 {
 .viewbutton .prev-btn,
 .viewbutton .next-btn,
 .viewbutton #generatePdfButton {
-    width: 8vw;
+    width: 12vw;
     height: 4vw;
     border: none;
     cursor: pointer;
