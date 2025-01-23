@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
     generateButton.disabled = true;
 
     const creatingIndicator = document.getElementById("creating");
-    creatingIndicator.style.display = "flex";
+    creatingIndicator.style.display = "block";
 
     const doc = new jsPDF("p", "mm", "a4");
     const postcardWidth = 148;
@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     if (errorMessages.length > 0) {
-      showError(); 
+      showError();
       creatingIndicator.style.display = "none";
       return;
     }
@@ -243,13 +243,21 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    const finalImage = new Image();
-    finalImage.src = "img/stand.png";
 
-    finalImage.onload = () => {
-      doc.addPage();
-      const finalImageWidth = 210;
-      const finalImageHeight = 297;
+    const pdfBlob = doc.output("blob");
+    generatedPdfBlob = pdfBlob;
+    document.getElementById("fin").style.display = "block";
+    creatingIndicator.style.display = "none";
+  });
+
+  //スタンド生成
+  document.getElementById("viewStandButton").addEventListener("click", () => {
+    const standImage = new Image();
+    standImage.src = "img/stand.png";
+    const doc = new jsPDF("p", "mm", "a4");
+    standImage.onload = () => {
+      const standImageWidth = 210;
+      const standImageHeight = 297;
 
       const squareWidth = 24.9;
       const squareHeight = 24.9;
@@ -277,23 +285,29 @@ document.addEventListener("DOMContentLoaded", function () {
         squareImgElement.remove();
       });
 
-      doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
+      doc.addImage(standImage.src, "PNG", 0, 0, standImageWidth, standImageHeight);
 
-      const pdfBlob = doc.output("blob");
-      generatedPdfBlob = pdfBlob;
-      document.getElementById("fin").style.display = "flex";
-      creatingIndicator.style.display = "none";
+      const standBlob = doc.output("blob");
+      generatedStandBlob = standBlob;
+      const standUrl = URL.createObjectURL(generatedStandBlob);
+      const pdfWindow = window.open(standUrl);
+
+
     };
 
-    finalImage.onerror = () => {
+    standImage.onerror = () => {
       creatingIndicator.style.display = "none";
     };
   });
+
   // PDF表示
   document.getElementById("viewPdfButton").addEventListener("click", () => {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
     const pdfWindow = window.open(pdfUrl);
-    location.href = '/desktopcalendar/';
+  });
+
+  document.getElementById("closebutton").addEventListener("click", () => {
+    location.href="/";
   });
 
   updateMonthVisibility();
