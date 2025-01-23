@@ -184,8 +184,6 @@ document.addEventListener("DOMContentLoaded", function () {
     currentErrorIndex++;
     if (currentErrorIndex < errorMessages.length) {
       showError();
-    }else{
-      generateButton.disabled = true;
     }
   };
 
@@ -219,7 +217,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (errorMessages.length > 0) {
       showError(); 
-      generateButton.disabled = false;
       creatingIndicator.style.display = "none";
       return;
     }
@@ -289,7 +286,6 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     finalImage.onerror = () => {
-      generateButton.disabled = false;
       creatingIndicator.style.display = "none";
     };
   });
