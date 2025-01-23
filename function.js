@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   for (let i = 1; i <= 12; i++) {
-    handleImageUpload(imageInput${i}, frame/${i}.png, imagePreview${i}, frame/square/${i}.png, squarePreview${i});
+    handleImageUpload(`imageInput${i}`, `frame/${i}.png`, `imagePreview${i}`, `frame/square/${i}.png`, `squarePreview${i}`);
   }
 
   // エラーメッセージ処理
@@ -221,7 +221,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
     const imgElement = preview.querySelector("img");
     if (!imgElement) {
       allImagesUploaded = false;
-      errorMessages.push(画像${index + 1}が無効です);
+      errorMessages.push(`画像${index + 1}が無効です`);
       return;
     }
   });
@@ -239,7 +239,7 @@ imagePreviews.forEach((preview, index) => {
     const dataUrl = imgElement.src;
     if (dataUrl.includes("img/none.png")) {
       allImagesUploaded = false;
-      errorMessages.push(画像${index + 1}がアップロードされていません);
+      errorMessages.push(`画像${index + 1}がアップロードされていません`);
     } else {
       doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
       yOffset += postcardHeight;
