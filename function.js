@@ -216,6 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
           yOffset = margin;
           doc.addPage();
         }
+        imgElement.remove();
       }
     });
 
