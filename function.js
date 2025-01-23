@@ -2,6 +2,8 @@ const { jsPDF } = window.jspdf;
 
 document.addEventListener("DOMContentLoaded", function () {
   let currentMonthIndex = 0;
+  let currentErrorIndex = 0;
+  let errorMessages = [];
 
   // 月ごとの表示を切り替える関数
   function updateMonthVisibility() {
@@ -172,14 +174,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // エラーメッセージ処理
-  let currentErrorIndex = 0;
-  let errorMessages = [];
-
   function showError() {
     const errorBox = document.getElementById("error-box");
     const overlay = document.getElementById("overlay");
     const errMessage = document.getElementById("errmesse");
     console.log("エラー表示");
+
     if (currentErrorIndex < errorMessages.length) {
       errMessage.textContent = errorMessages[currentErrorIndex];
       overlay.style.display = "block";
@@ -199,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
+  // PDF生成ボタンの処理
   document.getElementById("generatePdfButton").addEventListener("click", () => {
     const generateButton = document.getElementById("generatePdfButton");
     generateButton.disabled = true;
@@ -213,8 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let yOffset = 10;
 
     const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
-    let allImagesUploaded = false;  // 初期値は画像がアップロードされていない状態
-    let errorMessages = []; // エラーメッセージを格納する配列
+    let allImagesUploaded = false;
 
     imagePreviews.forEach((preview, index) => {
       const imgElement = preview.querySelector("img");
@@ -225,11 +225,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // none.png が使われている場合
         errorMessages.push(`画像${index + 1}が無効です（none.pngを含んでいます）`);
       } else {
-        allImagesUploaded = true;  // 有効な画像が1枚でもあればフラグを更新
+        allImagesUploaded = true;
       }
     });
 
-    // エラーがあればそのエラーメッセージを一括表示
+    // エラーメッセージがあれば表示
     if (errorMessages.length > 0) {
       console.log("エラー発生");
       showError(); // 初期表示
