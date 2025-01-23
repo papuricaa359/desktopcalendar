@@ -237,21 +237,24 @@ document.addEventListener("DOMContentLoaded", function () {
       const imgElement = preview.querySelector("img");
       if (imgElement) {
         const dataUrl = imgElement.src;
-        if (dataUrl.includes("img/none.png")) {
-          allImagesUploaded = false;
-          errorMessages.push(`画像${index + 1}がアップロードされていません`);
-        } else {
+
+        if (!dataUrl.includes("img/none.png")) {
           doc.addImage(dataUrl, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
+
           yOffset += postcardHeight;
 
           if ((index + 1) % 2 === 0) {
-            yOffset += margin;
+            yOffset = 10;
+            xOffset += postcardWidth;
+
+            if (index + 1 < imagePreviews.length) {
+              doc.addPage();
+              xOffset = 10;
+              yOffset = 10;
+            }
           }
 
-          if (yOffset + postcardHeight > 297 - margin) {
-            yOffset = margin;
-            doc.addPage();
-          }
+          // メモリ解放のための画像削除
           imgElement.remove();
         }
       }
@@ -289,6 +292,9 @@ document.addEventListener("DOMContentLoaded", function () {
           squareX = startX;
           squareY += squareHeight + 34.75;
         }
+
+        // メモリ解放のための正方形画像削除
+        squareImgElement.remove();
       });
 
       doc.addImage(finalImage.src, "PNG", 0, 0, finalImageWidth, finalImageHeight);
@@ -306,12 +312,16 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   });
 
+
+
   // PDF表示ボタンの処理
   document.getElementById("viewPdfButton").addEventListener("click", () => {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
     const pdfWindow = window.open(pdfUrl);
     // トップページに戻る
-    location.href = '/desktopcalendar/';
+    location.href = '/';
+
+
   });
 
   updateMonthVisibility();
