@@ -252,7 +252,7 @@ imagePreviews.forEach((preview, index) => {
         yOffset = margin;
         doc.addPage();
       }
-      imgElement.remove();
+     // imgElement.remove();
     }
   }
 });
