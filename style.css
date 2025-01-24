@@ -6,7 +6,7 @@
 
 body {
     font-family: "Noto Sans JP", serif;
-    background-color: #f7f7f7;
+    background-color: #ffffff;
     color: #333;
     line-height: 1.6;
 }
@@ -14,81 +14,177 @@ body {
 h1 {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #111;
+    color: #000000;
     margin: 0;
 }
 
 h2 {
     font-size: 2.0rem;
-    color: #333;
+    color: #000000;
 }
 
 h3 {
     font-size: 1.4rem;
-    color: #555;
+    color: #000000;
 }
 
 p {
     font-size: 1.1rem;
-    color: #666;
+    color: #000000;
 }
 
 header {
     background-color: #b3b3b3;
-    color: #fff;
+    color: #a8a8a8;
     padding: 1.5rem 0;
     text-align: center;
 }
 
 section {
     width: 90%;
-    margin: 3rem auto;
+    margin: 8rem auto;
+    margin-bottom: 0;
 }
+
+
+.intro {
+    display: flex;
+}
+
+.intro div {
+    padding: 5%;
+    border: solid 1px #777;
+}
+
+.intro .title {
+    width: 60%;
+    display: flex;
+    align-items: center;
+
+}
+
+.intro .content {
+    width: 40%;
+}
+
+
+.ex {
+    display: flex;
+}
+
+.ex div {
+    padding: 5%;
+    border: solid 1px #777;
+}
+
+.ex .title {
+    width: 60%;
+    display: flex;
+    align-items: center;
+
+}
+
+.ex .content {
+    width: 40%;
+}
+
+
+
 
 .boxset {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
+    overflow-x: scroll;
+    gap: 10px;
+    padding: 10px 0;
 }
 
 .box {
-    padding: 10px;
-    width: 300px;
-    height: auto;
-    border: solid 1px #ddd;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 400px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
 
 .box:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .box img {
     width: 100%;
-    border-radius: 5px;
+    height: auto;
+    border-bottom: 2px solid #ccc;
 }
 
 .box div {
     padding: 10px;
+    text-align: center;
 }
 
 .box h3 {
-    font-size: 1.2rem;
-    color: #111;
-    text-align: center;
+    font-size: 16px;
     margin: 10px 0;
 }
 
 .box p {
-    font-size: 1rem;
-    color: #777;
-    text-align: center;
+    font-size: 14px;
+    color: #555;
 }
+
+
+
+
+.developer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.developer p {
+    text-align: left;
+    width: 60vw;
+    padding: 3% 5% 3% 5%;
+    border-radius: 5%;
+    background-color: #bebebe;
+}
+
+.access {
+    position: fixed;
+    display: block;
+    text-align: center;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    width: 205px;
+}
+
+.access button {
+    width: 200px;
+    height: 70px;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #a8a8a8;
+    margin: 0px 5px 5px 0px;
+    border-radius: 35px;
+    border: none;
+    display: block;
+
+}
+
+.access a {
+    display: block;
+    margin: 10px 0;
+}
+
+footer {
+    text-align: center;
+    background-color: #777;
+}
+
 
 .popup-overlay {
     display: none;
@@ -132,28 +228,11 @@ section {
     color: #f39c12;
 }
 
-.access {
-    width: 100%;
-    padding: 10px;
-    background-color: #555;
-    display: block;
-    margin-top: 20px;
+.rule h2 {
     text-align: center;
 }
 
-.access button {
-    width: 100%;
-    display: block;
-    margin: 10px auto;
-
-}
-
-.access a {
-    display: block;
-    margin: 10px 0;
-}
-
-.rule h2 {
+.rule p {
     text-align: center;
 }
 
@@ -165,7 +244,7 @@ section {
     border-radius: 20px;
     margin: auto;
     width: 70vw;
-    height: 300px;
+    height: 500px;
     overflow: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -173,4 +252,8 @@ section {
 
 .scroll::-webkit-scrollbar {
     display: none;
+}
+
+.scroll p {
+    text-align: left;
 }

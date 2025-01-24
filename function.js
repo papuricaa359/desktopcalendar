@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const imgElement = document.createElement("img");
               imgElement.src = dataUrl;
-              imgElement.style.width = "54vw";
+              imgElement.style.width = "45vw";
               document.getElementById(previewId).innerHTML = "";
               document.getElementById(previewId).appendChild(imgElement);
 
@@ -288,7 +288,7 @@ document.getElementById("viewStandButton").addEventListener("click", () => {
 });
 
   document.getElementById("closebutton").addEventListener("click", () => {
-    location.href = "/desktopcalendar/";
+    location.href = "/";
   });
 
   updateMonthVisibility();
