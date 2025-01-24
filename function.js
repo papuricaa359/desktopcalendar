@@ -251,8 +251,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const squareWidth = 24.9;
       const squareHeight = 24.9;
-      const startX = 29.8;
-      const startY = 185.67;
+      const startX = 29.9;
+      const startY = 187;
 
       let squareX = startX;
       let squareY = startY;
