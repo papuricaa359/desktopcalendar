@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               const imgElement = document.createElement("img");
               imgElement.src = dataUrl;
-              imgElement.style.width = "45vw";
+              imgElement.style.width = "54vw";
               document.getElementById(previewId).innerHTML = "";
               document.getElementById(previewId).appendChild(imgElement);
 
