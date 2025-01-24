@@ -240,52 +240,50 @@ document.addEventListener("DOMContentLoaded", function () {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
     window.open(pdfUrl);
   });
-document.getElementById("viewStandButton").addEventListener("click", () => {
-  const standImage = new Image();
-  standImage.src = "img/stand.png";
-  const doc = new jsPDF("p", "mm", "a4");
+  document.getElementById("viewStandButton").addEventListener("click", () => {
+    const standImage = new Image();
+    standImage.src = "img/stand.png";
+    const doc = new jsPDF("p", "mm", "a4");
 
-  standImage.onload = () => {
-    const standImageWidth = 210;
-    const standImageHeight = 297;
+    standImage.onload = () => {
+      const standImageWidth = 210;
+      const standImageHeight = 297;
 
-    const squareWidth = 24.9;
-    const squareHeight = 24.9;
-    const startX = 30;
-    const startY = 178.67;
+      const squareWidth = 24.9;
+      const squareHeight = 24.9;
+      const startX = 29.8;
+      const startY = 185.67;
 
-    let squareX = startX;
-    let squareY = startY;
+      let squareX = startX;
+      let squareY = startY;
+      doc.addImage(standImage.src, "PNG", 0, 0, standImageWidth, standImageHeight);
+      const squarePreviews = document.querySelectorAll("[id^='squarePreview']");
 
-    const squarePreviews = document.querySelectorAll("[id^='squarePreview']");
+      squarePreviews.forEach((preview, index) => {
+        const squareImgElement = preview;
+        const squareDataUrl = squareImgElement.src;
 
-    squarePreviews.forEach((preview, index) => {
-      const squareImgElement = preview;
-      const squareDataUrl = squareImgElement.src;
+        doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
 
-      doc.addImage(squareDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
+        squareX += squareWidth;
 
-      squareX += squareWidth;
+        if ((index + 1) % 6 === 0) {
+          squareX = startX;
+          squareY += squareHeight + 34.75;
+        }
 
-      if ((index + 1) % 6 === 0) {
-        squareX = startX;
-        squareY += squareHeight + 34.75;
-      }
+        squareImgElement.remove();
+      });
 
-      squareImgElement.remove();
-    });
+      const standBlob = doc.output("blob");
+      const standUrl = URL.createObjectURL(standBlob);
+      window.open(standUrl);
+    };
 
-    doc.addImage(standImage.src, "PNG", 0, 0, standImageWidth, standImageHeight);
-
-    const standBlob = doc.output("blob");
-    const standUrl = URL.createObjectURL(standBlob);
-    window.open(standUrl);
-  };
-
-  standImage.onerror = () => {
-    console.error("スタンド画像の読み込みに失敗しました。");
-  };
-});
+    standImage.onerror = () => {
+      console.error("スタンド画像の読み込みに失敗しました。");
+    };
+  });
 
   document.getElementById("closebutton").addEventListener("click", () => {
     location.href = "/";
