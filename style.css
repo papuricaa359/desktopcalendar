@@ -194,7 +194,7 @@ section p {
 
 .newsdata {
     font-size: 1rem;
-    color: #888;
+    color: #002a4a;
     margin-right: 15px;
     flex-shrink: 0;
 }
@@ -288,6 +288,7 @@ section p {
     font-size: 30px;
     font-weight: bold;
     background-color: #60a9f3;
+    cplor:#002a4a;
     margin: 0px 5px 5px 0px;
     border-radius: 35px;
     border: none;
