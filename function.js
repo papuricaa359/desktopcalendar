@@ -1,33 +1,50 @@
 const { jsPDF } = window.jspdf;
 
 document.addEventListener("DOMContentLoaded", function () {
-  let currentMonthIndex = 0;
+  let currentMonth = 0;
   let currentErrorIndex = 0;
   let errorMessages = [];
   let generatedPdfBlob = null;
 
-  // 月ごとの表示を更新
-  function updateMonthVisibility() {
-    document.querySelectorAll(".upload-container").forEach((container, index) => {
-      container.style.display = index === currentMonthIndex ? "block" : "none";
-    });
-    document.querySelector(".prev-btn").style.display = currentMonthIndex === 0 ? "none" : "inline-block";
-    document.querySelector(".next-btn").style.display = currentMonthIndex === 11 ? "none" : "inline-block";
-    document.querySelector("#generatePdfButton").style.display = currentMonthIndex === 11 ? "inline-block" : "none";
-  }
+  function updateMonthVisibility(currentMonth) {
 
-  // 「次へ」ボタンと「前へ」ボタン
+    // 月の表示を更新
+    for (let i = 1; i <= 12; i++) {
+      const monthInput = document.getElementById(`input${i}`);
+      if (monthInput) {
+        monthInput.style.display = "none";
+      }
+
+      const currentMonthInput = document.getElementById(`input${currentMonth + 1}`);
+      if (currentMonthInput) {
+        currentMonthInput.style.display = "block";
+      }
+      if (currentMonth === 0) {
+        document.querySelector(".prev-btn").style.display = "none";
+      } else {
+        document.querySelector(".prev-btn").style.display = "inline-block";
+      }
+      if (currentMonth === 11) {
+        document.querySelector(".next-btn").style.display = "none";
+        document.querySelector("#generatePdfButton").style.display = "inline-block";
+      } else {
+        document.querySelector(".next-btn").style.display = "inline-block";
+      }
+    }
+  }
+  // 「次へ」ボタンのクリックイベント
   document.querySelector(".next-btn").addEventListener("click", () => {
-    if (currentMonthIndex < 11) {
-      currentMonthIndex++;
-      updateMonthVisibility();
+    if (currentMonth < 11) {
+      currentMonth++;
+      updateMonthVisibility(currentMonth); // 表示を更新
     }
   });
 
+  // 「前へ」ボタンのクリックイベント
   document.querySelector(".prev-btn").addEventListener("click", () => {
-    if (currentMonthIndex > 0) {
-      currentMonthIndex--;
-      updateMonthVisibility();
+    if (currentMonth > 0) {
+      currentMonth--;
+      updateMonthVisibility(currentMonth); // 表示を更新
     }
   });
 
@@ -251,8 +268,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const squareWidth = 24.9;
       const squareHeight = 24.9;
-      const startX = 29.9;
-      const startY = 187;
+      const startX = 29.95;
+      const startY = 186;
 
       let squareX = startX;
       let squareY = startY;
@@ -269,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if ((index + 1) % 6 === 0) {
           squareX = startX;
-          squareY += squareHeight + 34.75;
+          squareY += squareHeight + 34.6;
         }
 
         squareImgElement.remove();
@@ -286,8 +303,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   document.getElementById("closebutton").addEventListener("click", () => {
-    location.href = "/desktopcalendar/";
+    location.href = "/";
   });
 
-  updateMonthVisibility();
+  updateMonthVisibility(currentMonth);
 });

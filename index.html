@@ -40,65 +40,62 @@
 
     </section>
     <section class="ex">
-      <div class="title">
-        <h2>使い方を知る</h2>
+      <div class="extext">
+        <div class="title">
+          <h2>使用例を知る</h2>
+        </div>
+        <div class="content">
+          <p>お気に入りの写真を使ってオリジナルのカレンダーを作成できます。あなたの大切な瞬間をカレンダーに変えて、毎日をもっと楽しく、特別なものにしてみましょう。</p>
+          <p>さらに、あなたの生活の中で感じた美しい瞬間や思い出を自由にカレンダーにすることができます。創造力を働かせて、様々なシーンで活用できる可能性をぜひ探してみてください。</p>
+          <p>以下に使用例を紹介します。下のボックスをクリックして、使用例をご覧ください。</p>
+        </div>
       </div>
 
-      <div class="content">
-        <p>このような様々の場面で使用することができます。</p>
-        <p>このほかの場面でも使用できます。</p>
-      </div>
+      <div class="exbox">
+        <div class="boxset">
+          <!-- ボックスの内容 -->
+          <div class="box" onclick="openPopup('popup-family')">
 
-    </section>
-    <section class="exbox">
-      <p>下部をクリックすることで使用例を見ることができます。</p>
-      <div class="boxset">
-        <!-- 家族 -->
-        <div class="box" onclick="openPopup('popup-family')">
-          <img src="img/family.jpg" alt="family">
-          <div>
-            <h3>家族との思い出の写真</h3>
-            <p>お子さんの写真をカレンダーに。</p>
+            <img src="img/family.jpg" alt="家族">
+            <div>
+              <h3>家族との思い出</h3>
+              <p>お子さんの写真をカレンダーに。</p>
+            </div>
           </div>
-        </div>
-
-        <!-- 趣味 -->
-        <div class="box" onclick="openPopup('popup-hobby')">
-          <img src="img/hobby.jpg" alt="hobby">
-          <div>
-            <h3>趣味の写真</h3>
-            <p>お気に入りの趣味やアートワークをカレンダーに。</p>
+          <div class="box" onclick="openPopup('popup-hobby')">
+            <img src="img/hobby.jpg" alt="趣味">
+            <div>
+              <h3>趣味の写真</h3>
+              <p>お気に入りの趣味をカレンダーに。</p>
+            </div>
           </div>
-        </div>
-
-        <!-- 旅行 -->
-        <div class="box" onclick="openPopup('popup-trip')">
-          <img src="img/trip.jpg" alt="trip">
-          <div>
-            <h3>旅行の写真</h3>
-            <p>旅行先で撮影した美しい風景や街の風景を使って。</p>
+          <div class="box" onclick="openPopup('popup-trip')">
+            <img src="img/trip.jpg" alt="旅行">
+            <div>
+              <h3>旅行の写真</h3>
+              <p>美しい風景を使って。</p>
+            </div>
           </div>
-        </div>
-
-        <!-- ペット -->
-        <div class="box" onclick="openPopup('popup-pet')">
-          <img src="img/pet.jpg" alt="pet">
-          <div>
-            <h3>ペットの写真</h3>
-            <p>可愛いペットの写真を使って、毎日癒されるカレンダーに。</p>
+          <div class="box" onclick="openPopup('popup-pet')">
+            <img src="img/pet.jpg" alt="ペット">
+            <div>
+              <h3>ペットの写真</h3>
+              <p>毎日癒されるカレンダーに。</p>
+            </div>
           </div>
-        </div>
-
-        <!-- 風景 -->
-        <div class="box" onclick="openPopup('popup-scenery')">
-          <img src="img/scenery.jpg" alt="scenery">
-          <div>
-            <h3>お気に入りの風景の写真</h3>
-            <p>四季折々の風景や街の風物詩をカレンダーに。</p>
+          <div class="box" onclick="openPopup('popup-scenery')">
+            <img src="img/scenery.jpg" alt="景色">
+            <div>
+              <h3>景色の写真</h3>
+              <p>美しい風景を使って。</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+
+
 
     <section class="howto">
       <h2>使い方 　簡単３ステップ</h2>
@@ -143,38 +140,40 @@
       <a href="https://github.com/papuricaa359"><img src="img/gitlogo.png" width="300px"></a>
 
     </section>
-    <footer><p>Copyright © 2025 Desktop Calendar Generator. All rights reserved.</p></footer>
+    <footer>
+      <p>Copyright © 2025 Desktop Calendar Generator. All rights reserved.</p>
+    </footer>
 
     <!-- ポップアップ-->
-    <div id="popup-family" class="popup-overlay" onclick="closePopup('popup-family')">
+    <div id="popup-family" class="popup-overlay">
       <div class="popup-content">
         <span class="popup-close" onclick="closePopup('popup-family')">&times;</span>
         <img src="img/exfamily.png" alt="family">
       </div>
     </div>
 
-    <div id="popup-hobby" class="popup-overlay" onclick="closePopup('popup-hobby')">
+    <div id="popup-hobby" class="popup-overlay">
       <div class="popup-content">
         <span class="popup-close" onclick="closePopup('popup-hobby')">&times;</span>
         <img src="img/exhobby.png" alt="hobby">
       </div>
     </div>
 
-    <div id="popup-trip" class="popup-overlay" onclick="closePopup('popup-trip')">
+    <div id="popup-trip" class="popup-overlay">
       <div class="popup-content">
         <span class="popup-close" onclick="closePopup('popup-trip')">&times;</span>
         <img src="img/extrip.png" alt="trip">
       </div>
     </div>
 
-    <div id="popup-pet" class="popup-overlay" onclick="closePopup('popup-pet')">
+    <div id="popup-pet" class="popup-overlay">
       <div class="popup-content">
         <span class="popup-close" onclick="closePopup('popup-pet')">&times;</span>
         <img src="img/expet.png" alt="pet">
       </div>
     </div>
 
-    <div id="popup-scenery" class="popup-overlay" onclick="closePopup('popup-scenery')">
+    <div id="popup-scenery" class="popup-overlay">
       <div class="popup-content">
         <span class="popup-close" onclick="closePopup('popup-scenery')">&times;</span>
         <img src="img/exscenery.png" alt="scenery">
@@ -196,7 +195,6 @@
     function closePopup(popupId) {
       document.getElementById(popupId).style.display = 'none';
     }
-
   </script>
 </body>
 
