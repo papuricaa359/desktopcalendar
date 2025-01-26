@@ -29,6 +29,7 @@ function updateMonthVisibility(currentMonth) {
       document.querySelector("#generatePdfButton").style.display = "inline-block";
     } else {
       document.querySelector(".next-btn").style.display = "inline-block";
+      document.querySelector("#generatePdfButton").style.display = "none";
     }
   }
 }
@@ -306,7 +307,7 @@ document.getElementById("viewStandButton").addEventListener("click", () => {
 });
 
 document.getElementById("closebutton").addEventListener("click", () => {
-  location.href = "desktopcalendar/";
+  location.href = "/";
 });
 
 updateMonthVisibility(currentMonth);

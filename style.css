@@ -85,6 +85,11 @@ section h3 {
     font-size: 20px;
     color: #002a4a;
 }
+section h4 {
+    text-align: center;
+    font-size: 25px;
+    color: #002a4a;
+}
 
 section p {
     margin: auto;
@@ -155,7 +160,7 @@ section p {
     font-size: 14px;
     color: #555;
 }
-
+/*作り方*/
 /*利用規約*/
 
 .scroll {
@@ -220,8 +225,6 @@ section p {
 
 #developer h4 {
     margin-top: 10px;
-    text-align: center;
-    font-size: 25px;
 }
 
 #developer .container {
