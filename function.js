@@ -303,7 +303,7 @@ document.getElementById("viewStandButton").addEventListener("click", () => {
 });
 
 document.getElementById("closebutton").addEventListener("click", () => {
-  location.href = "/";
+  location.href = "/desktopcalendar/";
 });
 
 updateMonthVisibility(currentMonth);
