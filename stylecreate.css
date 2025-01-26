@@ -1,7 +1,6 @@
-
 body {
     margin: 0;
-    font-family: "Kiwi Maru", serif;
+    font-family: serif;
     font-weight: 400;
     font-style: normal;
 }
@@ -9,16 +8,18 @@ body {
 h1 {
     text-align: center;
     margin-top: 20px;
+    color: #002a4a;
 }
-#id input{
-    margin: auto;
+
+input {
+    display: block;
+    margin: 0 auto;
 }
+
 .image-preview {
-    width: 45vw;
     position: fixed;
     justify-content: center;
     left: 50%;
-    bottom: 5vw;
     height: auto;
     z-index: 200;
     display: flex;
@@ -55,7 +56,6 @@ h1 {
 }
 
 .square img {
-    width: 4.5vw;
     height: auto;
     margin: 0px;
     flex-wrap: wrap;
@@ -63,14 +63,10 @@ h1 {
 
 /* ボタンエリア */
 .viewbutton {
-    width: 100%;
-    height: 6vw;
     position: fixed;
-    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     align-items: center;
-    padding: 1vw;
     z-index: 100;
     box-sizing: border-box;
     display: flex;
@@ -81,12 +77,9 @@ h1 {
 .viewbutton .prev-btn,
 .viewbutton .next-btn,
 .viewbutton #generatePdfButton {
-    width: 12vw;
-    height: 4vw;
+    font-family: serif;
     border: none;
     cursor: pointer;
-    font-size: 24px;
-    border-radius: 2vw;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -137,13 +130,8 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40vw;
-    height: 20vh;
-    background-color: rgb(169, 169, 169);
-    color: black;
+    background-color: #5296c9;
     text-align: center;
-    border-radius: 1vw;
-    padding: 2vw;
     z-index: 10000;
     display: flex;
     flex-direction: column;
@@ -152,19 +140,15 @@ h1 {
 }
 
 .error-box p {
-    font-size: 1.5vw;
     font-weight: bold;
 }
 
 .error-box button {
     background-color: white;
     color: black;
-    font-size: 1.5vw;
     border: none;
-    padding: 0.5vw 2vw;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 1vw;
     position: absolute;
     bottom: 1vw;
     left: 50%;
@@ -185,10 +169,11 @@ h1 {
     height: 100%;
     z-index: 99999;
     display: none;
-    background-color: rgb(134, 134, 134);
+    background-color: #5296c9;
     justify-content: center;
     align-items: center;
 }
+
 /* 終了 */
 #fin {
     position: fixed;
@@ -198,7 +183,7 @@ h1 {
     height: 100%;
     z-index: 99999;
     display: none;
-    background-color: rgb(134, 134, 134);
+    background-color: #5296c9;
     justify-content: center;
     align-items: center;
 }
@@ -214,4 +199,99 @@ h1 {
     background-color: rgba(0, 0, 0, 0.646);
     display: none;
     z-index: 9999;
+}
+
+/* PC */
+@media (min-width: 1025px) {
+    .image-preview {
+        width: 45vw;
+        bottom: 5vw;
+    }
+
+    .viewbutton {
+        width: 100%;
+        height: 6vw;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 1vw;
+    }
+
+    .viewbutton .prev-btn,
+    .viewbutton .next-btn,
+    .viewbutton #generatePdfButton {
+        width: 12vw;
+        height: 4vw;
+        font-size: 24px;
+        border-radius: 2vw;
+    }
+
+    .square img {
+        width: 4.5vw;
+    }
+
+    .error-box {
+        width: 40vw;
+        height: 20vh;
+        border-radius: 1vw;
+        padding: 2vw;
+    }
+
+    .error-box p {
+        font-size: 1.5vw;
+    }
+
+    .error-box button {
+        font-size: 1.5vw;
+        padding: 0.5vw 2vw;
+        border-radius: 1vw;
+    }
+}
+
+/*スマホタブレット*/
+@media (max-width: 1024px)  {
+    .image-preview {
+        width: 100vw;
+        bottom: 11vw;
+    }
+
+    .square {
+        display: none;
+    }
+
+    .viewbutton {
+        width: 95%;
+        height: 10vw;
+        bottom: 0.5vw;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0;
+    }
+
+    .viewbutton .prev-btn,
+    .viewbutton .next-btn,
+    .viewbutton #generatePdfButton {
+        padding: 0;
+        width: 48%;
+        height: 10vw;
+        font-size: 24px;
+        border-radius: 23vw;
+    }
+
+    .error-box {
+        width: 80vw;
+        height: 20vh;
+        border-radius: 5vw;
+        padding: 2vw;
+    }
+
+    .error-box p {
+        font-size: 4.5vw;
+    }
+
+    .error-box button {
+        font-size: 7vw;
+        padding: 0.5vw 2vw;
+        border-radius: 1vw;
+    }
 }

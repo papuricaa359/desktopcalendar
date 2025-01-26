@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const generateButton = document.getElementById("generatePdfButton");
     const creatingIndicator = document.getElementById("creating");
     generateButton.disabled = true;
-    creatingIndicator.style.display = "block";
+    creatingIndicator.style.display = "flex";
 
     const doc = new jsPDF("p", "mm", "a4");
     const postcardWidth = 148;
@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   document.getElementById("closebutton").addEventListener("click", () => {
-    location.href = "/desktopcalendar/";
+    location.href = "/";
   });
 
   updateMonthVisibility(currentMonth);

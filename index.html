@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>卓上カレンダージェネレーター</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XVRPZ8DEYQ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -17,7 +18,6 @@
 </head>
 
 <body>
-
   <header>
     <div class="header-container">
       <h1>卓上カレンダージェネレーター</h1>
@@ -38,7 +38,7 @@
 
   <section id="about">
     <h2>ABOUT</h2>
-    <h4>卓上カレンダージェネレーターとは</h4>
+    <h3>卓上カレンダージェネレーターとは</h3>
     <p><strong>卓上カレンダージェネレーター</strong>は、誰でも簡単にオリジナルの卓上カレンダーを作成できるサービスです。<br>
       お気に入りの画像を選ぶだけで、世界に一つだけのカレンダーが完成します。<br>
       ハガキサイズサイズで、デザイン性にも優れており、デスクをおしゃれに演出します。<br>
@@ -47,9 +47,9 @@
     </p>
   </section>
 
-  <section id="ex">
+  <section id="example">
     <h2>EXAMPLE</h2>
-    <h4>使用例を知る</h4>
+    <h3>使用例を知る</h3>
     <p>お気に入りの画像を使ってオリジナルのカレンダーを作成できます。<br>
       以下に使用例を紹介します。<br>
       下のボックスをクリックして、使用例をご覧ください。
@@ -59,35 +59,28 @@
       <div class="box" onclick="openPopup('popup-family')">
         <img src="img/family.jpg" alt="家族">
         <div>
-          <h3>家族との思い出</h3>
+          <h4>家族との思い出</h4>
           <p>お子さんの写真をカレンダーに。</p>
         </div>
       </div>
       <div class="box" onclick="openPopup('popup-hobby')">
         <img src="img/hobby.jpg" alt="趣味">
         <div>
-          <h3>趣味の写真</h3>
+          <h4>趣味の写真</h4>
           <p>お気に入りの趣味をカレンダーに。</p>
-        </div>
-      </div>
-      <div class="box" onclick="openPopup('popup-trip')">
-        <img src="img/trip.jpg" alt="旅行">
-        <div>
-          <h3>旅行の写真</h3>
-          <p>美しい風景を使って。</p>
         </div>
       </div>
       <div class="box" onclick="openPopup('popup-pet')">
         <img src="img/pet.jpg" alt="ペット">
         <div>
-          <h3>ペットの写真</h3>
+          <h4>ペットの写真</h4>
           <p>毎日癒されるカレンダーに。</p>
         </div>
       </div>
       <div class="box" onclick="openPopup('popup-scenery')">
         <img src="img/scenery.jpg" alt="景色">
         <div>
-          <h3>景色の写真</h3>
+          <h4>景色の写真</h4>
           <p>美しい風景を使って。</p>
         </div>
       </div>
@@ -97,7 +90,7 @@
 
   <section id="howto">
     <h2>HOW TO</h2>
-    <h4>作り方を知る</h4>
+    <h3>作り方を知る</h3>
     <p>とても簡単に作ることができます。</p>
 
 
@@ -105,7 +98,7 @@
 
   <section id="rule">
     <h2>RULE</h2>
-    <h4>利用規約</h4>
+    <h3>利用規約</h3>
     <p> 以下の利用規約に同意していただける場合のみご利用していただけます。</p>
     <div class="scroll">
       <p>
@@ -127,7 +120,7 @@
 
   <section id="news">
     <h2>NEWS</h2>
-    <h4>最新情報</h4>
+    <h3>最新情報</h3>
     <div class="newsset">
       <div class="newsbox">
         <span class="newsdata">2025.02.28</span>
@@ -139,8 +132,8 @@
 
   <section id="developer">
     <h2>DEVELOPER</h2>
-    <h4>開発者</h4>
-    <h3>開発者挨拶</h3>
+    <h3>開発者</h3>
+    <h4>開発者挨拶</h4>
     <p>この度は「卓上カレンダージェネレーター」をご覧いただき、誠にありがとうございます。<br>
       私は、毎日の生活を少しでも便利で楽しくするために、このツールを開発しました。
       本ツールでは、シンプルで直感的な操作を重視し、誰でも簡単にオリジナルのカレンダーを作成できるように設計しました。<br>
@@ -162,7 +155,6 @@
     <p>Copyright © 2025 Desktop Calendar Generator. All rights reserved.</p>
   </footer>
 
-  <!-- ポップアップ-->
   <div id="popup-family" class="popup-overlay">
     <div class="popup-content">
       <span class="popup-close" onclick="closePopup('popup-family')">&times;</span>
