@@ -213,8 +213,6 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
 
   errorMessages = [];
   currentErrorIndex = 0;
-  const creatingIndicator = document.getElementById("creating");
-  document.getElementById("creating").style.setProperty('display', 'flex', 'important');
 
   const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
   imagePreviews.forEach((preview, index) => {
@@ -226,13 +224,11 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
 
   if (errorMessages.length > 0) {
     showError();
-    creatingIndicator.style.display = "none";
     generateButton.disabled = false;
     return;
   }
 
   imagePreviews.forEach((preview, index) => {
-    creatingIndicator.style.display = "flex";
     const imgElement = preview.querySelector("img");
     if (imgElement && !imgElement.src.includes("img/none.webp")) {
       doc.addImage(imgElement.src, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
@@ -253,7 +249,6 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
 
   generatedPdfBlob = doc.output("blob");
   document.getElementById("fin").style.display = "flex";
-  creatingIndicator.style.display = "none";
   generateButton.disabled = false;
 });
 
@@ -308,7 +303,7 @@ document.getElementById("viewStandButton").addEventListener("click", () => {
 });
 
 document.getElementById("closebutton").addEventListener("click", () => {
-  location.href = "/desktopcalendar/";
+  location.href = "/";
 });
 
 updateMonthVisibility(currentMonth);
