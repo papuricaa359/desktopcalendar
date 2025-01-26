@@ -214,7 +214,8 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   errorMessages = [];
   currentErrorIndex = 0;
   const creatingIndicator = document.getElementById("creating");
-  creatingIndicator.style.display = "flex";
+  document.getElementById("creating").style.setProperty('display', 'flex', 'important');
+
   const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
   imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
