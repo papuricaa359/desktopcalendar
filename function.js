@@ -199,9 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // PDFを生成
   document.getElementById("generatePdfButton").addEventListener("click", () => {
     const generateButton = document.getElementById("generatePdfButton");
-    const creatingIndicator = document.getElementById("creating");
     generateButton.disabled = true;
-    creatingIndicator.style.display = "flex";
 
     const doc = new jsPDF("p", "mm", "a4");
     const postcardWidth = 148;
@@ -211,7 +209,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     errorMessages = [];
     currentErrorIndex = 0;
-
+    const creatingIndicator = document.getElementById("creating");
+    creatingIndicator.style.display = "flex";
     const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
     imagePreviews.forEach((preview, index) => {
       const imgElement = preview.querySelector("img");
@@ -228,6 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     imagePreviews.forEach((preview, index) => {
+      creatingIndicator.style.display = "flex";
       const imgElement = preview.querySelector("img");
       if (imgElement && !imgElement.src.includes("img/none.png")) {
         doc.addImage(imgElement.src, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     generatedPdfBlob = doc.output("blob");
-    document.getElementById("fin").style.display = "block";
+    document.getElementById("fin").style.display = "flex";
     creatingIndicator.style.display = "none";
     generateButton.disabled = false;
   });
@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   document.getElementById("closebutton").addEventListener("click", () => {
-    location.href = "/desktopcalendar/";
+    location.href = "/";
   });
 
   updateMonthVisibility(currentMonth);
