@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <!-- 各月の画像アップロードセクション -->
     <div id="input1">
         <h1>1月</h1>
         <input type="file" id="imageInput1" accept="image/*" />
@@ -81,8 +80,6 @@
         <input type="file" id="imageInput12" accept="image/*" />
         <div id="imagePreview12" class="image-preview"><img src="img/none.webp"></div>
     </div>
-
-    <!-- 四角い画像のプレビュー -->
     <div class="square">
         <img src="img/square/1.webp" id="squarePreview1">
         <img src="img/square/2.webp" id="squarePreview2">
@@ -97,12 +94,8 @@
         <img src="img/square/11.webp" id="squarePreview11">
         <img src="img/square/12.webp" id="squarePreview12">
     </div>
-
-
-
-    <!-- ボタンエリア -->
     <div class="viewbutton">
-        <button class="prev-btn">戻る</button>
+        <button class="prev-btn" style="display: none;">戻る</button>
         <button class="next-btn">進む</button>
         <button id="generatePdfButton">PDFを生成</button>
     </div>
@@ -113,16 +106,12 @@
         <button id="closebutton">閉じる</button>
 
     </div>
-    <!-- オーバーレイ -->
     <div class="overlay" id="overlay"></div>
-
-    <!-- エラーボックス -->
     <div id="error-box" class="error-box">
         <p id="errmesse"></p>
         <button onclick="closeErrorBox()">閉じる</button>
     </div>
-
-    <!-- スクリプトの読み込み -->
+    <script src="script/viewport.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script/type1.js"></script>
 </body>
