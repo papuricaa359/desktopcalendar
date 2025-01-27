@@ -106,14 +106,23 @@
         <button id="closebutton">閉じる</button>
 
     </div>
+    <form id="typeForm">
+        <input type="radio" id="type1" name="type" value="1" checked>
+        <label for="type1">Type 1</label>
+        
+        <input type="radio" id="type2" name="type" value="2">
+        <label for="type2">Type 2</label>
+      </form>
     <div class="overlay" id="overlay"></div>
     <div id="error-box" class="error-box">
         <p id="errmesse"></p>
         <button onclick="closeErrorBox()">閉じる</button>
     </div>
-    <script src="script/viewport.js"></script>
+    <script src="script/typechange.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="script/type1.js"></script>
+    <script src="script/viewport.js"></script>
+    <script src="script/square.js"></script>
+    <script src="script/generate.js"></script>
 </body>
 
 </html>
