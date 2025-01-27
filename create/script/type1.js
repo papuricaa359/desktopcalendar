@@ -1,53 +1,7 @@
 const { jsPDF } = window.jspdf;
-
-
-let currentMonth = 0;
 let currentErrorIndex = 0;
 let errorMessages = [];
 let generatedPdfBlob = null;
-
-function updateMonthVisibility(currentMonth) {
-
-  // 月の表示を更新
-  for (let i = 1; i <= 12; i++) {
-    const monthInput = document.getElementById(`input${i}`);
-    if (monthInput) {
-      monthInput.style.display = "none";
-    }
-
-    const currentMonthInput = document.getElementById(`input${currentMonth + 1}`);
-    if (currentMonthInput) {
-      currentMonthInput.style.display = "block";
-    }
-    if (currentMonth === 0) {
-      document.querySelector(".prev-btn").style.display = "none";
-    } else {
-      document.querySelector(".prev-btn").style.display = "inline-block";
-    }
-    if (currentMonth === 11) {
-      document.querySelector(".next-btn").style.display = "none";
-      document.querySelector("#generatePdfButton").style.display = "inline-block";
-    } else {
-      document.querySelector(".next-btn").style.display = "inline-block";
-      document.querySelector("#generatePdfButton").style.display = "none";
-    }
-  }
-}
-// 「次へ」ボタンのクリックイベント
-document.querySelector(".next-btn").addEventListener("click", () => {
-  if (currentMonth < 11) {
-    currentMonth++;
-    updateMonthVisibility(currentMonth); // 表示を更新
-  }
-});
-
-// 「前へ」ボタンのクリックイベント
-document.querySelector(".prev-btn").addEventListener("click", () => {
-  if (currentMonth > 0) {
-    currentMonth--;
-    updateMonthVisibility(currentMonth); // 表示を更新
-  }
-});
 
 // 画像を処理してフレームを適用する関数
 async function processImage(file, framePath, previewId, squareFramePath, squarePreviewId) {
@@ -165,12 +119,12 @@ document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
     const file = e.target.files[0];
     processImage(
       file,
-      `/desktopcalendar/create/frame/2025/type1/${index + 1}.png`,
+      `/create/frame/2025/type1/${index + 1}.png`,
       `imagePreview${index + 1}`,
-      `/desktopcalendar/create/frame/square/${index + 1}.png`,
+      `/create/frame/square/${index + 1}.png`,
       `squarePreview${index + 1}`
     );
-    
+
   });
 });
 
@@ -302,7 +256,5 @@ document.getElementById("viewStandButton").addEventListener("click", () => {
 });
 
 document.getElementById("closebutton").addEventListener("click", () => {
-  location.href = "/desktopcalendar/";
+  location.href = "/";
 });
-
-updateMonthVisibility(currentMonth);
