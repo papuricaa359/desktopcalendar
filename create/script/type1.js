@@ -165,7 +165,7 @@ document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
     const file = e.target.files[0];
     processImage(
       file,
-      `/create/frame/type1/${index + 1}.png`,
+      `/create/frame/2025/type1/${index + 1}.png`,
       `imagePreview${index + 1}`,
       `/create/frame/square/${index + 1}.png`,
       `squarePreview${index + 1}`
