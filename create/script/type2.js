@@ -7,7 +7,7 @@ async function processImage(file, framePath, previewId) {
       img.onload = () => {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
-        const targetHeight = 1000;
+        const targetHeight = 1341;
         const targetWidth = (targetHeight * 3) / 4;
         let cropWidth, cropHeight;
         if (img.width / img.height > 3 / 4) {
