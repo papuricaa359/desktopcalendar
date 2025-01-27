@@ -54,7 +54,7 @@ async function processImage(file, framePath, previewId) {
       const file = e.target.files[0];
       processImage(
         file,
-        `/create/frame/2025/type2/${index + 1}.png`,
+        `/desktopcalendar/create/frame/2025/type2/${index + 1}.png`,
         `imagePreview${index + 1}`
       );
     });
