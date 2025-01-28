@@ -39,6 +39,7 @@ nav .menu {
     display: flex;
     gap: 20px;
     margin: 0;
+    margin:auto;
     padding: 0;
 }
 
@@ -301,7 +302,7 @@ footer {
 /* PC */
 @media (min-width: 993px) {
     header {
-        height: 80px;
+        height: 100px;
     }
 
     header h1 {
