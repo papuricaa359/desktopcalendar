@@ -1,4 +1,4 @@
-async function processImage(file, framePath, previewId) {
+async function processImage_type1(file, framePath, previewId) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -51,7 +51,7 @@ async function processImage(file, framePath, previewId) {
 document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
   fileInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
-    processImage(
+    processImage_type1(
       file,
       `/desktopcalendar/create/frame/2025/type1/${index + 1}.png`,
       `imagePreview${index + 1}`
