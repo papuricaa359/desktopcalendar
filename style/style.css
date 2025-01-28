@@ -22,7 +22,7 @@ header {
 }
 
 .header-container {
-    display: flex;
+    /*display: flex;*/
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
@@ -43,7 +43,7 @@ nav .menu {
 }
 
 nav .menu li a {
-    font-size: 16px
+    font-size: 16px;
     color: #2d3436;
     font-weight: 500;
     cursor: pointer;
