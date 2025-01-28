@@ -56,7 +56,7 @@ async function processSquareImage(file, squareFramePath, squarePreviewId) {
       const file = e.target.files[0];
       processSquareImage(
         file,
-        `/create/frame/square/${index + 1}.png`,
+        `/desktopcalendar/create/frame/square/${index + 1}.png`,
         `squarePreview${index + 1}`
       );
     });
