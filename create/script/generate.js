@@ -106,5 +106,5 @@ function showError() {
     };
   });
   document.getElementById("closebutton").addEventListener("click", () => {
-    location.href = "/desktopcalendar/";
+    location.href = "/";
   });

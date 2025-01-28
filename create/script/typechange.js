@@ -1,30 +1,26 @@
-let type = 1;
-function removeTypeScripts() {
-    const type1Script = document.querySelector('script[src="script/type1.js"]');
-    const type2Script = document.querySelector('script[src="script/type2.js"]');
-    if (type1Script) type1Script.remove();
-    if (type2Script) type2Script.remove();
-}
-function loadScript(type) {
-    removeTypeScripts();
-    let scriptTag = document.createElement("script");
-    if (type === 1) {
-        scriptTag.src = "script/type1.js";
-        console.log("タイプ1のスクリプトがロードされました。");
-    } else if (type === 2) {
-        scriptTag.src = "script/type2.js";
-        console.log("タイプ2のスクリプトがロードされました。");
+import { processImage_type1 } from "./type1.js";
+import { processImage_type2 } from "./type2.js";
+
+let selectedType = "1";
+
+document.querySelectorAll('input[name="type"]').forEach((radio) => {
+    radio.addEventListener("change", (e) => {
+        selectedType = e.target.value;
+    });
+});
+
+function handleFileChange(fileInput, index) {
+    const file = fileInput.files[0];
+    const framePath = `/create/frame/2025/type${selectedType}/${index + 1}.png`;
+    const previewId = `imagePreview${index + 1}`;
+
+    if (selectedType === "1") {
+        processImage_type1(file, framePath, previewId);
+    } else if (selectedType === "2") {
+        processImage_type2(file, framePath, previewId);
     }
-    document.body.appendChild(scriptTag);
 }
-loadScript(type);
-document.getElementById('typeForm').addEventListener('change', (event) => {
-    const selectedValue = document.querySelector('input[name="type"]:checked').value;
-    type = parseInt(selectedValue);
-    if (type === 1) {
-        console.log("タイプ1が選択されました。");
-    } else if (type === 2) {
-        console.log("タイプ2が選択されました。");
-    }
-    loadScript(type);
+
+document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
+    fileInput.addEventListener("change", (e) => handleFileChange(fileInput, index));
 });
