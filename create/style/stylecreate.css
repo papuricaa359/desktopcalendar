@@ -187,7 +187,7 @@ input {
 }
 
 /* PC */
-@media (min-width: 1081px) {
+@media (min-width: 993px) {
     .image-preview {
         width: 45vw;
         bottom: 5vw;
@@ -234,7 +234,7 @@ input {
 }
 
 /*スマホタブレット*/
-@media (max-width: 1080px) {
+@media (max-width: 992px) {
     .image-preview {
         width: 100vw;
         bottom: 11vw;
