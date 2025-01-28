@@ -54,7 +54,7 @@
           const file = e.target.files[0];
           processImage_type1(
               file,
-              `/create/frame/2025/type1/${index + 1}.png`,
+              `/desktopcalendar/create/frame/2025/type1/${index + 1}.png`,
               `imagePreview${index + 1}`
           );
       });
