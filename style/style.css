@@ -299,7 +299,7 @@ footer {
 }
 
 /* PC */
-@media (min-width: 1081px) {
+@media (min-width: 993px) {
     header {
         height: 80px;
     }
@@ -349,7 +349,7 @@ footer {
 }
 
 /* タブレット */
-@media (min-width: 769px) and (max-width: 1080px) {
+@media (min-width: 769px) and (max-width: 992px) {
     header {
         height: 70px;
         display: flex;
