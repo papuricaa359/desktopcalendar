@@ -43,7 +43,7 @@ nav .menu {
 }
 
 nav .menu li a {
-    font-size: 20px;
+    font-size: 16px
     color: #2d3436;
     font-weight: 500;
     cursor: pointer;
@@ -358,7 +358,7 @@ footer {
     }
 
     header h1 {
-        font-size: 40px;
+        font-size: 25px;
     }
 
     nav {
