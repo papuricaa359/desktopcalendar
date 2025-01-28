@@ -1,3 +1,4 @@
+// タイプ2に特有の処理を書く
 async function processImage_type2(file, framePath, previewId) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -43,8 +44,7 @@ async function processImage_type2(file, framePath, previewId) {
 
           const imgElement = document.createElement("img");
           imgElement.src = dataUrl;
-          const imageWidth = window.innerWidth >= 1025 ? '45vw' : '100vw';
-          imgElement.style.width = imageWidth;
+          imgElement.style.width = window.innerWidth >= 1025 ? '45vw' : '100vw';
 
           document.getElementById(previewId).innerHTML = "";
           document.getElementById(previewId).appendChild(imgElement);
@@ -59,12 +59,13 @@ async function processImage_type2(file, framePath, previewId) {
   });
 }
 
+// イベントリスナーを追加
 document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
   fileInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     processImage_type2(
       file,
-      `/desktopcalendar/create/frame/2025/type2/${index + 1}.png`,
+      `/create/frame/2025/type2/${index + 1}.png`,
       `imagePreview${index + 1}`
     );
   });

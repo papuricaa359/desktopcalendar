@@ -5,23 +5,26 @@ function removeTypeScripts() {
     if (type1Script) type1Script.remove();
     if (type2Script) type2Script.remove();
 }
-
 function loadScript(type) {
     removeTypeScripts();
-
     let scriptTag = document.createElement("script");
-
     if (type === 1) {
         scriptTag.src = "script/type1.js";
+        console.log("タイプ1のスクリプトがロードされました。");
     } else if (type === 2) {
         scriptTag.src = "script/type2.js";
+        console.log("タイプ2のスクリプトがロードされました。");
     }
-
     document.body.appendChild(scriptTag);
 }
 loadScript(type);
 document.getElementById('typeForm').addEventListener('change', (event) => {
     const selectedValue = document.querySelector('input[name="type"]:checked').value;
     type = parseInt(selectedValue);
+    if (type === 1) {
+        console.log("タイプ1が選択されました。");
+    } else if (type === 2) {
+        console.log("タイプ2が選択されました。");
+    }
     loadScript(type);
 });
