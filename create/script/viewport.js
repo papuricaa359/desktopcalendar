@@ -20,11 +20,15 @@ document.querySelector(".next-btn").addEventListener("click", () => {
     if (flag <= 12) {
         pre=flag;
         flag++;
+        console.log(`${flag}`);
+        pagechange(flag,pre);
     }
 });
 document.querySelector(".prev-btn").addEventListener("click", () => {
     if (flag >= 1) {
         pre=flag;
         flag--;
+        console.log(`${flag}`);
+        pagechange(flag,pre);
     }
 });
