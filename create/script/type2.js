@@ -65,7 +65,7 @@ document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
     const file = e.target.files[0];
     processImage_type2(
       file,
-      `/create/frame/2025/type2/${index + 1}.png`,
+      `/desktopcalendar/create/frame/2025/type2/${index + 1}.png`,
       `imagePreview${index + 1}`
     );
   });
