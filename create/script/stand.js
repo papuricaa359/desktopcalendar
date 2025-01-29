@@ -30,7 +30,7 @@ document.getElementById("viewStandButton").addEventListener("click", async () =>
           }
 
           // 画像を正方形に加工
-          const processedDataUrl = await processSquareImage(fileInput.files[0], `create/frame/square/${i}.png`);
+          const processedDataUrl = await processSquareImage(fileInput.files[0], `/desktopcalendar/create/frame/square/${i}.png`);
           console.log(`画像${i}を処理したデータURL:`, processedDataUrl);
 
           // PDFに画像を追加
