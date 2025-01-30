@@ -1,4 +1,4 @@
-export async function processImage_type2(file, framePath, previewId) {
+export async function processImage_type3(file, framePath, previewId) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -7,37 +7,26 @@ export async function processImage_type2(file, framePath, previewId) {
             img.onload = () => {
                 const canvas = document.createElement("canvas");
                 const ctx = canvas.getContext("2d");
-                const targetHeight = 1210;
-                const targetWidth = (targetHeight * 3) / 4;
+                const targetHeight = 1741;
+                const targetWidth = (targetHeight * 14.8) / 10;
                 let cropWidth, cropHeight;
-                if (img.width / img.height > 3 / 4) {
+                if (img.width / img.height > 14.8 / 10) {
                     cropHeight = img.height;
-                    cropWidth = cropHeight * 3 / 4;
+                    cropWidth = cropHeight * 14.8 / 10;
                 } else {
                     cropWidth = img.width;
-                    cropHeight = cropWidth * 4 / 3;
+                    cropHeight = cropWidth * 10 / 14.8;
                 }
                 const cropX = (img.width - cropWidth) / 2;
                 const cropY = (img.height - cropHeight) / 2;
                 canvas.width = 2577;
-                canvas.height = 1650;
+                canvas.height = 1741;
+                ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
 
                 const frameImg = new Image();
                 frameImg.src = framePath;
                 frameImg.onload = () => {
                     ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(
-                        img,
-                        cropX,
-                        cropY,
-                        cropWidth,
-                        cropHeight,
-                        170,
-                        155,
-                        targetWidth,
-                        targetHeight
-                    );
-
                     const dataUrl = canvas.toDataURL();
                     resolve(dataUrl);
 
