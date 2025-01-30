@@ -9,7 +9,7 @@ document.querySelectorAll('input[name="type"]').forEach((radio) => {
 });
 function handleFileChange(fileInput, index) {
     const file = fileInput.files[0];
-    const framePath = `/frame/2025/type${selectedType}/${index + 1}.png`;
+    const framePath = `/desktopcalendar/frame/2025/type${selectedType}/${index + 1}.png`;
     const previewId = `imagePreview${index + 1}`;
     if (selectedType === "1") {
         processImage_type1(file, framePath, previewId);
