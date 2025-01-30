@@ -19,7 +19,7 @@ document.getElementById("StandButton").addEventListener("click", async () => {
                 console.log(`imageInput${i} に画像がありません`);
                 continue;
             }
-            const processedDataUrl = await processSquareImage(fileInput.files[0], `/frame/square/${i}.png`);
+            const processedDataUrl = await processSquareImage(fileInput.files[0], `/desktopcalendar/frame/square/${i}.png`);
             doc.addImage(processedDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
             squareX += squareWidth;
             if (i % 6 === 0) {
