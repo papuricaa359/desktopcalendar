@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>卓上カレンダージェネレーター</title>
-  <link rel="stylesheet" type="text/css" href="style/style.css">
+  <link rel="stylesheet" type="text/css" href="styles/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="オリジナルの卓上カレンダーを簡単に作成できるオンラインジェネレーター。
+  <meta name="description" content="完全無料でオリジナルの卓上カレンダーを簡単に作成できるオンラインジェネレーター。
   子供の成長記録などお好きな画像を使用して世界に一つだけのカレンダーを素早く作成できます。" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XVRPZ8DEYQ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-XVRPZ8DEYQ');
   </script>
 </head>
-
 <body>
   <header>
       <h1>卓上カレンダージェネレーター</h1>
@@ -33,8 +30,7 @@
         </ul>
       </nav>
   </header>
-
-  <img src="img/top.webp" class="topimg" alt="トップ画像">
+  <img src="images/top.webp" class="topimg" alt="トップ画像">
 <P>現在、開発中です。お楽しみに！</P>
   <section id="about">
     <h2>ABOUT</h2>
@@ -46,7 +42,6 @@
       自分だけの特別なカレンダーを作って、日常に彩りを加えてみませんか。
     </p>
   </section>
-
   <section id="example">
     <h2>EXAMPLE</h2>
     <h3>使用例を知る</h3>
@@ -54,40 +49,37 @@
       以下に使用例を紹介します。<br>
       下のボックスをクリックして、使用例をご覧ください。
     </p>
-
     <div class="exbox">
       <div class="box" onclick="openPopup('popup-family')">
-        <img src="img/family.webp" alt="家族">
+        <img src="images/family.webp" alt="家族">
         <div>
           <h4>家族との思い出</h4>
           <p>お子さんの写真をカレンダーに。</p>
         </div>
       </div>
       <div class="box" onclick="openPopup('popup-hobby')">
-        <img src="img/hobby.webp" alt="趣味">
+        <img src="images/hobby.webp" alt="趣味">
         <div>
           <h4>趣味の写真</h4>
           <p>お気に入りの趣味をカレンダーに。</p>
         </div>
       </div>
       <div class="box" onclick="openPopup('popup-pet')">
-        <img src="img/pet.webp" alt="ペット">
+        <img src="images/pet.webp" alt="ペット">
         <div>
           <h4>ペットの写真</h4>
           <p>毎日癒されるカレンダーに。</p>
         </div>
       </div>
       <div class="box" onclick="openPopup('popup-scenery')">
-        <img src="img/scenery.webp" alt="景色">
+        <img src="images/scenery.webp" alt="景色">
         <div>
           <h4>景色の写真</h4>
           <p>美しい風景を使って。</p>
         </div>
       </div>
     </div>
-
   </section>
-
   <section id="howto">
     <h2>HOW TO</h2>
     <h3>作り方を知る</h3>
@@ -98,7 +90,6 @@
     <h4>③印刷(光沢紙がおすすめ‼︎)</h4>
     <h4>完成</h4>
   </section>
-
   <section id="rule">
     <h2>RULE</h2>
     <h3>利用規約</h3>
@@ -120,7 +111,6 @@
       </p>
     </div>
   </section>
-
   <section id="news">
     <h2>NEWS</h2>
     <h3>最新情報</h3>
@@ -133,10 +123,8 @@
         <span class="newsdata">2025.01.26</span>
         <span class="newscont">卓上カレンダージェネレーターを開設しました！</span>
       </div>
-
     </div>
   </section>
-
   <section id="developer">
     <h2>DEVELOPER</h2>
     <h3>開発者</h3>
@@ -153,55 +141,46 @@
     <div class="container">
       <h3>GitHubアカウント</h3>
       <a href="https://github.com/papuricaa359">
-        <img src="img/gitlogo.webp" alt="GitHub Logo">
+        <img src="images/gitlogo.webp" alt="GitHub Logo">
       </a>
     </div>
-
   </section>
   <footer>
     <p>Copyright © 2025 Desktop Calendar Generator. All rights reserved.</p>
   </footer>
-
   <div id="popup-family" class="popup-overlay">
     <div class="popup-content">
       <span class="popup-close" onclick="closePopup('popup-family')">&times;</span>
-      <img src="img/exfamily.webp" alt="family">
+      <img src="images/exfamily.webp" alt="family">
     </div>
   </div>
-
   <div id="popup-hobby" class="popup-overlay">
     <div class="popup-content">
       <span class="popup-close" onclick="closePopup('popup-hobby')">&times;</span>
-      <img src="img/exhobby.webp" alt="hobby">
+      <img src="images/exhobby.webp" alt="hobby">
     </div>
   </div>
-
   <div id="popup-trip" class="popup-overlay">
     <div class="popup-content">
       <span class="popup-close" onclick="closePopup('popup-trip')">&times;</span>
-      <img src="img/extrip.webp" alt="trip">
+      <img src="images/extrip.webp" alt="trip">
     </div>
   </div>
-
   <div id="popup-pet" class="popup-overlay">
     <div class="popup-content">
       <span class="popup-close" onclick="closePopup('popup-pet')">&times;</span>
-      <img src="img/expet.webp" alt="pet">
+      <img src="images/expet.webp" alt="pet">
     </div>
   </div>
-
   <div id="popup-scenery" class="popup-overlay">
     <div class="popup-content">
       <span class="popup-close" onclick="closePopup('popup-scenery')">&times;</span>
-      <img src="img/exscenery.webp" alt="scenery">
+      <img src="images/exscenery.webp" alt="scenery">
     </div>
   </div>
-
-
   <div id="access">
-    <button onclick="location.href='create/create.html'">使用する</button>
+    <button onclick="location.href='create.html'">使用する</button>
   </div>
-  <script src="script/index.js"></script>
+  <script src="scripts/index.js"></script>
 </body>
-
 </html>

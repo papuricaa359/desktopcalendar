@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卓上カレンダージェネレーター</title>
+    <link rel="stylesheet" href="styles/stylecreate.css">
+</head>
+
+<body>
+    <div id="rule">
+        <div class="rule-content">
+            <h3>利用規約</h3>
+            <p>以下の利用規約に同意していただける場合のみご利用していただけます。</p>
+            <div class="scroll">
+                <p>
+                    卓上カレンダージェネレーター（以下「本サービス」といいます）の利用に関する条件を定めるものです。<br>
+                    本サービスを利用するすべての方（以下、「利用者」といいます）は、本規約に同意したものとみなします。<br>
+                    本サービスは個人利用または非営利目的の利用に限定しております。本サービスを利用して作成したコンテンツを販売、配布、またはその他営利的な目的で使用することはできません。
+                    ただし、家庭内などの非営利的に配布することは可能です。<br>
+                    利用者が本サービスを通じて作成したカレンダーの著作権は利用者に帰属しますが、
+                    本サービスで提供されるテンプレート、デザイン、素材等に関する著作権は、
+                    開発者に帰属します。これらの素材を本サービス外で再利用、転売、配布することは禁止します。<br>
+                    利用者は、本サービスを利用する際に、法令や公序良俗に反する行為、第三者の権利を侵害する行為、本サービスの運営を妨害する行為を行ってはなりません。<br>
+                    本サービスの内容の正確性、完全性、適用性について保証いたしません。また、本サービスの利用に起因して利用者に生じた損害について、責任を負いません。<br>
+                    利用者への事前の通知なしに、本サービスの内容を変更、追加、または停止することがあります。この変更、追加、または停止により利用者に損害が生じた場合でも、責任を負いません。<br>
+                    本規約は、必要に応じて変更されることがあります。本規約が変更された場合、変更後に本サービスを利用された時点で、利用者は変更後の規約に同意したものとみなします。<br>
+                    以上、本サービスを安全かつ適切にご利用いただくため、本規約を必ずご確認の上でご利用ください。
+                </p>
+            </div>
+            <div class="rulebuttons">
+                <button id="disagree">同意しない</button>
+                <button id="agree">同意する</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="input1">
+        <h1>1月</h1>
+        <input type="file" id="imageInput1" accept="image/*" />
+        <div id="imagePreview1" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div id="input2" style="display: none;">
+        <h1>2月</h1>
+        <input type="file" id="imageInput2" accept="image/*" />
+        <div id="imagePreview2" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div id="input3" style="display: none;">
+        <h1>3月</h1>
+        <input type="file" id="imageInput3" accept="image/*" />
+        <div id="imagePreview3" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div id="input4" style="display: none;">
+        <h1>4月</h1>
+        <input type="file" id="imageInput4" accept="image/*" />
+        <div id="imagePreview4" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div id="input5" style="display: none;">
+        <h1>5月</h1>
+        <input type="file" id="imageInput5" accept="image/*" />
+        <div id="imagePreview5" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div id="input6" style="display: none;">
+        <h1>6月</h1>
+        <input type="file" id="imageInput6" accept="image/*" />
+        <div id="imagePreview6" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div id="input7" style="display: none;">
+        <h1>7月</h1>
+        <input type="file" id="imageInput7" accept="image/*" />
+        <div id="imagePreview7" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div id="input8" style="display: none;">
+        <h1>8月</h1>
+        <input type="file" id="imageInput8" accept="image/*" />
+        <div id="imagePreview8" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div id="input9" style="display: none;">
+        <h1>9月</h1>
+        <input type="file" id="imageInput9" accept="image/*" />
+        <div id="imagePreview9" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div id="input10" style="display: none;">
+        <h1>10月</h1>
+        <input type="file" id="imageInput10" accept="image/*" />
+        <div id="imagePreview10" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div id="input11" style="display: none;">
+        <h1>11月</h1>
+        <input type="file" id="imageInput11" accept="image/*" />
+        <div id="imagePreview11" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div id="input12" style="display: none;">
+        <h1>12月</h1>
+        <input type="file" id="imageInput12" accept="image/*" />
+        <div id="imagePreview12" class="image-preview"><img src="images/none.webp"></div>
+    </div>
+
+    <div class="viewbutton">
+        <button class="prev-btn" style="display: none;">戻る</button>
+        <button class="next-btn">進む</button>
+        <button id="generatePdfButton">PDFを生成</button>
+    </div>
+    <div id="fin">
+        <p>生成が完了しました。ボタンを押すことで表示されます。</p>
+        <button id="viewPdfButton">PDFを表示</button>
+        <button id="StandButton">スタンドPDFを表示</button>
+        <button id="closebutton">閉じる</button>
+
+    </div>
+    <form id="typeForm">
+        <input type="radio" id="type1" name="type" value="1" checked>
+        <label for="type1">Type 1</label>
+
+        <input type="radio" id="type2" name="type" value="2">
+        <label for="type2">Type 2</label>
+    </form>
+
+    <div class="overlay" id="overlay"></div>
+    <div id="error-box" class="error-box">
+        <p id="errmesse"></p>
+        <button onclick="closeErrorBox()">閉じる</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="scripts/create/rule.js"></script>
+    <script type="module" src="scripts/create/typechange.js"></script>
+    <script type="module" src="scripts/create/viewport.js"></script>
+    <script type="module" src="scripts/create/error.js"></script>
+    <script type="module" src="scripts/create/stand.js"></script>
+    <script type="module" src="scripts/create/generate.js"></script>
+</body>
+
+</html>
