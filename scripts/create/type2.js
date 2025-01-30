@@ -33,7 +33,7 @@ export async function processImage_type2(file, framePath, previewId) {
                       cropWidth,
                       cropHeight,
                       170,
-                      200,
+                      170,
                       targetWidth,
                       targetHeight
                   );
