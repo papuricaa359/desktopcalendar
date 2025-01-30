@@ -1,7 +1,7 @@
 const { jsPDF } = window.jspdf;
 document.getElementById("StandButton").addEventListener("click", async () => {
     const standImage = new Image();
-    standImage.src = "/frame/stand.png";
+    standImage.src = "/desktopcalendar/frame/stand.png";
     const doc = new jsPDF("p", "mm", "a4");
     standImage.onload = async () => {
         const standImageWidth = 210;
