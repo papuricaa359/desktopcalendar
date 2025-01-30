@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <button class="opentype" onclick="openTypeSelect()">デザインを変更する</button>
     <div id="rule">
         <div class="rule-content">
             <h3>利用規約</h3>
@@ -35,6 +36,31 @@
             </div>
         </div>
     </div>
+
+    <div id="typeselect" role="dialog">
+        <div class="close-btn" onclick="closeTypeSelect()">×</div>
+        <h1>使用するデザインを選択してください。</h1>
+        <div class="option">
+            <img src="images/type1.webp" alt="type1">
+            <div><input type="radio" id="type1" name="type" value="1" checked>
+                <label for="type1">Type 1</label>
+            </div>
+        </div>
+        <div class="option">
+            <img src="images/type2.webp" alt="type2">
+            <div><input type="radio" id="type2" name="type" value="2">
+                <label for="type2">Type 2</label>
+            </div>
+        </div>
+        <div class="option">
+            <img src="images/type3.webp" alt="type3">
+            <div><input type="radio" id="type3" name="type" value="3">
+                <label for="type3">Type 3</label>
+            </div>
+        </div>
+    </div>
+
+
 
     <div id="input1">
         <h1>1月</h1>
@@ -118,19 +144,7 @@
         <button id="viewPdfButton">PDFを表示</button>
         <button id="StandButton">スタンドPDFを表示</button>
         <button id="closebutton">閉じる</button>
-
     </div>
-    <form id="typeForm">
-        <input type="radio" id="type1" name="type" value="1" checked>
-        <label for="type1">Type 1</label>
-
-        <input type="radio" id="type2" name="type" value="2">
-        <label for="type2">Type 2</label>
-
-        <input type="radio" id="type3" name="type" value="3">
-        <label for="type3">Type 3</label>
-    </form>
-
     <div class="overlay" id="overlay"></div>
     <div id="error-box" class="error-box">
         <p id="errmesse"></p>
