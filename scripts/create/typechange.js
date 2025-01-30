@@ -6,7 +6,6 @@ document.querySelectorAll('input[name="type"]').forEach((radio) => {
         selectedType = e.target.value;
     });
 });
-
 function handleFileChange(fileInput, index) {
     const file = fileInput.files[0];
     const framePath = `/desktopcalendar/frame/2025/type${selectedType}/${index + 1}.png`;
