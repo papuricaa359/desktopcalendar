@@ -1,7 +1,7 @@
 const { jsPDF } = window.jspdf;
 document.getElementById("StandButton").addEventListener("click", async () => {
     const standImage = new Image();
-    standImage.src = "/desktopcalendar/frame/stand.png";
+    standImage.src = "/frame/stand.png";
     const doc = new jsPDF("p", "mm", "a4");
     standImage.onload = async () => {
         const standImageWidth = 210;
@@ -19,8 +19,8 @@ document.getElementById("StandButton").addEventListener("click", async () => {
                 console.log(`imageInput${i} に画像がありません`);
                 continue;
             }
-            const processedDataUrl = await processSquareImage(fileInput.files[0], `/desktopcalendar/frame/square/${i}.png`);
-            doc.addImage(processedDataUrl, "PNG", squareX, squareY, squareWidth, squareHeight);
+            const processedDataUrl = await processSquareImage(fileInput.files[0], `/frame/square/${i}.png`);
+            doc.addImage(processedDataUrl, "JPEG", squareX, squareY, squareWidth, squareHeight, undefined, "FAST");
             squareX += squareWidth;
             if (i % 6 === 0) {
                 squareX = startX;

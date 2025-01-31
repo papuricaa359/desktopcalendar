@@ -27,7 +27,7 @@ export async function processImage_type3(file, framePath, previewId) {
                 frameImg.src = framePath;
                 frameImg.onload = () => {
                     ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-                    const dataUrl = canvas.toDataURL();
+                    const dataUrl = canvas.toDataURL("image/jpeg", 1.0);
                     resolve(dataUrl);
 
                     const imgElement = document.createElement("img");

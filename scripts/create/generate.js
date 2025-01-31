@@ -25,7 +25,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
     if (imgElement && !imgElement.src.includes("images/none.webp")) {
-      doc.addImage(imgElement.src, "PNG", xOffset, yOffset, postcardWidth, postcardHeight);
+      doc.addImage(imgElement.src, "JPEG", xOffset, yOffset, postcardWidth, postcardHeight, undefined, "FAST");
       yOffset += postcardHeight;
       if ((index + 1) % 2 === 0) {
         yOffset = 10;
@@ -51,5 +51,5 @@ document.getElementById("viewPdfButton").addEventListener("click", () => {
   }
 });
 document.getElementById("closebutton").addEventListener("click", () => {
-  location.href = "/desktopcalendar/";
+  location.href = "/";
 });

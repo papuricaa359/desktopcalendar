@@ -10,6 +10,7 @@ export async function processImage_type1(file, framePath, previewId) {
                 const targetHeight = 1741;
                 const targetWidth = (targetHeight * 3) / 4;
                 let cropWidth, cropHeight;
+
                 if (img.width / img.height > 3 / 4) {
                     cropHeight = img.height;
                     cropWidth = cropHeight * 3 / 4;
@@ -17,6 +18,7 @@ export async function processImage_type1(file, framePath, previewId) {
                     cropWidth = img.width;
                     cropHeight = cropWidth * 4 / 3;
                 }
+
                 const cropX = (img.width - cropWidth) / 2;
                 const cropY = (img.height - cropHeight) / 2;
                 canvas.width = 2577;
@@ -27,7 +29,7 @@ export async function processImage_type1(file, framePath, previewId) {
                 frameImg.src = framePath;
                 frameImg.onload = () => {
                     ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-                    const dataUrl = canvas.toDataURL();
+                    const dataUrl = canvas.toDataURL("image/jpeg", 1.0);
                     resolve(dataUrl);
 
                     const imgElement = document.createElement("img");

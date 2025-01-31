@@ -38,7 +38,7 @@ export async function processImage_type2(file, framePath, previewId) {
                         targetHeight
                     );
 
-                    const dataUrl = canvas.toDataURL();
+                    const dataUrl = canvas.toDataURL("image/jpeg", 1.0);
                     resolve(dataUrl);
 
                     const imgElement = document.createElement("img");
