@@ -72,23 +72,27 @@ h1 {
 
 #rule button:first-of-type {
     background: #ccc;
+    color: black;
 }
 
 #rule button:last-of-type {
     background: #5296c9;
     color: #fff;
 }
-.opentype{
+
+.opentype {
     position: fixed;
     top: 0;
     right: 0;
-    margin:10px;
+    margin: 10px;
     background-color: #5296c9;
+    color: black;
     font-family: serif;
     border: none;
     cursor: pointer;
     font-weight: bold;
 }
+
 #typeselect {
     position: fixed;
     top: 0;
@@ -319,12 +323,13 @@ input {
 }
 
 @media (min-width: 993px) {
-    .opentype{
+    .opentype {
         width: 12vw;
         height: 4vw;
         font-size: 20px;
         border-radius: 2vw;
     }
+
     .image-preview {
         width: 45vw;
         bottom: 5vw;
@@ -338,6 +343,7 @@ input {
         transform: translateX(-50%);
         padding: 1vw;
     }
+
     .viewbutton .prev-btn,
     .viewbutton .next-btn,
     .viewbutton #generatePdfButton {
@@ -367,12 +373,13 @@ input {
 }
 
 @media (max-width: 992px) {
-    .opentype{
+    .opentype {
         width: 40vw;
         height: 10vw;
         font-size: 14px;
         border-radius: 5vw;
     }
+
     #typeselect {
         padding: 10px;
     }
@@ -388,6 +395,10 @@ input {
     .close-btn {
         top: 10px;
         right: 10px;
+    }
+
+    .rule-content {
+        width: 80%;
     }
 
     .image-preview {
