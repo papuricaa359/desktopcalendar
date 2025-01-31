@@ -3,7 +3,7 @@ document.getElementById("agree").addEventListener("click", function () {
     rule.style.display = "none";
 });
 document.getElementById("disagree").addEventListener("click", function () {
-    location.href = "/";
+    location.href = "/desktopcalendar/";
 });
 function closeTypeSelect() {
     document.getElementById('typeselect').style.display = 'none';
