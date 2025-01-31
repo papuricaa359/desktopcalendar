@@ -13,7 +13,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
   imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
-    if (!imgElement || imgElement.src.includes("images/none.webp")) {
+    if (!imgElement || imgElement.src.includes("/desktopcalendar/images/none.webp")) {
       errorMessages.push(`画像${index + 1}がアップロードされていません。`);
     }
   });
@@ -24,7 +24,7 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   }
   imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
-    if (imgElement && !imgElement.src.includes("images/none.webp")) {
+    if (imgElement && !imgElement.src.includes("/desktopcalendar/images/none.webp")) {
       doc.addImage(imgElement.src, "JPEG", xOffset, yOffset, postcardWidth, postcardHeight, undefined, "FAST");
       yOffset += postcardHeight;
       if ((index + 1) % 2 === 0) {
