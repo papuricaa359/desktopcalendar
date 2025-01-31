@@ -6,7 +6,6 @@ body {
 }
 
 h1 {
-    text-align: center;
     margin-top: 20px;
     color: #002a4a;
 }
@@ -78,19 +77,6 @@ h1 {
 #rule button:last-of-type {
     background: #5296c9;
     color: #fff;
-}
-
-.opentype {
-    position: fixed;
-    top: 0;
-    right: 0;
-    margin: 10px;
-    background-color: #5296c9;
-    color: black;
-    font-family: serif;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
 }
 
 #typeselect {
@@ -172,94 +158,105 @@ h1 {
     transform: scale(0.9);
 }
 
-input {
-    display: block;
-    margin: 0 auto;
+header {
+    width: 100%;
+    background-color: #5296c9;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+}
+
+header h2 {
+    margin: 0;
+    font-weight: bold;
+}
+
+header a {
+    color: black;
+    text-decoration: none;
+}
+
+header .h1-container {
+    display: flex;
+    gap: 10px;
+}
+
+header h1 {
+    margin: 0;
+    color: black;
+}
+
+.input input {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .image-preview {
-    position: fixed;
-    justify-content: center;
-    left: 50%;
     height: auto;
-    z-index: 200;
-    display: flex;
+    position: fixed;
+    left: 50%;
     transform: translateX(-50%);
 }
 
-
 .image-preview img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-#id {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-#id input[type="file"] {
-    margin-top: 10px;
+    width: 100%;
+    height: auto;
 }
 
 .viewbutton {
+    width: 100%;
     position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    align-items: center;
-    z-index: 100;
-    box-sizing: border-box;
+    left: 0;
+    bottom: 0;
+    background-color: #5296c9;
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.viewbutton .prev-btn,
-.viewbutton .next-btn,
-.viewbutton #generatePdfButton {
-    font-family: serif;
+.viewbutton button {
+    height: 100%;
     border: none;
+    border-radius: 0;
+    color: white;
+    font-family: serif;
+    position: relative;
     cursor: pointer;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+.viewbutton .next-btn,
+.viewbutton #generatePdfButton {
+    background-color: #004172;
 }
 
 .viewbutton .prev-btn {
-    background-color: #f44336;
-    color: white;
+    background-color: #6a6a6a;
+}
+
+.viewbutton .opentype {
+    background-color: #193a53;
+    margin: 0 auto;
     position: absolute;
-    left: 1vw;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.viewbutton .prev-btn:hover {
-    background-color: #e53935;
-}
-
-.viewbutton .next-btn {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.viewbutton .next-btn:hover {
-    background-color: #45a049;
-}
-
-.viewbutton #generatePdfButton {
-    background-color: #2196F3;
-    color: white;
-    display: none;
-}
-
-.viewbutton #generatePdfButton:hover {
-    background-color: #1e88e5;
-}
-
-.viewbutton .next-btn:only-child {
+.viewbutton>button:not(.opentype) {
     position: absolute;
+}
+
+.viewbutton>.prev-btn {
+    left: 0;
+}
+
+.viewbutton>.next-btn,
+.viewbutton>#generatePdfButton {
     right: 0;
 }
 
@@ -323,36 +320,38 @@ input {
 }
 
 @media (min-width: 993px) {
-    .opentype {
-        width: 12vw;
-        height: 4vw;
+    header {
+        height: 6vw;
+        padding: 5px 10px;
+    }
+
+    header h2 {
         font-size: 20px;
-        border-radius: 2vw;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 32px;
+        color: black;
+    }
+
+    .input input {
+        top: 7vw;
     }
 
     .image-preview {
         width: 45vw;
-        bottom: 5vw;
+        bottom: 6vw;
     }
 
     .viewbutton {
-        width: 100%;
         height: 6vw;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 1vw;
     }
 
-    .viewbutton .prev-btn,
-    .viewbutton .next-btn,
-    .viewbutton #generatePdfButton {
-        width: 12vw;
-        height: 4vw;
-        font-size: 24px;
-        border-radius: 2vw;
+    .viewbutton button {
+        font-size: 1.5vw;
+        width: 15vw;
     }
-
 
     .error-box {
         width: 40vw;
@@ -373,12 +372,6 @@ input {
 }
 
 @media (max-width: 992px) {
-    .opentype {
-        width: 40vw;
-        height: 10vw;
-        font-size: 14px;
-        border-radius: 5vw;
-    }
 
     #typeselect {
         padding: 10px;
@@ -401,30 +394,6 @@ input {
         width: 80%;
     }
 
-    .image-preview {
-        width: 100vw;
-        bottom: 11vw;
-    }
-
-    .viewbutton {
-        width: 95%;
-        height: 10vw;
-        bottom: 0.5vw;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 0;
-    }
-
-    .viewbutton .prev-btn,
-    .viewbutton .next-btn,
-    .viewbutton #generatePdfButton {
-        padding: 0;
-        width: 48%;
-        height: 10vw;
-        font-size: 24px;
-        border-radius: 5vw;
-    }
-
     .error-box {
         width: 80vw;
         height: 20vh;
@@ -440,5 +409,39 @@ input {
         font-size: 7vw;
         padding: 0.5vw 2vw;
         border-radius: 1vw;
+    }
+
+    header {
+        height: 15vw;
+        padding: 5px 10px;
+    }
+
+    header h2 {
+        display: none;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 4.5vw;
+        color: black;
+    }
+
+    .input input {
+        top: 18vw;
+    }
+
+    .image-preview {
+        width: 100vw;
+        bottom: 15vw;
+    }
+
+    .viewbutton {
+        height: 15vw;
+    }
+
+    .viewbutton .next-btn,
+    .viewbutton .prev-btn {
+        font-size: 10vw;
+        width: 33vw;
     }
 }
