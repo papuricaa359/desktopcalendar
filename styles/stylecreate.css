@@ -189,15 +189,16 @@ header h1 {
     color: black;
 }
 
-.input input {
-    position: fixed;
+input {
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
+    margin-top: 10px;
 }
 
 .image-preview {
-    height: auto;
     position: fixed;
+    height: auto;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -217,6 +218,7 @@ header h1 {
     align-items: center;
     padding: 0;
     box-sizing: border-box;
+    justify-content: space-between;
 }
 
 .viewbutton button {
@@ -228,6 +230,7 @@ header h1 {
     position: relative;
     cursor: pointer;
     font-weight: bold;
+    width: 30%;
 }
 
 .viewbutton .next-btn,
@@ -247,16 +250,16 @@ header h1 {
     transform: translateX(-50%);
 }
 
-.viewbutton>button:not(.opentype) {
+.viewbutton > button:not(.opentype) {
     position: absolute;
 }
 
-.viewbutton>.prev-btn {
+.viewbutton > .prev-btn {
     left: 0;
 }
 
-.viewbutton>.next-btn,
-.viewbutton>#generatePdfButton {
+.viewbutton > .next-btn,
+.viewbutton > #generatePdfButton {
     right: 0;
 }
 
@@ -350,7 +353,15 @@ header h1 {
 
     .viewbutton button {
         font-size: 1.5vw;
+    }
+
+    .viewbutton .next-btn,
+    .viewbutton .prev-btn {
         width: 15vw;
+    }
+
+    .viewbutton .opentype {
+        width: 20vw;
     }
 
     .error-box {
@@ -426,7 +437,7 @@ header h1 {
         color: black;
     }
 
-    .input input {
+    input {
         top: 18vw;
     }
 
@@ -442,6 +453,11 @@ header h1 {
     .viewbutton .next-btn,
     .viewbutton .prev-btn {
         font-size: 10vw;
+        width: 33vw;
+    }
+
+    .viewbutton .opentype {
+        font-size: 5vw;
         width: 33vw;
     }
 }
