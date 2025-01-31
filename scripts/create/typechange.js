@@ -7,14 +7,18 @@ let selectedType = "1";
 document.querySelectorAll('input[name="type"]').forEach((radio) => {
     radio.addEventListener("change", (e) => {
         selectedType = e.target.value;
+        document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
+            const file = fileInput.files[0];
+            if (file) {
+                const framePath = `/desktopcalendar/frame/2025/type${selectedType}/${index + 1}.png`;
+                const previewId = `imagePreview${index + 1}`;
+                handleFileChange(fileInput, index, file, framePath, previewId);
+            }
+        });
     });
 });
 
-function handleFileChange(fileInput, index) {
-    const file = fileInput.files[0];
-    const framePath = `/desktopcalendar/frame/2025/type${selectedType}/${index + 1}.png`;
-    const previewId = `imagePreview${index + 1}`;
-
+function handleFileChange(fileInput, index, file, framePath, previewId) {
     if (selectedType === "1") {
         processImage_type1(file, framePath, previewId);
     } else if (selectedType === "2") {
@@ -25,5 +29,10 @@ function handleFileChange(fileInput, index) {
 }
 
 document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
-    fileInput.addEventListener("change", (e) => handleFileChange(fileInput, index));
+    fileInput.addEventListener("change", (e) => {
+        const file = fileInput.files[0];
+        const framePath = `/desktopcalendar/frame/2025/type${selectedType}/${index + 1}.png`;
+        const previewId = `imagePreview${index + 1}`;
+        handleFileChange(fileInput, index, file, framePath, previewId);
+    });
 });
