@@ -1,8 +1,9 @@
 var flag = 1;
-var pre=0;
-function pagechange(flag,pre) {
+var pre = 0;
+function pagechange(flag, pre) {
     document.getElementById(`input${pre}`).style.display = "none";
     document.getElementById(`input${flag}`).style.display = "block";
+    document.getElementById("mouth").innerText = flag;
     if (flag === 1) {
         document.querySelector(".prev-btn").style.display = "none";
     } else {
@@ -18,15 +19,16 @@ function pagechange(flag,pre) {
 }
 document.querySelector(".next-btn").addEventListener("click", () => {
     if (flag <= 12) {
-        pre=flag;
+        pre = flag;
         flag++;
-        pagechange(flag,pre);
+        pagechange(flag, pre);
     }
 });
 document.querySelector(".prev-btn").addEventListener("click", () => {
     if (flag >= 1) {
-        pre=flag;
+        pre = flag;
         flag--;
-        pagechange(flag,pre);
+        pagechange(flag, pre);
     }
 });
+document.getElementById("mouth").innerText = flag;
