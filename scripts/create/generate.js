@@ -51,5 +51,5 @@ document.getElementById("viewPdfButton").addEventListener("click", () => {
   }
 });
 document.getElementById("closebutton").addEventListener("click", () => {
-  location.href = "/";
+  location.href = "/desktopcalendar/";
 });
