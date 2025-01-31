@@ -9,7 +9,14 @@
 </head>
 
 <body>
-    <button class="opentype" onclick="openTypeSelect()">デザインを変更する</button>
+    <header>
+        <h2><a href="/">卓上カレンダージェネレータ―</a></h2>
+        <div class="h1-container">
+            <h1 id="mouth"></h1>
+            <h1>月の画像をアップロードしてください。</h1>
+        </div>
+    </header>
+    
     <div id="rule">
         <div class="rule-content">
             <h3>利用規約</h3>
@@ -60,84 +67,82 @@
         </div>
     </div>
 
-
-
-    <div id="input1">
-        <h1>1月</h1>
-        <input type="file" id="imageInput1" accept="image/*" />
+    <div id="input1" class="input">
         <div id="imagePreview1" class="image-preview"><img src="images/none.webp"></div>
-    </div>
+        <input type="file" id="imageInput1" accept="image/*" />
 
-    <div id="input2" style="display: none;">
-        <h1>2月</h1>
-        <input type="file" id="imageInput2" accept="image/*" />
+    </div>
+    <div id="input2" class="input" style="display: none;">
         <div id="imagePreview2" class="image-preview"><img src="images/none.webp"></div>
+        <input type="file" id="imageInput2" accept="image/*" />
     </div>
-
-    <div id="input3" style="display: none;">
-        <h1>3月</h1>
-        <input type="file" id="imageInput3" accept="image/*" />
+    <div id="input3" class="input" style="display: none;">
         <div id="imagePreview3" class="image-preview"><img src="images/none.webp"></div>
-    </div>
 
-    <div id="input4" style="display: none;">
-        <h1>4月</h1>
-        <input type="file" id="imageInput4" accept="image/*" />
+        <input type="file" id="imageInput3" accept="image/*" />
+    </div>
+    <div id="input4" class="input" style="display: none;">
         <div id="imagePreview4" class="image-preview"><img src="images/none.webp"></div>
-    </div>
 
-    <div id="input5" style="display: none;">
-        <h1>5月</h1>
-        <input type="file" id="imageInput5" accept="image/*" />
+        <input type="file" id="imageInput4" accept="image/*" />
+    </div>
+    <div id="input5" class="input" style="display: none;">
+
         <div id="imagePreview5" class="image-preview"><img src="images/none.webp"></div>
-    </div>
 
-    <div id="input6" style="display: none;">
-        <h1>6月</h1>
-        <input type="file" id="imageInput6" accept="image/*" />
+        <input type="file" id="imageInput5" accept="image/*" />
+    </div>
+    <div id="input6" class="input" style="display: none;">
+
         <div id="imagePreview6" class="image-preview"><img src="images/none.webp"></div>
-    </div>
 
-    <div id="input7" style="display: none;">
-        <h1>7月</h1>
-        <input type="file" id="imageInput7" accept="image/*" />
+        <input type="file" id="imageInput6" accept="image/*" />
+    </div>
+    <div id="input7" class="input" style="display: none;">
+
         <div id="imagePreview7" class="image-preview"><img src="images/none.webp"></div>
-    </div>
 
-    <div id="input8" style="display: none;">
-        <h1>8月</h1>
-        <input type="file" id="imageInput8" accept="image/*" />
+        <input type="file" id="imageInput7" accept="image/*" />
+    </div>
+    <div id="input8" class="input" style="display: none;">
         <div id="imagePreview8" class="image-preview"><img src="images/none.webp"></div>
-    </div>
 
-    <div id="input9" style="display: none;">
-        <h1>9月</h1>
-        <input type="file" id="imageInput9" accept="image/*" />
+        <input type="file" id="imageInput8" accept="image/*" />
+    </div>
+    <div id="input9" class="input" style="display: none;">
+
         <div id="imagePreview9" class="image-preview"><img src="images/none.webp"></div>
-    </div>
 
-    <div id="input10" style="display: none;">
-        <h1>10月</h1>
-        <input type="file" id="imageInput10" accept="image/*" />
+        <input type="file" id="imageInput9" accept="image/*" />
+    </div>
+    <div id="input10" class="input" style="display: none;">
+
         <div id="imagePreview10" class="image-preview"><img src="images/none.webp"></div>
-    </div>
 
-    <div id="input11" style="display: none;">
-        <h1>11月</h1>
-        <input type="file" id="imageInput11" accept="image/*" />
+        <input type="file" id="imageInput10" accept="image/*" />
+    </div>
+    <div id="input11" class="input" style="display: none;">
+
         <div id="imagePreview11" class="image-preview"><img src="images/none.webp"></div>
+
+        <input type="file" id="imageInput11" accept="image/*" />
+    </div>
+    <div id="input12" class="input" style="display: none;">
+
+        <div id="imagePreview12" class="image-preview"><img src="images/none.webp"></div>
+
+        <input type="file" id="imageInput12" accept="image/*" />
     </div>
 
-    <div id="input12" style="display: none;">
-        <h1>12月</h1>
-        <input type="file" id="imageInput12" accept="image/*" />
-        <div id="imagePreview12" class="image-preview"><img src="images/none.webp"></div>
-    </div>
+
+
+
 
     <div class="viewbutton">
         <button class="prev-btn" style="display: none;">戻る</button>
+        <button class="opentype" onclick="openTypeSelect()">デザインを変更する</button>
         <button class="next-btn">進む</button>
-        <button id="generatePdfButton">PDFを生成</button>
+        <button id="generatePdfButton" style="display: none;">PDFを生成</button>
     </div>
     <div id="fin">
         <p>生成が完了しました。ボタンを押すことで表示されます。</p>
@@ -153,7 +158,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="scripts/create/rule.js"></script>
     <script type="module" src="scripts/create/typechange.js"></script>
-    <script type="module" src="scripts/create/viewport.js"></script>
+    <script src="scripts/create/viewport.js"></script>
     <script type="module" src="scripts/create/error.js"></script>
     <script type="module" src="scripts/create/stand.js"></script>
     <script type="module" src="scripts/create/generate.js"></script>
