@@ -18,11 +18,11 @@ export async function generateStandImage_type2() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const standInput = document.getElementById("standInput");
+  const standshow = document.getElementById("standshow");
 
-  if (!standInput) return;
+  if (!standshow) return;
 
-  standInput.addEventListener("change", async (event) => {
+  standshow.addEventListener("change", async (event) => {
     const file = event.target.files[0];
     if (!file) return;
 

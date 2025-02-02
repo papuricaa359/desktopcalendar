@@ -2,7 +2,7 @@ import { setErrorMessages } from "./error.js";
 import { generateStandImage_type1 } from "./standtype1.js";
 import { generateStandImage_type2 } from "./standtype2.js";
 const standConfirmButton = document.querySelector(".standconfirm");
-const standInput = document.querySelector(".standinput");
+const standshow = document.querySelector(".standshow");
 standConfirmButton.addEventListener("click", () => {
     const selectedStandType = document.querySelector("input[name='standtype']:checked").value;
     if (selectedStandType === "1") {
@@ -10,8 +10,8 @@ standConfirmButton.addEventListener("click", () => {
     } else if (selectedStandType === "2") {
         generateStandImage_type2();
     }
-    if (standInput) {
-        standInput.style.display = "flex";
+    if (standshow) {
+        standshow.style.display = "flex";
     }
 });
 document.querySelector("#tostand").addEventListener("click", () => {
@@ -38,5 +38,5 @@ document.querySelector("#tostand").addEventListener("click", () => {
 });
 document.querySelector(".standconfirm").addEventListener("click", () => {
     document.getElementById("standtypeselect").style.display = "none";
-    document.querySelector(".standinput").style.display = "flex";
+    document.querySelector(".standshow").style.display = "flex";
 });
