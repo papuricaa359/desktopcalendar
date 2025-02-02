@@ -6,7 +6,6 @@ export async function generateStandImage_type1() {
     standCanvas.height = 2339;
     const standImage = new Image();
     standImage.src = "/desktopcalendar/frame/stand/stand.png";
-    
     standImage.onload = async () => {
       standCtx.drawImage(standImage, 0, 0, standCanvas.width, standCanvas.height);
       const squareWidth = 196.2;
@@ -36,21 +35,16 @@ export async function generateStandImage_type1() {
         }
       }
 
+      // テキスト画像の読み込み
       const textImg = new Image();
-      textImg.src = "/desktopcalendar/frame/stand/text/standtype2text.png";
-      
-      textImg.onload = () => {
-        console.log("テキスト画像の読み込み完了");
-        const textWidth = 1178;
-        const textHeight = (textImg.height / textImg.width) * textWidth;
-        console.log(`テキスト画像のサイズ: ${textWidth}x${textHeight}`);
-        standCtx.drawImage(textImg, startX, startY, textWidth, textHeight);
-      };
-
-      textImg.onerror = () => {
-        console.error("テキスト画像の読み込みに失敗しました。");
-        reject(new Error("テキスト画像の読み込みに失敗しました。"));
-      };
+      textImg.src = "/desktopcalendar/frame/stand/text/standtype1text.png";
+      await new Promise((res) => {
+        textImg.onload = () => {
+          // 描画位置を確認・調整
+          standCtx.drawImage(textImg, startX, startY, squareWidth, squareHeight);
+          res();
+        };
+      });
     
       const standDataUrl = standCanvas.toDataURL("image/jpeg", 1.0);
       const standViewImg = document.getElementById("standview");
@@ -58,8 +52,7 @@ export async function generateStandImage_type1() {
         standViewImg.src = standDataUrl;
       }
       resolve(standDataUrl);
-    };
-    
+    };    
     standImage.onerror = () => reject(new Error("スタンド画像の読み込みに失敗しました。"));
   });
 }
