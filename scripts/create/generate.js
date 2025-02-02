@@ -1,6 +1,7 @@
 import { setErrorMessages } from "./error.js";
 const { jsPDF } = window.jspdf;
 let generatedPdfBlob = null;
+
 document.getElementById("generatePdfButton").addEventListener("click", async () => {
   const generateButton = document.getElementById("generatePdfButton");
   generateButton.disabled = true;
@@ -9,14 +10,15 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
   const postcardHeight = 100;
   let xOffset = 10;
   let yOffset = 10;
-  const standPreviews = document.querySelectorAll("[id^='standview']");
+  const standImageElement = document.querySelector("#standview");
 
-  standPreviews.forEach((preview) => {
+  standImageElement.forEach((preview) => {
     const standElement = preview.querySelector("img");
     if (!standElement || standElement.src.includes("images/standnone.webp")) {
       errorMessages.push(`スタンドが生成されていません。`);
     }
   });
+
   if (errorMessages.length > 0) {
     setErrorMessages(errorMessages);
     return;
@@ -39,18 +41,18 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
       }
     }
   });
-  const standImageElement = document.querySelector("#standview");
+
   if (standImageElement && standImageElement.src) {
     const standImageUrl = standImageElement.src;
     doc.addPage();
     doc.addImage(standImageUrl, "JPEG", 0, 0, 210, 297);
-  } else {
-    alert("スタンド画像が見つかりません。");
   }
+
   generatedPdfBlob = doc.output("blob");
   document.getElementById("fin").style.display = "flex";
   generateButton.disabled = false;
 });
+
 document.getElementById("viewPdfButton").addEventListener("click", () => {
   if (generatedPdfBlob) {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
@@ -59,6 +61,7 @@ document.getElementById("viewPdfButton").addEventListener("click", () => {
     alert("PDFが生成されていません。");
   }
 });
+
 document.getElementById("closebutton").addEventListener("click", () => {
   location.href = "/desktopcalendar/";
 });
