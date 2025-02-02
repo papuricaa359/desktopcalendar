@@ -1,7 +1,6 @@
 import { setErrorMessages } from "./error.js";
 const { jsPDF } = window.jspdf;
 let generatedPdfBlob = null;
-
 document.getElementById("generatePdfButton").addEventListener("click", async () => {
   const generateButton = document.getElementById("generatePdfButton");
   generateButton.disabled = true;
@@ -11,18 +10,15 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
   let xOffset = 10;
   let yOffset = 10;
   const standImageElement = document.querySelector("#standview img");
-
   let errorMessages = [];
-
   if (!standImageElement || standImageElement.src.includes("images/standnone.webp")) {
     errorMessages.push(`スタンドが生成されていません。`);
   }
-
   if (errorMessages.length > 0) {
     setErrorMessages(errorMessages);
+    generateButton.disabled = false;
     return;
   }
-
   const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
   imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
@@ -40,18 +36,15 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
       }
     }
   });
-
   if (standImageElement && standImageElement.src) {
     const standImageUrl = standImageElement.src;
     doc.addPage();
     doc.addImage(standImageUrl, "JPEG", 0, 0, 210, 297);
   }
-
   generatedPdfBlob = doc.output("blob");
   document.getElementById("fin").style.display = "flex";
   generateButton.disabled = false;
 });
-
 document.getElementById("viewPdfButton").addEventListener("click", () => {
   if (generatedPdfBlob) {
     const pdfUrl = URL.createObjectURL(generatedPdfBlob);
@@ -60,7 +53,6 @@ document.getElementById("viewPdfButton").addEventListener("click", () => {
     alert("PDFが生成されていません。");
   }
 });
-
 document.getElementById("closebutton").addEventListener("click", () => {
   location.href = "/desktopcalendar/";
 });
