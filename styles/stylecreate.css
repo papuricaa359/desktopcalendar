@@ -546,7 +546,7 @@ input[type="file"] {
         height: 70vh;
     }
     #standshow{
-        top: 15vw;
+        top: 5vw;
         left: 50%;
         transform: translateX(-50%);
     }
