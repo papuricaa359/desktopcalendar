@@ -10,14 +10,13 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
   const postcardHeight = 100;
   let xOffset = 10;
   let yOffset = 10;
-  const standImageElement = document.querySelector("#standview");
-  let errorMessages = []; 
-  standImageElement.forEach((preview) => {
-    const standElement = preview.querySelector("img");
-    if (!standElement || standElement.src.includes("images/standnone.webp")) {
-      errorMessages.push(`スタンドが生成されていません。`);
-    }
-  });
+  const standImageElement = document.querySelector("#standview img");
+
+  let errorMessages = [];
+
+  if (!standImageElement || standImageElement.src.includes("images/standnone.webp")) {
+    errorMessages.push(`スタンドが生成されていません。`);
+  }
 
   if (errorMessages.length > 0) {
     setErrorMessages(errorMessages);
