@@ -74,7 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         await new Promise((res) => {
           textImg.onload = () => {
-            standCtx.drawImage(textImg, startX, startY);
+            const textWidth = 1178;
+            const textHeight = (textImg.height / textImg.width) * textWidth;
+            standCtx.drawImage(textImg, startX, startY, textWidth, textHeight);
             res();
           };
           textImg.onerror = () => reject(new Error("テキスト画像の読み込みに失敗しました。"));
