@@ -10,7 +10,7 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
   const postcardHeight = 100;
   let xOffset = 10;
   let yOffset = 10;
-  const standImageElement = document.querySelector("#standview");
+  const standImageElement = document.querySelector("#standinput");
 
   let errorMessages = [];
 
