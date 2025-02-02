@@ -255,13 +255,13 @@ input[type="file"] {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.standinput {
+.standshow {
     display: none;
 }
-.standinput img{
+.standshow img{
     position: fixed;
 }
-#standInput{
+#standshow{
     position: fixed;
 }
 #generatePdfButton{
@@ -426,12 +426,12 @@ input[type="file"] {
         width: 20vw;
     }
 
-    .standinput img{
+    .standshow img{
         top: 0;
         right: 0;
         height: 100vh;
     }
-    #standInput{
+    #standshow{
         top: 3vw;
         left: 25%;
         transform: translateX(-25%);
@@ -539,13 +539,13 @@ input[type="file"] {
         width: 33vw;
     }
 
-    .standinput img{
+    .standshow img{
         bottom: 15vw;
         left: 50%;
         transform: translateX(-50%);
         height: 70vh;
     }
-    #standInput{
+    #standshow{
         top: 15vw;
         left: 50%;
         transform: translateX(-50%);
