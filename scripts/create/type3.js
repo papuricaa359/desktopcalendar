@@ -21,6 +21,8 @@ export async function processImage_type3(file, framePath, previewId) {
                 const cropY = (img.height - cropHeight) / 2;
                 canvas.width = 2577;
                 canvas.height = 1741;
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
                 const frameImg = new Image();
                 frameImg.src = framePath;

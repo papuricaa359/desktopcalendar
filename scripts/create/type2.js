@@ -21,6 +21,8 @@ export async function processImage_type2(file, framePath, previewId) {
                 const cropY = (img.height - cropHeight) / 2;
                 canvas.width = 2577;
                 canvas.height = 1650;
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
                 const frameImg = new Image();
                 frameImg.src = framePath;
                 frameImg.onload = () => {
@@ -41,7 +43,6 @@ export async function processImage_type2(file, framePath, previewId) {
                     const imgElement = document.createElement("img");
                     imgElement.src = dataUrl;
                     imgElement.style.width = window.innerWidth >= 1025 ? '45vw' : '100vw';
-
                     document.getElementById(previewId).innerHTML = "";
                     document.getElementById(previewId).appendChild(imgElement);
                     canvas.remove();

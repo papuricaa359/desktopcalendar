@@ -11,7 +11,7 @@ standConfirmButton.addEventListener("click", () => {
         generateStandImage_type2();
     }
     if (standInput) {
-        standInput.style.display = "block";
+        standInput.style.display = "flex";
     }
 });
 document.querySelector("#tostand").addEventListener("click", () => {
@@ -38,5 +38,5 @@ document.querySelector("#tostand").addEventListener("click", () => {
 });
 document.querySelector(".standconfirm").addEventListener("click", () => {
     document.getElementById("standtypeselect").style.display = "none";
-    document.querySelector(".standinput").style.display = "block";
+    document.querySelector(".standinput").style.display = "flex";
 });
