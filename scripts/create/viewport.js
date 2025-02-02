@@ -3,7 +3,7 @@ var pre = 0;
 function pagechange(flag, pre) {
     document.getElementById(`input${pre}`).style.display = "none";
     document.getElementById(`input${flag}`).style.display = "block";
-    document.getElementById("mouth").innerText = flag;
+    document.getElementById("mouth").innerText = flag + "月の画像をアップロードしてください。";
     if (flag === 1) {
         document.querySelector(".prev-btn").style.display = "none";
     } else {
@@ -11,10 +11,10 @@ function pagechange(flag, pre) {
     }
     if (flag === 12) {
         document.querySelector(".next-btn").style.display = "none";
-        document.querySelector("#generatePdfButton").style.display = "inline-block";
+        document.querySelector("#tostand").style.display = "inline-block";
     } else {
         document.querySelector(".next-btn").style.display = "inline-block";
-        document.querySelector("#generatePdfButton").style.display = "none";
+        document.querySelector("#tostand").style.display = "none";
     }
 }
 document.querySelector(".next-btn").addEventListener("click", () => {
@@ -31,4 +31,4 @@ document.querySelector(".prev-btn").addEventListener("click", () => {
         pagechange(flag, pre);
     }
 });
-document.getElementById("mouth").innerText = flag;
+document.getElementById("mouth").innerText = flag + "月の画像をアップロードしてください。";

@@ -1,7 +1,6 @@
-import { setErrorMessages } from "./error.js";
 const { jsPDF } = window.jspdf;
 let generatedPdfBlob = null;
-document.getElementById("generatePdfButton").addEventListener("click", () => {
+document.getElementById("generatePdfButton").addEventListener("click", async () => {
   const generateButton = document.getElementById("generatePdfButton");
   generateButton.disabled = true;
   const doc = new jsPDF("p", "mm", "a4");
@@ -9,22 +8,10 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
   const postcardHeight = 100;
   let xOffset = 10;
   let yOffset = 10;
-  let errorMessages = [];
   const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
   imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
-    if (!imgElement || imgElement.src.includes("/desktopcalendar/images/none.webp")) {
-      errorMessages.push(`画像${index + 1}がアップロードされていません。`);
-    }
-  });
-  if (errorMessages.length > 0) {
-    setErrorMessages(errorMessages);
-    generateButton.disabled = false;
-    return;
-  }
-  imagePreviews.forEach((preview, index) => {
-    const imgElement = preview.querySelector("img");
-    if (imgElement && !imgElement.src.includes("/desktopcalendar/images/none.webp")) {
+    if (imgElement && !imgElement.src.includes("images/none.webp")) {
       doc.addImage(imgElement.src, "JPEG", xOffset, yOffset, postcardWidth, postcardHeight, undefined, "FAST");
       yOffset += postcardHeight;
       if ((index + 1) % 2 === 0) {
@@ -38,6 +25,14 @@ document.getElementById("generatePdfButton").addEventListener("click", () => {
       }
     }
   });
+  const standImageElement = document.querySelector("#standview");
+  if (standImageElement && standImageElement.src) {
+    const standImageUrl = standImageElement.src;
+    doc.addPage();
+    doc.addImage(standImageUrl, "JPEG", 0, 0, 210, 297);
+  } else {
+    alert("スタンド画像が見つかりません。");
+  }
   generatedPdfBlob = doc.output("blob");
   document.getElementById("fin").style.display = "flex";
   generateButton.disabled = false;

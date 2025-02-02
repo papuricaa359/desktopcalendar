@@ -22,18 +22,15 @@ export async function processImage_type3(file, framePath, previewId) {
                 canvas.width = 2577;
                 canvas.height = 1741;
                 ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, targetWidth, targetHeight);
-
                 const frameImg = new Image();
                 frameImg.src = framePath;
                 frameImg.onload = () => {
                     ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
                     const dataUrl = canvas.toDataURL("image/jpeg", 1.0);
                     resolve(dataUrl);
-
                     const imgElement = document.createElement("img");
                     imgElement.src = dataUrl;
                     imgElement.style.width = window.innerWidth >= 1025 ? '45vw' : '100vw';
-
                     document.getElementById(previewId).innerHTML = "";
                     document.getElementById(previewId).appendChild(imgElement);
                     canvas.remove();
