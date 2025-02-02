@@ -261,7 +261,7 @@ input[type="file"] {
 .standshow img{
     position: fixed;
 }
-#standshow{
+#standinput{
     position: fixed;
 }
 #generatePdfButton{
@@ -431,7 +431,7 @@ input[type="file"] {
         right: 0;
         height: 100vh;
     }
-    #standshow{
+    #standinput{
         top: 3vw;
         left: 25%;
         transform: translateX(-25%);
@@ -545,7 +545,7 @@ input[type="file"] {
         transform: translateX(-50%);
         height: 70vh;
     }
-    #standshow{
+    #standinput{
         top: 5vw;
         left: 50%;
         transform: translateX(-50%);
