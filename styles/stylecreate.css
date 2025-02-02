@@ -179,21 +179,16 @@ header a {
     text-decoration: none;
 }
 
-header .h1-container {
-    display: flex;
-    gap: 10px;
-}
-
 header h1 {
     margin: 0;
     color: black;
 }
 
-input {
+input[type="file"] {
     position: relative;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 10px;
 }
 
 .image-preview {
@@ -206,6 +201,62 @@ input {
 .image-preview img {
     width: 100%;
     height: auto;
+}
+
+
+
+#standtypeselect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99998;
+    background-color: rgb(82, 149, 201);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#standtypeselect h1 {
+    color: white;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#standtypeselect .standoption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+    text-align: center;
+}
+
+#standtypeselect .standoption div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#standtypeselect input[type="radio"] {
+    margin-right: 10px;
+}
+
+#standtypeselect img {
+    max-width: 180px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.standinput {
+    display: none;
 }
 
 .viewbutton {
@@ -234,7 +285,7 @@ input {
 }
 
 .viewbutton .next-btn,
-.viewbutton #generatePdfButton {
+.viewbutton #tostand {
     background-color: #004172;
 }
 
@@ -250,16 +301,16 @@ input {
     transform: translateX(-50%);
 }
 
-.viewbutton > button:not(.opentype) {
+.viewbutton>button:not(.opentype) {
     position: absolute;
 }
 
-.viewbutton > .prev-btn {
+.viewbutton>.prev-btn {
     left: 0;
 }
 
-.viewbutton > .next-btn,
-.viewbutton > #generatePdfButton {
+.viewbutton>.next-btn,
+.viewbutton>#tostand {
     right: 0;
 }
 
@@ -338,10 +389,6 @@ input {
         color: black;
     }
 
-    .input input {
-        top: 7vw;
-    }
-
     .image-preview {
         width: 45vw;
         bottom: 6vw;
@@ -356,7 +403,8 @@ input {
     }
 
     .viewbutton .next-btn,
-    .viewbutton .prev-btn {
+    .viewbutton .prev-btn,
+    .viewbutton #tostand {
         width: 15vw;
     }
 
@@ -437,10 +485,6 @@ input {
         color: black;
     }
 
-    input {
-        top: 18vw;
-    }
-
     .image-preview {
         width: 100vw;
         bottom: 15vw;
@@ -453,6 +497,11 @@ input {
     .viewbutton .next-btn,
     .viewbutton .prev-btn {
         font-size: 8vw;
+        width: 33vw;
+    }
+
+    .viewbutton #tostand {
+        font-size: 5vw;
         width: 33vw;
     }
 
