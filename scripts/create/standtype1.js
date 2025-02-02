@@ -5,7 +5,7 @@ export async function generateStandImage_type1() {
     standCanvas.width = 1654;
     standCanvas.height = 2339;
     const standImage = new Image();
-    standImage.src = "/desktopcalendar/frame/stand.png";
+    standImage.src = "/desktopcalendar/frame/stand/stand.png";
     standImage.onload = async () => {
       standCtx.drawImage(standImage, 0, 0, standCanvas.width, standCanvas.height);
       const squareWidth = 196.2;
@@ -14,10 +14,11 @@ export async function generateStandImage_type1() {
       const startY = 1465;
       let squareX = startX;
       let squareY = startY;
+    
       for (let i = 1; i <= 12; i++) {
         const fileInput = document.getElementById(`imageInput${i}`);
         if (!fileInput || !fileInput.files[0]) continue;
-        const processedDataUrl = await processSquareImage(fileInput.files[0], `/desktopcalendar/frame/square/${i}.png`);
+        const processedDataUrl = await processSquareImage(fileInput.files[0], `/desktopcalendar/frame/stand/type1/${i}.png`);
         const squareImg = new Image();
         squareImg.src = processedDataUrl;
         await new Promise((res) => {
@@ -26,19 +27,30 @@ export async function generateStandImage_type1() {
             res();
           };
         });
+    
         squareX += squareWidth;
         if (i % 6 === 0) {
           squareX = startX;
           squareY += squareHeight + 272.6;
         }
       }
+    
+      const textImg = new Image();
+      textImg.src = "/desktopcalendar/frame/stand/text/standtype1text.png";
+      await new Promise((res) => {
+        textImg.onload = () => {
+          standCtx.drawImage(textImg, startX, startY, squareWidth, squareHeight);
+          res();
+        };
+      });
+    
       const standDataUrl = standCanvas.toDataURL("image/jpeg", 1.0);
       const standViewImg = document.getElementById("standview");
       if (standViewImg) {
         standViewImg.src = standDataUrl;
       }
       resolve(standDataUrl);
-    };
+    };    
     standImage.onerror = () => reject(new Error("スタンド画像の読み込みに失敗しました。"));
   });
 }
