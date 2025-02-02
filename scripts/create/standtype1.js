@@ -8,6 +8,7 @@ export async function generateStandImage_type1() {
     standImage.src = "/desktopcalendar/frame/stand/stand.png";
     
     standImage.onload = async () => {
+      console.log("スタンド画像の読み込み完了");
       standCtx.drawImage(standImage, 0, 0, standCanvas.width, standCanvas.height);
       const squareWidth = 196.2;
       const squareHeight = 196.2;
@@ -24,6 +25,7 @@ export async function generateStandImage_type1() {
         squareImg.src = processedDataUrl;
         await new Promise((res) => {
           squareImg.onload = () => {
+            console.log(`正方形画像 ${i} の読み込み完了`);
             standCtx.drawImage(squareImg, squareX, squareY, squareWidth, squareHeight);
             res();
           };
@@ -37,18 +39,22 @@ export async function generateStandImage_type1() {
       }
 
       const textImg = new Image();
-      textImg.src = "/desktopcalendar/frame/stand/text/standtype1text.png";
-
+      textImg.src = "/desktopcalendar/frame/stand/text/standtype2text.png";
+      
       await new Promise((res, reject) => {
         textImg.onload = () => {
+          console.log("テキスト画像の読み込み完了");
           const textWidth = 1178;
           const textHeight = (textImg.height / textImg.width) * textWidth;
           standCtx.drawImage(textImg, startX, startY, textWidth, textHeight);
           res();
         };
-        textImg.onerror = () => reject(new Error("テキスト画像の読み込みに失敗しました。"));
+        textImg.onerror = () => {
+          console.error("テキスト画像の読み込みに失敗しました。");
+          reject(new Error("テキスト画像の読み込みに失敗しました。"));
+        };
       });
-    
+
       const standDataUrl = standCanvas.toDataURL("image/jpeg", 1.0);
       const standViewImg = document.getElementById("standview");
       if (standViewImg) {
@@ -57,6 +63,9 @@ export async function generateStandImage_type1() {
       resolve(standDataUrl);
     };
     
-    standImage.onerror = () => reject(new Error("スタンド画像の読み込みに失敗しました。"));
+    standImage.onerror = () => {
+      console.error("スタンド画像の読み込みに失敗しました。");
+      reject(new Error("スタンド画像の読み込みに失敗しました。"));
+    };
   });
 }
