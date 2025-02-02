@@ -37,7 +37,7 @@ export async function generateStandImage_type1() {
       }
 
       const textImg = new Image();
-      textImg.src = "/desktopcalendar/frame/stand/text/standtype2text.png";
+      textImg.src = "/desktopcalendar/frame/stand/text/standtype1text.png";
 
       await new Promise((res, reject) => {
         textImg.onload = () => {
