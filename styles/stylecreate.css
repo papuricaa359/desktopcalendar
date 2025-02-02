@@ -258,7 +258,21 @@ input[type="file"] {
 .standinput {
     display: none;
 }
-
+.standinput img{
+    position: fixed;
+}
+#standInput{
+    position: fixed;
+}
+#generatePdfButton{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border: none;
+    background-color: #004172;
+    color: black;
+    font-family: serif;
+}
 .viewbutton {
     width: 100%;
     position: fixed;
@@ -412,6 +426,21 @@ input[type="file"] {
         width: 20vw;
     }
 
+    .standinput img{
+        top: 0;
+        right: 0;
+        height: 100vh;
+    }
+    #standInput{
+        top: 3vw;
+        left: 25%;
+        transform: translateX(-25%);
+    }
+    #generatePdfButton{
+        width: 50vw;
+        height: 5vw;
+        font-size: 3vw;
+    }
     .error-box {
         width: 40vw;
         height: 20vh;
@@ -508,5 +537,22 @@ input[type="file"] {
     .viewbutton .opentype {
         font-size: 4vw;
         width: 33vw;
+    }
+
+    .standinput img{
+        bottom: 15vw;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 70vh;
+    }
+    #standInput{
+        top: 15vw;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #generatePdfButton{
+        width: 100vw;
+        height: 15vw;
+        font-size: 8vw;
     }
 }
