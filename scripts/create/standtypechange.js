@@ -17,12 +17,12 @@ standConfirmButton.addEventListener("click", () => {
 document.querySelector("#tostand").addEventListener("click", () => {
     const tostand = document.getElementById("tostand");
     let errorMessages = [];
-    const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
+    const imagePreviews = document.querySelectorAll("[id^='standview']");
   
     imagePreviews.forEach((preview, index) => {
       const imgElement = preview.querySelector("img");
-      if (!imgElement || imgElement.src.includes("images/none.webp")) {
-        errorMessages.push(`${index + 1}月がアップロードされていません。`);
+      if (!imgElement || imgElement.src.includes("images/standnone.webp")) {
+        errorMessages.push(`スタンドが生成されていません。`);
       }
     });
   

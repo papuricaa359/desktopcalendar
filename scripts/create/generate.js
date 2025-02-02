@@ -1,3 +1,4 @@
+import { setErrorMessages } from "./error.js";
 const { jsPDF } = window.jspdf;
 let generatedPdfBlob = null;
 document.getElementById("generatePdfButton").addEventListener("click", async () => {
@@ -8,6 +9,14 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
   const postcardHeight = 100;
   let xOffset = 10;
   let yOffset = 10;
+  const standPreviews = document.querySelectorAll("[id^='imagePreview']");
+  
+  standPreviews.forEach((preview, index) => {
+    const imgElement = preview.querySelector("img");
+    if (!imgElement || imgElement.src.includes("images/none.webp")) {
+      errorMessages.push(`${index + 1}月がアップロードされていません。`);
+    }
+  });
   const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
   imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
