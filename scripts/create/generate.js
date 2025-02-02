@@ -9,14 +9,19 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
   const postcardHeight = 100;
   let xOffset = 10;
   let yOffset = 10;
-  const standPreviews = document.querySelectorAll("[id^='imagePreview']");
-  
-  standPreviews.forEach((preview, index) => {
-    const imgElement = preview.querySelector("img");
-    if (!imgElement || imgElement.src.includes("images/none.webp")) {
-      errorMessages.push(`${index + 1}月がアップロードされていません。`);
+  const standPreviews = document.querySelectorAll("[id^='standview']");
+
+  standPreviews.forEach((preview) => {
+    const standElement = preview.querySelector("img");
+    if (!standElement || standElement.src.includes("images/standnone.webp")) {
+      errorMessages.push(`スタンドが生成されていません。`);
     }
   });
+  if (errorMessages.length > 0) {
+    setErrorMessages(errorMessages);
+    return;
+  }
+
   const imagePreviews = document.querySelectorAll("[id^='imagePreview']");
   imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
