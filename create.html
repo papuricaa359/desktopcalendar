@@ -11,12 +11,9 @@
 <body>
     <header>
         <h2><a href="/desktopcalendar/">卓上カレンダージェネレータ―</a></h2>
-        <div class="h1-container">
-            <h1 id="mouth"></h1>
-            <h1>月の画像をアップロードしてください。</h1>
-        </div>
+        <h1 id="mouth"></h1>
     </header>
-    
+
     <div id="rule">
         <div class="rule-content">
             <h3>利用規約</h3>
@@ -66,7 +63,6 @@
             </div>
         </div>
     </div>
-
     <div id="input1" class="input">
         <div id="imagePreview1" class="image-preview"><img src="images/none.webp"></div>
         <input type="file" id="imageInput1" accept="image/*" />
@@ -133,21 +129,40 @@
 
         <input type="file" id="imageInput12" accept="image/*" />
     </div>
+    <div id="standtypeselect">
+        <h1>使用するスタンドのデザインを選択してください。</h1>
+        <div class="standoption">
+            <img src="images/type1.webp" alt="type1">
+            <div><input type="radio" id="standtype1" name="standtype" value="1" checked>
+                <label for="standtype1">Type 1</label>
+            </div>
+        </div>
+        <div class="standoption">
+            <img src="images/type2.webp" alt="type2">
+            <div><input type="radio" id="standtype2" name="standtype" value="2">
+                <label for="standtype2">Type 2</label>
+            </div>
+        </div>
+        <button class="standconfirm">進む</button>
+    </div>
+    <div class="standinput">
+        <input type="file" id="standInput" accept="image/*" />
+        <img id="standview">
+        <button id="generatePdfButton">pdf生成</button>
+        
+    </div>
 
 
 
-
-
-    <div class="viewbutton">
+    <div class="viewbutton" id="viewbutton">
         <button class="prev-btn" style="display: none;">戻る</button>
         <button class="opentype" onclick="openTypeSelect()">デザインを変更する</button>
         <button class="next-btn">進む</button>
-        <button id="generatePdfButton" style="display: none;">PDFを生成</button>
+        <button id="tostand" style="display: none;">スタンド生成に進む</button>
     </div>
     <div id="fin">
         <p>生成が完了しました。ボタンを押すことで表示されます。</p>
         <button id="viewPdfButton">PDFを表示</button>
-        <button id="StandButton">スタンドPDFを表示</button>
         <button id="closebutton">閉じる</button>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -160,7 +175,7 @@
     <script type="module" src="scripts/create/typechange.js"></script>
     <script src="scripts/create/viewport.js"></script>
     <script type="module" src="scripts/create/error.js"></script>
-    <script type="module" src="scripts/create/stand.js"></script>
+    <script type="module" src="scripts/create/standtypechange.js"></script>
     <script type="module" src="scripts/create/generate.js"></script>
 </body>
 
