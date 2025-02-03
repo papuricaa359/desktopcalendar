@@ -82,7 +82,9 @@ section p {
     margin: auto;
     margin-top: 2rem;
 }
-
+img{
+    height:auto;
+}
 .exbox {
     display: flex;
     flex-direction: row;
