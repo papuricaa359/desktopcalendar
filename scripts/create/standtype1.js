@@ -8,8 +8,8 @@ export async function generateStandImage_type1() {
     standImage.src = "/desktopcalendar/frame/stand/stand.png";
     standImage.onload = async () => {
       standCtx.drawImage(standImage, 0, 0, standCanvas.width, standCanvas.height);
-      const squareWidth = 300;
-      const squareHeight = 300;
+      const squareWidth = 482.5;
+      const squareHeight = 482.5;
       const startX = 412.5;
       const startY = 2565;
       let squareX = startX;
