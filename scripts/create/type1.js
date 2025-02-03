@@ -10,7 +10,6 @@ export async function processImage_type1(file, framePath, previewId) {
                 const targetHeight = 1741;
                 const targetWidth = (targetHeight * 3) / 4;
                 let cropWidth, cropHeight;
-
                 if (img.width / img.height > 3 / 4) {
                     cropHeight = img.height;
                     cropWidth = cropHeight * 3 / 4;

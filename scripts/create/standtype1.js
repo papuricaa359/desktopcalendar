@@ -2,21 +2,18 @@ export async function generateStandImage_type1() {
   return new Promise((resolve, reject) => {
     const standCanvas = document.createElement("canvas");
     const standCtx = standCanvas.getContext("2d");
-    standCanvas.width = 1654;
-    standCanvas.height = 2339;
-    
+    standCanvas.width = 2895;
+    standCanvas.height = 4093;
     const standImage = new Image();
     standImage.src = "/desktopcalendar/frame/stand/stand.png";
-
     standImage.onload = async () => {
       standCtx.drawImage(standImage, 0, 0, standCanvas.width, standCanvas.height);
-      const squareWidth = 196.2;
-      const squareHeight = 196.2;
-      const startX = 235.2;
-      const startY = 1465;
+      const squareWidth = 482.5;
+      const squareHeight = 483.5;
+      const startX = 412.5;
+      const startY = 2565;
       let squareX = startX;
       let squareY = startY;
-    
       for (let i = 1; i <= 12; i++) {
         const fileInput = document.getElementById(`imageInput${i}`);
         if (!fileInput || !fileInput.files[0]) continue;
@@ -29,17 +26,14 @@ export async function generateStandImage_type1() {
             res();
           };
         });
-
         squareX += squareWidth;
         if (i % 6 === 0) {
           squareX = startX;
-          squareY += squareHeight + 272.6;
+          squareY += squareHeight + 669.4;
         }
       }
-
       const textImg = new Image();
       textImg.src = "/desktopcalendar/frame/stand/text/standtype1text.png";
-
       await new Promise((res) => {
         textImg.onload = () => {
           const textWidth = 1178;
@@ -56,11 +50,9 @@ export async function generateStandImage_type1() {
       }
       resolve(standDataUrl);
     };
-
     standImage.onerror = () => reject(new Error("スタンド画像の読み込みに失敗しました。"));
   });
 }
-
 async function processSquareImage(file, squareFramePath) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
