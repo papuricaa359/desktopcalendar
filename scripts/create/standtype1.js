@@ -29,7 +29,7 @@ export async function generateStandImage_type1() {
         squareX += squareWidth;
         if (i % 6 === 0) {
           squareX = startX;
-          squareY += squareHeight + 467.5;
+          squareY += squareHeight + 487.5;
         }
       }
       const textImg = new Image();
