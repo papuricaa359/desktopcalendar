@@ -10,7 +10,7 @@ export async function generateStandImage_type1() {
       standCtx.drawImage(standImage, 0, 0, standCanvas.width, standCanvas.height);
       const squareWidth = 343.6;
       const squareHeight = 343.6;
-      const startX = 410.5;
+      const startX = 411;
       const startY = 2563;
       let squareX = startX;
       let squareY = startY;
