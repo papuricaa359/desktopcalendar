@@ -33,7 +33,7 @@ export async function generateStandImage_type1() {
         }
       }
       const textImg = new Image();
-      textImg.src = "/desktopcalendar/frame/stand/text/standtype1text.png";
+      textImg.src = "/desktopcalendar/frame/stand/2025/type1.png";
       await new Promise((res) => {
         textImg.onload = () => {
           const textWidth = 2062;

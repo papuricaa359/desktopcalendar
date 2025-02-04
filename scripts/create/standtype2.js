@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const startY = 2563;
         standCtx.drawImage(backImage, cropX, cropY, cropWidth, cropHeight, startX, startY, imageWidth, imageHeight);
         const textImg = new Image();
-        textImg.src = "/desktopcalendar/frame/stand/text/standtype2text.png";
+        textImg.src = "/desktopcalendar/frame/stand/2025/type2.png";
         await new Promise((res) => {
           textImg.onload = () => {
             const textWidth = 2060;
