@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let flag = 1;
-    let pre = 1;
-    let startMonth = 1;
+    let flag = startMonth; // 1月または4月からスタート
+    let pre = startMonth;
+    let startMonth = 1; // デフォルトは1月開始
 
     // ページ切り替え関数
     function pagechange(flag, pre) {
         document.getElementById(`input${pre}`).style.display = "none";
         document.getElementById(`input${flag}`).style.display = "block";
         document.getElementById("mouth").innerText = `${flag}月の画像をアップロードしてください。`;
-        
+
         document.querySelector(".prev-btn").style.display = (flag === startMonth) ? "none" : "inline-block";
         let endMonth = (startMonth === 1) ? 12 : 15;
 
