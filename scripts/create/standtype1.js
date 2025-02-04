@@ -29,14 +29,14 @@ export async function generateStandImage_type1() {
         squareX += squareWidth;
         if (i % 6 === 0) {
           squareX = startX;
-          squareY += squareHeight + 457.5;
+          squareY += squareHeight + 467.5;
         }
       }
       const textImg = new Image();
       textImg.src = "/desktopcalendar/frame/stand/text/standtype1text.png";
       await new Promise((res) => {
         textImg.onload = () => {
-          const textWidth = 2060;
+          const textWidth = 2062;
           const textHeight = (textImg.height / textImg.width) * textWidth;
           standCtx.drawImage(textImg, startX, startY, textWidth, textHeight);
           res();
