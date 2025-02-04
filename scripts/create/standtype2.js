@@ -49,16 +49,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const cropX = (backWidth - cropWidth) / 2;
         const cropY = (backHeight - cropHeight) / 2;
-        const imageWidth = 2062;
+        const imageWidth = 2064;
         const imageHeight = (cropHeight / cropWidth) * imageWidth;
-        const startX = 410.5;
+        const startX = 410;
         const startY = 2563;
         standCtx.drawImage(backImage, cropX, cropY, cropWidth, cropHeight, startX, startY, imageWidth, imageHeight);
         const textImg = new Image();
         textImg.src = "/desktopcalendar/frame/stand/2025/type2.png";
         await new Promise((res) => {
           textImg.onload = () => {
-            const textWidth = 2060;
+            const textWidth = 2064;
             const textHeight = (textImg.height / textImg.width) * textWidth;
             standCtx.drawImage(textImg, startX, startY, textWidth, textHeight);
             res();

@@ -8,9 +8,9 @@ export async function generateStandImage_type1() {
     standImage.src = "/desktopcalendar/frame/stand/stand.png";
     standImage.onload = async () => {
       standCtx.drawImage(standImage, 0, 0, standCanvas.width, standCanvas.height);
-      const squareWidth = 343.6;
-      const squareHeight = 343.6;
-      const startX = 411;
+      const squareWidth = 344;
+      const squareHeight = 344;
+      const startX = 410;
       const startY = 2563;
       let squareX = startX;
       let squareY = startY;
@@ -29,14 +29,14 @@ export async function generateStandImage_type1() {
         squareX += squareWidth;
         if (i % 6 === 0) {
           squareX = startX;
-          squareY += squareHeight + 477.5;
+          squareY += squareHeight + 476.7;
         }
       }
       const textImg = new Image();
       textImg.src = "/desktopcalendar/frame/stand/2025/type1.png";
       await new Promise((res) => {
         textImg.onload = () => {
-          const textWidth = 2062;
+          const textWidth = 2064;
           const textHeight = (textImg.height / textImg.width) * textWidth;
           standCtx.drawImage(textImg, startX, startY, textWidth, textHeight);
           res();
