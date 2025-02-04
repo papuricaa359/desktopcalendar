@@ -49,10 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const cropX = (backWidth - cropWidth) / 2;
         const cropY = (backHeight - cropHeight) / 2;
-        const imageWidth = 2060;
+        const imageWidth = 2062;
         const imageHeight = (cropHeight / cropWidth) * imageWidth;
-        const startX = 412.5;
-        const startY = 2565;
+        const startX = 410.5;
+        const startY = 2563;
         standCtx.drawImage(backImage, cropX, cropY, cropWidth, cropHeight, startX, startY, imageWidth, imageHeight);
         const textImg = new Image();
         textImg.src = "/desktopcalendar/frame/stand/text/standtype2text.png";
