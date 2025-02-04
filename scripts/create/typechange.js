@@ -1,7 +1,10 @@
 import { processImage_type1 } from "./type1.js";
 import { processImage_type2 } from "./type2.js";
 import { processImage_type3 } from "./type3.js";
+
 let selectedType = "1";
+
+// タイプ選択の変更処理
 document.querySelectorAll('input[name="type"]').forEach((radio) => {
     radio.addEventListener("change", (e) => {
         selectedType = e.target.value;
@@ -17,6 +20,8 @@ document.querySelectorAll('input[name="type"]').forEach((radio) => {
         }
     });
 });
+
+// ファイル変更時の処理
 document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
     fileInput.addEventListener("change", (e) => {
         const file = fileInput.files[0];
@@ -27,6 +32,8 @@ document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
         }
     });
 });
+
+// 画像処理
 function handleFileChange(fileInput, index, file, framePath, previewId) {
     if (selectedType === "1") {
         processImage_type1(file, framePath, previewId);
