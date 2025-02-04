@@ -8,10 +8,10 @@ export async function generateStandImage_type1() {
     standImage.src = "/desktopcalendar/frame/stand/stand.png";
     standImage.onload = async () => {
       standCtx.drawImage(standImage, 0, 0, standCanvas.width, standCanvas.height);
-      const squareWidth = 343.3;
-      const squareHeight = 343.3;
-      const startX = 412.5;
-      const startY = 2565;
+      const squareWidth = 343.6;
+      const squareHeight = 343.6;
+      const startX = 410.5;
+      const startY = 2563;
       let squareX = startX;
       let squareY = startY;
       for (let i = 1; i <= 12; i++) {
@@ -29,7 +29,7 @@ export async function generateStandImage_type1() {
         squareX += squareWidth;
         if (i % 6 === 0) {
           squareX = startX;
-          squareY += squareHeight + 467.5;
+          squareY += squareHeight + 457.5;
         }
       }
       const textImg = new Image();
