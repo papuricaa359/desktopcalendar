@@ -9,6 +9,7 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
   const postcardHeight = 100;
   let xOffset = 10;
   let yOffset = 10;
+  let pagecnt = 0;
   const standImageElement = document.querySelector("#standview");
   let errorMessages = [];
   if (standImageElement.src.includes("images/standnone.webp")) {
@@ -24,11 +25,12 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
     const imgElement = preview.querySelector("img");
     if (imgElement && !imgElement.src.includes("images/none.webp")) {
       doc.addImage(imgElement.src, "JPEG", xOffset, yOffset, postcardWidth, postcardHeight, undefined, "FAST");
+      pagecnt++;
       yOffset += postcardHeight;
-      if ((index + 1) % 2 === 0) {
+      if (pagecnt % 2 === 0) {
         yOffset = 10;
-        xOffset += postcardWidth;
-        if (index + 1 < imagePreviews.length) {
+        xOffset += postcardWidth; 
+        if (pagecnt < imagePreviews.length) {
           doc.addPage();
           xOffset = 10;
           yOffset = 10;
