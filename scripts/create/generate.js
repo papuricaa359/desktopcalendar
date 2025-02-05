@@ -5,8 +5,8 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
   const generateButton = document.getElementById("generatePdfButton");
   generateButton.disabled = true;
   const doc = new jsPDF("p", "mm", "a4");
-  const postcardWidth = 148;
-  const postcardHeight = 100;
+  const Width = 148;
+  const Height = 100;
   let xOffset = 10;
   let yOffset = 10;
   let pagecnt = 0;
@@ -24,12 +24,12 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
   imagePreviews.forEach((preview, index) => {
     const imgElement = preview.querySelector("img");
     if (imgElement && !imgElement.src.includes("images/none.webp")) {
-      doc.addImage(imgElement.src, "JPEG", xOffset, yOffset, postcardWidth, postcardHeight, undefined, "FAST");
+      doc.addImage(imgElement.src, "JPEG", xOffset, yOffset, Width, Height, undefined, "FAST");
       pagecnt++;
-      yOffset += postcardHeight;
+      yOffset += Height;
       if (pagecnt % 2 === 0) {
         yOffset = 10;
-        xOffset += postcardWidth; 
+        xOffset += Width;
         if (pagecnt < imagePreviews.length) {
           doc.addPage();
           xOffset = 10;
