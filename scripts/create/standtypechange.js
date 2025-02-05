@@ -37,6 +37,7 @@ document.querySelector("#tostand").addEventListener("click", () => {
     return;
   }
   document.getElementById("input12").style.display = "none";
+  document.getElementById("input15").style.display = "none";
   document.getElementById("standtypeselect").style.display = "flex";
   document.querySelector("header").style.display = "none";
   document.querySelector(".viewbutton").style.display = "none";
