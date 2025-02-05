@@ -1,7 +1,9 @@
-import { startMonth, setStartMonth } from "./config.js";
+import { startMonth, setStartMonth } from "./yearselect.js";
+
 document.addEventListener("DOMContentLoaded", function () {
     let flag = startMonth;
     let pre = startMonth;
+
     function pagechange(flag, pre) {
         document.getElementById(`input${pre}`).style.display = "none";
         document.getElementById(`input${flag}`).style.display = "block";
@@ -16,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector("#tostand").style.display = "none";
         }
     }
+
     document.querySelector(".next-btn").addEventListener("click", () => {
         if (flag < (startMonth === 1 ? 12 : 15)) {
             pre = flag;
@@ -23,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
             pagechange(flag, pre);
         }
     });
+
     document.querySelector(".prev-btn").addEventListener("click", () => {
         if (flag > startMonth) {
             pre = flag;
@@ -30,29 +34,36 @@ document.addEventListener("DOMContentLoaded", function () {
             pagechange(flag, pre);
         }
     });
+
     document.getElementById("startJan").addEventListener("click", () => {
         setStartMonth(1);
         flag = 1;
         pre = 1;
         initializeCalendar();
     });
+
     document.getElementById("startApr").addEventListener("click", () => {
         setStartMonth(4);
         flag = 4;
         pre = 4;
         initializeCalendar();
     });
+
     function initializeCalendar() {
+        let currentStartMonth = startMonth;
         document.getElementById("mouth").style.display = "block";
         document.querySelector(".prev-btn").style.display = "none";
         document.querySelector(".next-btn").style.display = "inline-block";
+
         for (let i = 1; i <= 15; i++) {
             let inputDiv = document.getElementById(`input${i}`);
             if (inputDiv) {
                 inputDiv.style.display = "none";
             }
         }
+
         document.getElementById(`input${flag}`).style.display = "block";
+        document.getElementById("mouth").innerText = `${flag}月の画像をアップロードしてください.`;
         pagechange(flag, pre);
     }
 });

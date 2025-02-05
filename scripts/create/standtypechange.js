@@ -2,7 +2,6 @@ import { setErrorMessages } from "./error.js";
 import { generateStandImage_type1 } from "./standtype1.js";
 import { generateStandImage_type2 } from "./standtype2.js";
 import { startMonth } from "./yearselect.js";
-console.log(`現在の startMonth: ${startMonth}`);
 const standConfirmButton = document.querySelector(".standconfirm");
 const standshow = document.querySelector(".standshow");
 standConfirmButton.addEventListener("click", () => {
