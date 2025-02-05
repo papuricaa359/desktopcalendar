@@ -7,7 +7,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function pagechange(flag, pre) {
         document.getElementById(`input${pre}`).style.display = "none";
         document.getElementById(`input${flag}`).style.display = "block";
-        document.getElementById("mouth").innerText = `${flag}月の画像をアップロードしてください。`;
+        if (flag >= 13) {
+            document.getElementById("mouth").innerText = `${flag - 12}月の画像をアップロードしてください。`;
+        } else {
+            document.getElementById("mouth").innerText = `${flag}月の画像をアップロードしてください。`;
+        }
         document.querySelector(".prev-btn").style.display = (flag === startMonth) ? "none" : "inline-block";
         let endMonth = (startMonth === 1) ? 12 : 15;
         if (flag === endMonth) {
@@ -50,7 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function initializeCalendar() {
-        let currentStartMonth = startMonth;
         document.getElementById("mouth").style.display = "block";
         document.querySelector(".prev-btn").style.display = "none";
         document.querySelector(".next-btn").style.display = "inline-block";
