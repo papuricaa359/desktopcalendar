@@ -39,8 +39,10 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
     }
   });
   if (standImageElement && standImageElement.src && !standImageElement.src.includes("images/standnone.webp")) {
+    if (pagecnt % 2 !== 0) {
+      doc.addPage();
+    }
     const standImageUrl = standImageElement.src;
-    doc.addPage();
     doc.addImage(standImageUrl, "JPEG", 0, 0, 210, 297);
   }
   generatedPdfBlob = doc.output("blob");
