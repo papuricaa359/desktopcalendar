@@ -28,7 +28,11 @@ document.querySelector("#tostand").addEventListener("click", () => {
     }
     const imgElement = preview.querySelector("img");
     if (!imgElement || imgElement.src.includes("images/none.webp")) {
-      errorMessages.push(`${month}月がアップロードされていません。`);
+      if(month>=13){
+        errorMessages.push(`${month-12}月がアップロードされていません。`);
+      }else{
+        errorMessages.push(`${month}月がアップロードされていません。`);
+      }
     }
   });
   if (errorMessages.length > 0) {
