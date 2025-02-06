@@ -1,3 +1,4 @@
+import { startMonth } from "./yearselect.js";
 export async function generateStandImage_type1() {
   return new Promise((resolve, reject) => {
     const standCanvas = document.createElement("canvas");
@@ -14,7 +15,10 @@ export async function generateStandImage_type1() {
       const startY = 2563;
       let squareX = startX;
       let squareY = startY;
-      for (let i = 1; i <= 12; i++) {
+      let count = 0;
+      const startIdx = startMonth === 1 ? 1 : 4;
+      const endIdx = startMonth === 1 ? 12 : 15;
+      for (let i = startIdx; i <= endIdx; i++) {
         const fileInput = document.getElementById(`imageInput${i}`);
         if (!fileInput || !fileInput.files[0]) continue;
         const processedDataUrl = await processSquareImage(fileInput.files[0], `/desktopcalendar/frame/stand/type1/${i}.png`);
@@ -26,8 +30,9 @@ export async function generateStandImage_type1() {
             res();
           };
         });
+        count++;
         squareX += squareWidth;
-        if (i % 6 === 0) {
+        if (count % 6 === 0) {
           squareX = startX;
           squareY += squareHeight + 476.7;
         }
@@ -88,4 +93,4 @@ async function processSquareImage(file, squareFramePath) {
     reader.onerror = () => reject(new Error("画像読み込みエラーが発生しました。"));
     reader.readAsDataURL(file);
   });
-} 
+}
