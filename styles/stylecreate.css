@@ -9,6 +9,42 @@ h1 {
     margin-top: 20px;
     color: #002a4a;
 }
+.yearselect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #5296c9;
+    z-index: 999999;
+    color: white;
+    text-align: center;
+}
+.yearselect h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+.yearselect h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+.yearselect button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #5296c9;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.yearselect button:hover {
+    background-color: #e3f2fd;
+}
 
 #rule {
     position: fixed;
