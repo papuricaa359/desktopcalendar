@@ -3,6 +3,8 @@ export async function generateStandImage_type1() {
   return new Promise((resolve, reject) => {
     const standCanvas = document.createElement("canvas");
     const standCtx = standCanvas.getContext("2d");
+    const standinput = document.getElementById("standinput");
+    standinput.style.display = "none";
     standCanvas.width = 2895;
     standCanvas.height = 4093;
     const standImage = new Image();
