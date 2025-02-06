@@ -410,6 +410,7 @@ input[type="file"] {
     background-color: #5296c9;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .overlay {
