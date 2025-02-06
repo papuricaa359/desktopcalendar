@@ -39,14 +39,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    document.getElementById("startJan").addEventListener("click", () => {
+    document.getElementById("2025startJan").addEventListener("click", () => {
         setStartMonth(1);
         flag = 1;
         pre = 1;
         initializeCalendar();
     });
 
-    document.getElementById("startApr").addEventListener("click", () => {
+    document.getElementById("2025startApr").addEventListener("click", () => {
         setStartMonth(4);
         flag = 4;
         pre = 4;
