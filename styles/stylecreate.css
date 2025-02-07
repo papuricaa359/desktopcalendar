@@ -445,7 +445,7 @@ input[type="file"] {
 }
 
 #fin {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -454,7 +454,7 @@ input[type="file"] {
     width: 100vw;
     height: 100vh;
     background-color: #5296c9;
-    z-index: 999998;
+    z-index: 999999;
     color: white;
     text-align: center;
 }
