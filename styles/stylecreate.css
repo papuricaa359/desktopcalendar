@@ -45,6 +45,38 @@ h1 {
 .yearselect button:hover {
     background-color: #e3f2fd;
 }
+.fontselect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #5296c9;
+    z-index: 999998;
+    color: white;
+    text-align: center;
+}
+.fontselect h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+.fontselect button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #5296c9;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.fontselect button:hover {
+    background-color: #e3f2fd;
+}
 
 #rule {
     position: fixed;
