@@ -9,6 +9,7 @@ h1 {
     margin-top: 20px;
     color: #002a4a;
 }
+
 .yearselect {
     display: flex;
     flex-direction: column;
@@ -23,14 +24,17 @@ h1 {
     color: white;
     text-align: center;
 }
+
 .yearselect h1 {
     font-size: 2rem;
     margin-bottom: 10px;
 }
+
 .yearselect h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
+
 .yearselect button {
     padding: 10px 20px;
     font-size: 1.2rem;
@@ -42,9 +46,11 @@ h1 {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
 .yearselect button:hover {
     background-color: #e3f2fd;
 }
+
 .fontselect {
     display: flex;
     flex-direction: column;
@@ -59,10 +65,12 @@ h1 {
     color: white;
     text-align: center;
 }
+
 .fontselect h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
+
 .fontselect button {
     padding: 10px 20px;
     font-size: 1.2rem;
@@ -74,6 +82,7 @@ h1 {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
 .fontselect button:hover {
     background-color: #e3f2fd;
 }
@@ -326,13 +335,16 @@ input[type="file"] {
 .standshow {
     display: none;
 }
-.standshow img{
+
+.standshow img {
     position: fixed;
 }
-#standinput{
+
+#standinput {
     position: fixed;
 }
-#generatePdfButton{
+
+#generatePdfButton {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -341,6 +353,7 @@ input[type="file"] {
     color: white;
     font-family: serif;
 }
+
 .viewbutton {
     width: 100%;
     position: fixed;
@@ -432,18 +445,41 @@ input[type="file"] {
 }
 
 #fin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 99999;
-    display: none;
+    width: 100vw;
+    height: 100vh;
     background-color: #5296c9;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    z-index: 999998;
+    color: white;
+    text-align: center;
 }
+
+#fin p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+#fin button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #5296c9;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#fin button:hover {
+    background-color: #e3f2fd;
+}
+
 
 .overlay {
     position: fixed;
@@ -495,21 +531,24 @@ input[type="file"] {
         width: 20vw;
     }
 
-    .standshow img{
+    .standshow img {
         top: 0;
         right: 0;
         height: 100vh;
     }
-    #standinput{
+
+    #standinput {
         top: 3vw;
         left: 25%;
         transform: translateX(-25%);
     }
-    #generatePdfButton{
+
+    #generatePdfButton {
         width: 50vw;
         height: 5vw;
         font-size: 3vw;
     }
+
     .error-box {
         width: 40vw;
         height: 20vh;
@@ -608,18 +647,20 @@ input[type="file"] {
         width: 33vw;
     }
 
-    .standshow img{
+    .standshow img {
         bottom: 15vw;
         left: 50%;
         transform: translateX(-50%);
         height: 70vh;
     }
-    #standinput{
+
+    #standinput {
         top: 5vw;
         left: 50%;
         transform: translateX(-50%);
     }
-    #generatePdfButton{
+
+    #generatePdfButton {
         width: 100vw;
         height: 15vw;
         font-size: 8vw;
