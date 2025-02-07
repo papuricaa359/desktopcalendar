@@ -50,6 +50,7 @@ nav .menu li:hover {
 
 .topimg {
     width: 100%;
+    height: auto;
     margin-top: 80px;
 }
 
@@ -216,6 +217,7 @@ section p {
 
 #developer img {
     width: 300px;
+    height: auto;
 }
 
 .popup-overlay {
