@@ -1,3 +1,4 @@
+import { fontstype } from "./fontselect.js";
 export async function generateStandImage_type2() {
   return new Promise((resolve, reject) => {
     const standCanvas = document.createElement("canvas");
@@ -55,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const startY = 2563;
         standCtx.drawImage(backImage, cropX, cropY, cropWidth, cropHeight, startX, startY, imageWidth, imageHeight);
         const textImg = new Image();
-        textImg.src = "/desktopcalendar/frame/stand/2025/type2.png";
+        textImg.src = `/desktopcalendar/frame/stand/2025/${fontstype}/type2.png`;
         await new Promise((res) => {
           textImg.onload = () => {
             const textWidth = 2064;

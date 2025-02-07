@@ -1,4 +1,5 @@
 import { startMonth } from "./yearselect.js";
+import { fontstype } from "./fontselect.js";
 export async function generateStandImage_type1() {
   return new Promise((resolve, reject) => {
     const standCanvas = document.createElement("canvas");
@@ -40,7 +41,7 @@ export async function generateStandImage_type1() {
         }
       }
       const textImg = new Image();
-      textImg.src = "/desktopcalendar/frame/stand/2025/type1.png";
+      textImg.src = `/desktopcalendar/frame/stand/2025/${fontstype}/type1.png`;
       await new Promise((res) => {
         textImg.onload = () => {
           const textWidth = 2064;
