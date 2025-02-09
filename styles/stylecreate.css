@@ -144,7 +144,7 @@ h1 {
     color: #fff;
 }
 .typeselect {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -153,7 +153,7 @@ h1 {
     width: 100vw;
     height: 100vh;
     background-color: #5296c9;
-    z-index: 999999;
+    z-index: 999997;
     text-align: center;
 }
 
