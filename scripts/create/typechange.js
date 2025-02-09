@@ -7,16 +7,19 @@ export let selectedType = 0;
 
 document.getElementById("type1").addEventListener("click", function () {
     selectedType = 1;
+    updateImagesForSelectedType();
     document.querySelector(".typeselect").style.display = "none";
 });
 
 document.getElementById("type2").addEventListener("click", function () {
     selectedType = 2;
+    updateImagesForSelectedType();
     document.querySelector(".typeselect").style.display = "none";
 });
 
 document.getElementById("type3").addEventListener("click", function () {
     selectedType = 3;
+    updateImagesForSelectedType();
     document.querySelector(".typeselect").style.display = "none";
 });
 
@@ -43,4 +46,15 @@ function handleFileChange(fileInput, index, file, framePath, previewId) {
     } else if (selectedType === 3) {
         processImage_type3(file, framePath, previewId);
     }
+}
+
+function updateImagesForSelectedType() {
+    document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
+        const file = fileInput.files[0];
+        if (file) {
+            const framePath = `/desktopcalendar/frame/2025/type${selectedType}/${fontstype}/${index + 1}.png`;
+            const previewId = `imagePreview${index + 1}`;
+            handleFileChange(fileInput, index + 1, file, framePath, previewId);
+        }
+    });
 }
