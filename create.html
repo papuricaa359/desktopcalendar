@@ -19,11 +19,9 @@
         <h2>使用するフォントを選択してください。</h2>
         <div id="font1">
             <img src="images/fonts1.webp" alt="fonts1">
-            <p>フォント１</p>
         </div>
         <div id="font2">
             <img src="images/fonts2.webp" alt="fonts2">
-            <p>フォント２</p>
         </div>
     </div>
     <header>
@@ -60,23 +58,17 @@
     <div id="typeselect" role="dialog">
         <div class="close-btn" onclick="closeTypeSelect()">×</div>
         <h1>使用するデザインを選択してください。</h1>
-        <div class="option">
+        <div class="option" data-type="1" onclick="selectType(1)">
             <img src="images/type1.webp" alt="type1">
-            <div><input type="radio" id="type1" name="type" value="1" checked>
-                <label for="type1">Type 1</label>
-            </div>
+            <div>Type 1</div>
         </div>
-        <div class="option">
+        <div class="option" data-type="2" onclick="selectType(2)">
             <img src="images/type2.webp" alt="type2">
-            <div><input type="radio" id="type2" name="type" value="2">
-                <label for="type2">Type 2</label>
-            </div>
+            <div>Type 2</div>
         </div>
-        <div class="option">
+        <div class="option" data-type="3" onclick="selectType(3)">
             <img src="images/type3.webp" alt="type3">
-            <div><input type="radio" id="type3" name="type" value="3">
-                <label for="type3">Type 3</label>
-            </div>
+            <div>Type 3</div>
         </div>
     </div>
     <div id="input1" class="input">
