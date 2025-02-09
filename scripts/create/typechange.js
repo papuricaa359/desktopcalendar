@@ -20,6 +20,10 @@ document.getElementById("type3").addEventListener("click", function () {
     document.querySelector(".typeselect").style.display = "none";
 });
 
+document.getElementById("opentype").addEventListener("click", function () {
+    document.querySelector(".typeselect").style.display = "flex";
+});
+
 document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
     fileInput.addEventListener("change", (e) => {
         const file = fileInput.files[0];
