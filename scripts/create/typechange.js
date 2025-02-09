@@ -3,9 +3,13 @@ import { processImage_type2 } from "./type2.js";
 import { processImage_type3 } from "./type3.js";
 import { fontstype } from "./fontselect.js";
 let selectedType = "1";
-document.querySelectorAll('input[name="type"]').forEach((radio) => {
-    radio.addEventListener("change", (e) => {
-        selectedType = e.target.value;
+
+document.querySelectorAll(".option").forEach(option => {
+    option.addEventListener("click", function () {
+        document.querySelectorAll(".option").forEach(opt => opt.classList.remove("selected"));
+        this.classList.add("selected");
+        selectedType = this.getAttribute("data-type");
+        
         const visibleInput = document.querySelector(".input[style*='display: block;'] input[type='file']");
         if (visibleInput) {
             const index = parseInt(visibleInput.id.replace("imageInput", ""), 10);
@@ -18,6 +22,7 @@ document.querySelectorAll('input[name="type"]').forEach((radio) => {
         }
     });
 });
+
 document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
     fileInput.addEventListener("change", (e) => {
         const file = fileInput.files[0];
@@ -28,6 +33,7 @@ document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
         }
     });
 });
+
 function handleFileChange(fileInput, index, file, framePath, previewId) {
     if (selectedType === "1") {
         processImage_type1(file, framePath, previewId);
