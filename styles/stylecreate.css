@@ -70,12 +70,11 @@ h1 {
     margin-bottom: 20px;
     color: white;
 }
-.fontselect p{
-    color: black;
-}
+
 .fontselect img {
     width: 300px;
 }
+
 #rule {
     position: fixed;
     top: 0;
@@ -174,25 +173,17 @@ h1 {
     align-items: center;
     margin: 15px;
     text-align: center;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: border-color 0.3s;
 }
 
-#typeselect .option div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
+#typeselect .option.selected {
+    border-color: #055da1;
 }
 
-#typeselect input[type="radio"] {
-    margin-right: 10px;
-}
-
-#typeselect img {
-    max-width: 180px;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+#typeselect .option img {
+    width: 300px;
 }
 
 .close-btn {
