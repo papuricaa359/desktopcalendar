@@ -1,3 +1,10 @@
+import { processImage_type1 } from "./type1.js";
+import { processImage_type2 } from "./type2.js";
+import { processImage_type3 } from "./type3.js";
+import { fontstype } from "./fontselect.js";
+
+export let selectedType = 0;
+
 document.getElementById("type1").addEventListener("click", function () {
     selectedType = 1;
     updateImagesForSelectedType();
