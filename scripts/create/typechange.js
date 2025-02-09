@@ -1,26 +1,19 @@
-import { processImage_type1 } from "./type1.js";
-import { processImage_type2 } from "./type2.js";
-import { processImage_type3 } from "./type3.js";
-import { fontstype } from "./fontselect.js";
-
-export let selectedType = 0;
-
 document.getElementById("type1").addEventListener("click", function () {
     selectedType = 1;
+    updateImagesForSelectedType();
     document.querySelector(".typeselect").style.display = "none";
-    updateImageForSelectedType();
 });
 
 document.getElementById("type2").addEventListener("click", function () {
     selectedType = 2;
+    updateImagesForSelectedType();
     document.querySelector(".typeselect").style.display = "none";
-    updateImageForSelectedType();
 });
 
 document.getElementById("type3").addEventListener("click", function () {
     selectedType = 3;
+    updateImagesForSelectedType();
     document.querySelector(".typeselect").style.display = "none";
-    updateImageForSelectedType();
 });
 
 document.querySelector(".opentype").addEventListener("click", function () {
@@ -48,13 +41,15 @@ function handleFileChange(fileInput, index, file, framePath, previewId) {
     }
 }
 
-function updateImageForSelectedType() {
+function updateImagesForSelectedType() {
     document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
-        const file = fileInput.files[0];
-        if (file) {
-            const framePath = `/desktopcalendar/frame/2025/type${selectedType}/${fontstype}/${index + 1}.png`;
-            const previewId = `imagePreview${index + 1}`;
-            handleFileChange(fileInput, index + 1, file, framePath, previewId);
+        if (fileInput.closest('.input').style.display !== 'none') {
+            const file = fileInput.files[0];
+            if (file) {
+                const framePath = `/desktopcalendar/frame/2025/type${selectedType}/${fontstype}/${index + 1}.png`;
+                const previewId = `imagePreview${index + 1}`;
+                handleFileChange(fileInput, index + 1, file, framePath, previewId);
+            }
         }
     });
 }
