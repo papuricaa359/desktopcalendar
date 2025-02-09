@@ -5,9 +5,6 @@ document.getElementById("agree").addEventListener("click", function () {
 document.getElementById("disagree").addEventListener("click", function () {
     location.href = "/desktopcalendar/";
 });
-function closeTypeSelect() {
-    document.getElementById('typeselect').style.display = 'none';
-}
 function openTypeSelect() {
     document.getElementById('typeselect').style.display = 'flex';
 }
