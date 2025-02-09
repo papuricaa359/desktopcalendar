@@ -62,31 +62,20 @@ h1 {
     height: 100vh;
     background-color: #5296c9;
     z-index: 999998;
-    color: white;
     text-align: center;
 }
 
 .fontselect h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
+    color: white;
 }
-
-.fontselect button {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: white;
-    color: #5296c9;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.fontselect p{
+    color: black;
 }
-
-.fontselect button:hover {
-    background-color: #e3f2fd;
+.fontselect img {
+    width: 300px;
 }
-
 #rule {
     position: fixed;
     top: 0;
