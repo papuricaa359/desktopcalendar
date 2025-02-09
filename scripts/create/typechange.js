@@ -7,20 +7,20 @@ export let selectedType = 0;
 
 document.getElementById("type1").addEventListener("click", function () {
     selectedType = 1;
-    updateImagesForSelectedType();
     document.querySelector(".typeselect").style.display = "none";
+    updateImageForSelectedType();
 });
 
 document.getElementById("type2").addEventListener("click", function () {
     selectedType = 2;
-    updateImagesForSelectedType();
     document.querySelector(".typeselect").style.display = "none";
+    updateImageForSelectedType();
 });
 
 document.getElementById("type3").addEventListener("click", function () {
     selectedType = 3;
-    updateImagesForSelectedType();
     document.querySelector(".typeselect").style.display = "none";
+    updateImageForSelectedType();
 });
 
 document.querySelector(".opentype").addEventListener("click", function () {
@@ -48,7 +48,7 @@ function handleFileChange(fileInput, index, file, framePath, previewId) {
     }
 }
 
-function updateImagesForSelectedType() {
+function updateImageForSelectedType() {
     document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
         const file = fileInput.files[0];
         if (file) {
