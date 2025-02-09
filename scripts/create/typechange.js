@@ -2,31 +2,28 @@ import { processImage_type1 } from "./type1.js";
 import { processImage_type2 } from "./type2.js";
 import { processImage_type3 } from "./type3.js";
 import { fontstype } from "./fontselect.js";
-import { selectedType } from "./typeselect.js";
 
-document.querySelectorAll(".option").forEach(option => {
-    option.addEventListener("click", function () {
-        document.querySelectorAll(".option").forEach(opt => opt.classList.remove("selected"));
-        this.classList.add("selected");
-        selectedType = this.getAttribute("data-type");
-        
-        const visibleInput = document.querySelector(".input[style*='display: block;'] input[type='file']");
-        if (visibleInput) {
-            const index = parseInt(visibleInput.id.replace("imageInput", ""), 10);
-            const file = visibleInput.files[0];
-            if (file) {
-                const framePath = `/desktopcalendar/frame/2025/type${selectedType}/${fontstype}/${index}.png`;
-                const previewId = `imagePreview${index}`;
-                handleFileChange(visibleInput, index, file, framePath, previewId);
-            }
-        }
-    });
+export let selectedType = 0;
+
+document.getElementById("type1").addEventListener("click", function () {
+    selectedType = 1;
+    document.querySelector(".typeselect").style.display = "none";
+});
+
+document.getElementById("type2").addEventListener("click", function () {
+    selectedType = 2;
+    document.querySelector(".typeselect").style.display = "none";
+});
+
+document.getElementById("type3").addEventListener("click", function () {
+    selectedType = 3;
+    document.querySelector(".typeselect").style.display = "none";
 });
 
 document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
     fileInput.addEventListener("change", (e) => {
         const file = fileInput.files[0];
-        if (file) {
+        if (file && selectedType !== 0) {
             const framePath = `/desktopcalendar/frame/2025/type${selectedType}/${fontstype}/${index + 1}.png`;
             const previewId = `imagePreview${index + 1}`;
             handleFileChange(fileInput, index + 1, file, framePath, previewId);
@@ -35,11 +32,11 @@ document.querySelectorAll("[id^='imageInput']").forEach((fileInput, index) => {
 });
 
 function handleFileChange(fileInput, index, file, framePath, previewId) {
-    if (selectedType === "1") {
+    if (selectedType === 1) {
         processImage_type1(file, framePath, previewId);
-    } else if (selectedType === "2") {
+    } else if (selectedType === 2) {
         processImage_type2(file, framePath, previewId);
-    } else if (selectedType === "3") {
+    } else if (selectedType === 3) {
         processImage_type3(file, framePath, previewId);
     }
 }
